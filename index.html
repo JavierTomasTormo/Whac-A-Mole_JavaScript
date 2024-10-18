@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whac-A-Mole</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Whac-A-Mole</h1>
+        <div id="game-board"></div>
+        <div id="score">Score: <span id="score-value">0</span></div>
+        <div id="misses">Misses: <span id="misses-value">0</span></div>
+        <div id="tickets">Tickets: <span id="tickets-value">0</span></div>
+        <div id="prize-pot">Prize Pot: $<span id="prize-pot-value">1000</span></div>
+    </div>
+
+    <!-- Models -->
+    <script src="models/GameModel.js"></script>
+    <script src="models/UserModel.js"></script>
+
+    <!-- Views -->
+    <script src="views/GameView.js"></script>
+    <script src="views/LoginView.js"></script>
+    <script src="views/LeaderboardView.js"></script>
+
+    <!-- Controllers -->
+    <script src="controllers/GameController.js"></script>
+    <script src="controllers/UserController.js"></script>
+    <script src="controllers/LeaderboardController.js"></script>
+
+    <!-- Main Script -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
