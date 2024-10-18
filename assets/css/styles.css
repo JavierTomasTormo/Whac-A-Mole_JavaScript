@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+#game-container {
+    text-align: center;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+    margin: 20px auto;
+}
+
+.hole {
+    width: 100px;
+    height: 100px;
+    background-color: #8b4513;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.mole {
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/mole.png');
+    background-size: cover;
+    position: absolute;
+    bottom: 100%;
+    transition: bottom 0.1s;
+    animation: popUp 0.3s ease-out;
+}
+
+.mole.visible {
+    bottom: 0;
+}
+
+.mole.hit {
+    animation: hitEffect 0.2s ease-out;
+}
+
+@keyframes popUp {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes hitEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 600px) {
+    #game-board {
+        grid-template-columns: repeat(3, 80px);
+        grid-gap: 5px;
+    }
+
+    .hole {
+        width: 80px;
+        height: 80px;
+    }
+}
