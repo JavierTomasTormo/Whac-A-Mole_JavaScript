@@ -3,72 +3,68 @@ class GameView {
         this.gameBoard = document.getElementById('game-board');
         this.scoreElement = document.getElementById('score-value');
         this.missesElement = document.getElementById('misses-value');
+        this.startButton = document.getElementById('start-button');
     }
 
-    createBoard(holes) {
+    bindStartGame(handler) {
+        this.startButton.addEventListener('click', handler);
+    }
+
+    createBoard() {
         this.gameBoard.innerHTML = '';
-        for (let i = 0; i < holes; i++) {
+        for (let i = 0; i < 5; i++) {
             const hole = document.createElement('div');
             hole.classList.add('hole');
+            hole.style.left = `${Math.random() * 80}%`;
+            hole.style.top = `${Math.random() * 80}%`;
+            
+            const holeImage = document.createElement('img');
+            holeImage.src = 'Hole.jpg';
+            holeImage.alt = 'Hole';
+            hole.appendChild(holeImage);
+
             const mole = document.createElement('div');
             mole.classList.add('mole');
             hole.appendChild(mole);
+            
             this.gameBoard.appendChild(hole);
         }
     }
 
-    updateScore(score) {
-        this.scoreElement.textContent = score;
-    }
-
-    updateMisses(misses) {
-        this.missesElement.textContent = misses;
-    }
+    // bindMoleClick(handler) {
+    //     this.gameBoard.addEventListener('click', (event) => {
+    //         if (event.target.classList.contains('mole')) {
+    //             const index = Array.from(this.gameBoard.children).indexOf(event.target.parentElement);
+    //             handler(index);
+    //         }
+    //     });
+    // }
 
     // showMole(index) {
-    //     const moles = this.gameBoard.querySelectorAll('.mole');
-    //     moles[index].classList.add('visible');
+    //     const mole = this.gameBoard.children[index].querySelector('.mole');
+    //     mole.classList.add('visible');
     // }
-    showMole(index, isGolden = false) {
-        const moles = this.gameBoard.querySelectorAll('.mole');
-        moles[index].classList.add('visible');
-        if (isGolden) {
-            moles[index].classList.add('golden');
-        }
-        // Trigger animation
-        moles[index].style.animation = 'none';
-        moles[index].offsetHeight; // Trigger reflow
-        moles[index].style.animation = null;
-    }
 
     // hideMole(index) {
-    //     const moles = this.gameBoard.querySelectorAll('.mole');
-    //     moles[index].classList.remove('visible');
+    //     const mole = this.gameBoard.children[index].querySelector('.mole');
+    //     mole.classList.remove('visible');
     // }
-    hideMole(index) {
-        const moles = this.gameBoard.querySelectorAll('.mole');
-        moles[index].classList.remove('visible', 'golden');
-    }
 
-    hitMole(index) {
-        const mole = this.gameBoard.querySelectorAll('.mole')[index];
-        mole.classList.add('hit');
-        setTimeout(() => mole.classList.remove('hit'), 200);
-    }
+    // hitMole(index) {
+    //     const mole = this.gameBoard.children[index].querySelector('.mole');
+    //     mole.classList.add('hit');
+    //     setTimeout(() => mole.classList.remove('hit'), 200);
+    // }
 
-    createSkinSelector() {
-        const skinSelector = document.createElement('div');
-        skinSelector.id = 'skin-selector';
-        skinSelector.innerHTML = `
-            <h2>Select Skin</h2>
-            <button class="skin-btn" data-skin="default">Default</button>
-            <button class="skin-btn" data-skin="space">Space</button>
-            <button class="skin-btn" data-skin="halloween">Halloween</button>
-        `;
-        document.body.insertBefore(skinSelector, document.getElementById('game-container'));
-    }
+    // updateScore(score) {
+    //     this.scoreElement.textContent = score;
+    // }
 
-    applySkin(skin) {
-        document.body.className = `skin-${skin}`;
-    }
+    // updateMisses(misses) {
+    //     this.missesElement.textContent = misses;
+    // }
+
+    // showGameOver(score) {
+    //     alert(`Game Over! Your score: ${score}`);
+    // }
 }

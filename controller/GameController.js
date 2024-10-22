@@ -4,23 +4,24 @@ class GameController {
         this.view = view;
         this.currentMole = null;
         this.gameInterval = null;
-
-        this.view.createBoard(this.model.holes);
-        this.addEventListeners();
-        this.startGame();
     }
 
-    addEventListeners() {
-        this.view.gameBoard.addEventListener('click', (e) => {
-            if (e.target.classList.contains('mole') && e.target.classList.contains('visible')) {
-                this.hitMole();
-            } else {
-                this.missMole();
-            }
-        });
+    init() {
+        this.view.bindStartGame(this.startGame.bind(this));
     }
 
     startGame() {
+        this.model.resetGame();
+        this.view.createBoard();
+        this.addEventListeners();
+        this.runGame();
+    }
+
+    addEventListeners() {
+        this.view.bindMoleClick(this.handleMoleClick.bind(this));
+    }
+
+    runGame() {
         this.gameInterval = setInterval(() => {
             this.showRandomMole();
         }, this.model.gameSpeed);
@@ -30,47 +31,27 @@ class GameController {
         if (this.currentMole !== null) {
             this.view.hideMole(this.currentMole);
         }
-        this.currentMole = Math.floor(Math.random() * this.model.holes);
-        const isGolden = Math.random() < 0.1; // 10% chance of golden mole
-        this.view.showMole(this.currentMole, isGolden);
-
-        setTimeout(() => {
-            if (this.currentMole !== null) {
-                this.view.hideMole(this.currentMole);
-                this.currentMole = null;
-            }
-        }, this.model.gameSpeed - 100);
+        this.currentMole = this.model.getRandomHoleIndex();
+        this.view.showMole(this.currentMole);
     }
 
-    hitMole(isGolden) {
-        this.model.incrementScore(isGolden ? 5 : 1);
-        this.view.updateScore(this.model.score);
-        this.view.hitMole(this.currentMole);
-        this.view.hideMole(this.currentMole);
-        this.currentMole = null;
-        this.model.increaseSpeed();
-        this.restartGameInterval();
-    }
+    handleMoleClick(index) {
+        if (index === this.currentMole) {
+            this.model.incrementScore();
+            this.view.updateScore(this.model.score);
+            this.view.hitMole(this.currentMole);
+        } else {
+            this.model.incrementMisses();
+            this.view.updateMisses(this.model.misses);
+        }
 
-    missMole() {
-        this.model.incrementMisses();
-        this.view.updateMisses(this.model.misses);
-        if (this.model.misses >= 3) {
+        if (this.model.isGameOver()) {
             this.endGame();
         }
     }
 
-    restartGameInterval() {
-        clearInterval(this.gameInterval);
-        this.startGame();
-    }
-
     endGame() {
         clearInterval(this.gameInterval);
-        alert(`Game Over! Your score: ${this.model.score}`);
-        this.model.resetGame();
-        this.view.updateScore(this.model.score);
-        this.view.updateMisses(this.model.misses);
-        this.startGame();
+        this.view.showGameOver(this.model.score);
     }
 }

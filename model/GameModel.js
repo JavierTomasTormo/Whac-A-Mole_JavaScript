@@ -3,10 +3,12 @@ class GameModel {
         this.score = 0;
         this.misses = 0;
         this.gameSpeed = 1000;
-        this.holes = 9;
-        this.tickets = 0;
-        this.prizePot = 1000;
-        this.prizeThreshold = 100;
+        this.maxMisses = 3;
+    }
+
+    resetGame() {
+        this.score = 0;
+        this.misses = 0;
     }
 
     incrementScore() {
@@ -17,27 +19,11 @@ class GameModel {
         this.misses++;
     }
 
-    increaseSpeed() {
-        this.gameSpeed = Math.max(300, this.gameSpeed - 50);
+    isGameOver() {
+        return this.misses >= this.maxMisses;
     }
 
-    resetGame() {
-        this.score = 0;
-        this.misses = 0;
-        this.gameSpeed = 1000;
-    }
-
-    calculateTickets() {
-        this.tickets = Math.floor(this.score / 10);
-    }
-
-    checkPrizePot() {
-        if (this.score >= this.prizeThreshold) {
-            const wonPrize = this.prizePot;
-            this.prizePot = 1000;
-            this.prizeThreshold += 50;
-            return wonPrize;
-        }
-        return 0;
+    getRandomHoleIndex() {
+        return Math.floor(Math.random() * 5);
     }
 }
