@@ -3,26 +3,60 @@ class GameView {
         this.gameBoard = document.getElementById('game-board');
         this.scoreElement = document.getElementById('score-value');
         this.missesElement = document.getElementById('misses-value');
+
+        /*----------------------------------------------------------------*///START GAME BUTTON
         this.startButton = document.getElementById('start-button');
+        /*----------------------------------------------------------------*///START GAME BUTTON
+
+        /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
+        this.moleIcon = document.getElementById('mole-icon');
+        this.randomComment = document.getElementById('random-comment');
+        /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
     }
 
-    bindStartGame(handler) {
+/*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
+    bindMoleIconClick(handler) {
+        this.moleIcon.addEventListener('click', handler);
+    }
+    displayComment(comment) {
+        this.randomComment.textContent = comment;
+        this.randomComment.style.display = 'block';
+        
+        setTimeout(() => {
+            this.randomComment.style.display = 'none';
+        }, 3000);
+    }
+/*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
+
+
+/*----------------------------------------------------------------*///START GAME BUTTON
+    comenzarJuego(handler) {
         this.startButton.addEventListener('click', handler);
     }
+/*----------------------------------------------------------------*///START GAME BUTTON
 
+/*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
     createBoard() {
         this.gameBoard.innerHTML = '';
+        const holePositions = [];
         for (let i = 0; i < 5; i++) {
             const hole = document.createElement('div');
             hole.classList.add('hole');
-            hole.style.left = `${Math.random() * 80}%`;
-            hole.style.top = `${Math.random() * 80}%`;
+            let left, top;
+            do {
+                left = Math.random() * 80;
+                top = Math.random() * 80;
+            } while (this.noSuperposicion(left, top, holePositions));
+            
+            hole.style.left = `${left}%`;
+            hole.style.top = `${top}%`;
+            holePositions.push({ left, top });
             
             const holeImage = document.createElement('img');
-            holeImage.src = 'Hole.jpg';
+            holeImage.src = 'assets/images/utils/Hole.png';
             holeImage.alt = 'Hole';
             hole.appendChild(holeImage);
-
+    
             const mole = document.createElement('div');
             mole.classList.add('mole');
             hole.appendChild(mole);
@@ -30,6 +64,14 @@ class GameView {
             this.gameBoard.appendChild(hole);
         }
     }
+    noSuperposicion(left, top, positions) {
+        for (let pos of positions) {
+            const distance = Math.sqrt(Math.pow(left - pos.left, 2) + Math.pow(top - pos.top, 2));
+            if (distance < 20) return true;
+        }
+        return false;
+    }
+/*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
 
     // bindMoleClick(handler) {
     //     this.gameBoard.addEventListener('click', (event) => {
