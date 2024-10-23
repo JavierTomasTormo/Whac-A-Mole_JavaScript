@@ -1,9 +1,14 @@
 class GameController {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
-        this.currentMole = null;
-        this.gameInterval = null;
+    // constructor(model, view) {
+    //     this.model = model;
+    //     this.view = view;
+    //     this.currentMole = null;
+    //     this.gameInterval = null;
+    // }
+    constructor(gameModel, gameView) {
+        this.gameModel = gameModel;
+        this.gameView = gameView;
+        this.gameView.comenzarJuego(this.startGame.bind(this));
     }
 
     init() {
@@ -19,8 +24,8 @@ class GameController {
 
 /*----------------------------------------------------------------*///START GAME BUTTON
     startGame() {
-        this.model.resetGame();
-        this.view.createBoard();
+        this.gameModel.resetGame();
+        this.gameView.createBoard();
         this.addEventListeners();
         this.runGame();
     }

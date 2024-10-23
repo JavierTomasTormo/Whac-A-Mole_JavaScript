@@ -4,6 +4,11 @@ class GameView {
         this.scoreElement = document.getElementById('score-value');
         this.missesElement = document.getElementById('misses-value');
 
+
+        this.startScreen = document.getElementById('start-screen');
+        this.countdownElement = document.getElementById('countdown');
+        this.gameContainer = document.getElementById('game-container');
+        this.startButton = document.getElementById('start-button');
         /*----------------------------------------------------------------*///START GAME BUTTON
         this.startButton = document.getElementById('start-button');
         /*----------------------------------------------------------------*///START GAME BUTTON
@@ -30,8 +35,15 @@ class GameView {
 
 
 /*----------------------------------------------------------------*///START GAME BUTTON
+    // comenzarJuego(handler) {
+    //     this.startButton.addEventListener('click', handler);
+    // }
     comenzarJuego(handler) {
-        this.startButton.addEventListener('click', handler);
+        this.startButton.addEventListener('click', () => {
+            this.startScreen.style.display = 'none';
+            this.countdownElement.style.display = 'block';
+            this.startCountdown(handler);
+        });
     }
 /*----------------------------------------------------------------*///START GAME BUTTON
 
@@ -72,6 +84,24 @@ class GameView {
         return false;
     }
 /*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
+
+
+
+startCountdown(handler) {
+    let countdown = 3;
+    this.countdownElement.textContent = countdown;
+    const interval = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+            this.countdownElement.textContent = countdown;
+        } else {
+            clearInterval(interval);
+            this.countdownElement.style.display = 'none';
+            this.gameContainer.style.display = 'block';
+            handler();
+        }
+    }, 1000);
+}
 
     // bindMoleClick(handler) {
     //     this.gameBoard.addEventListener('click', (event) => {
