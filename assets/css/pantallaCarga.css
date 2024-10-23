@@ -1,0 +1,51 @@
+/*::::::::::::::::::::::::::::::::::::::::PANTALLA CARGA*/
+
+.modal-start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-image: url('../images/Wallpaper_Charge/preview.png');
+    background-size: cover;
+}
+
+#countdown {
+    font-size: 3em;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#start-button {
+    font-size: 1.5em;
+    padding: 15px 30px;
+    margin: 20px 0;
+    cursor: pointer;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 6px #ff4757;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    animation: bounce 1s infinite;
+}
+
+#start-button:hover {
+    background-color: #ff4757;
+    transform: translateY(2px);
+    box-shadow: 0 4px #ff1f1f;
+}
+
+#start-button:active {
+    transform: translateY(6px);
+    box-shadow: none;
+}
