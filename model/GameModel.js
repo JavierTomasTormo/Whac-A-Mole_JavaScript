@@ -5,19 +5,36 @@ class GameModel {
         this.gameSpeed = 1000;
         this.maxMisses = 3;
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
+
         this.comments = [
-            "¡Atrápame si puedes, lentorro!",
-            "¡Uy! ¿Eso era un martillo o una caricia?",
-            "¡Ja! ¡Fallaste por milímetros!",
-            "¿Eso es todo lo que tienes?",
-            "¡Soy más rápido que un rayo!",
-            "¡Casi me das! Bueno... no tanto.",
-            "¡Tienes que mejorar esos reflejos!",
-            "¡Demasiado lento! Intenta otra vez.",
-            "¡Ay! ¡Eso me dolió... pero solo un poquito!",
-            "¡Vas a necesitar más que eso para atraparme!",
-            "JAJAJAJAJ soy inmortal !!!"
+            "¡Uy, casi me tienes! 😉",
+            "¿Eso es todo? 😏",
+            "¡Por poquito! 😜",
+            "¿Te cansas tan rápido? 😏",
+            "¡Ni me rozaste! 😉",
+            "¡Eso estuvo suavecito! 😏",
+            "¿Otra vez tan lento? 😉",
+            "¡Uy, te faltó energía! 😜",
+            "¡Casi, pero no! 😉",
+            "¿Ya te cansaste? 😏",
+            "¡Imposible atraparme! 😜",
+            "¡Uy, no tan fuerte... o sí! 😏",
+            "¡Casi me pillas desprevenido! 😉",
+            "¿Así de suave siempre? 😜",
+            "¡Uf, estuviste tan cerca! 😏",
+            "¿Te vas a rendir tan rápido? 😉",
+            "¡Vas a tener que darme más duro! 😜",
+            "¡Me gusta cuando te esfuerzas! 😉",
+            "¿Eso fue todo? Apenas lo sentí 😏",
+            "¡Uy, casi me haces vibrar! 😉",
+            "¿Ya te cansaste de perseguirme? 😜",
+            "¡A ver si esta vez lo logras! 😏",
+            "¿Eso era en serio? Esperaba más 😉",
+            "¡Uf, qué lent@! Así no me atrapas 😏",
+            "¡Dale con más ganas! 😜",
+            "¡Vas a tener que usar las dos manos! 😉"
         ];
+        
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
     }//constructor
 

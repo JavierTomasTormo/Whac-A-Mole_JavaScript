@@ -8,11 +8,10 @@ class GameView {
         this.startScreen = document.getElementById('start-screen');
         this.countdownElement = document.getElementById('countdown');
         this.gameContainer = document.getElementById('game-container');
-        this.startButton = document.getElementById('start-button');
-        /*----------------------------------------------------------------*///START GAME BUTTON
-        this.startButton = document.getElementById('start-button');
-        /*----------------------------------------------------------------*///START GAME BUTTON
 
+        /*----------------------------------------------------------------*///START GAME BUTTON
+        this.startButton = document.getElementById('start-button');
+        /*----------------------------------------------------------------*///START GAME BUTTON
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
         this.moleIcon = document.getElementById('mole-icon');
         this.randomComment = document.getElementById('random-comment');
@@ -22,7 +21,8 @@ class GameView {
 /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
     bindMoleIconClick(handler) {
         this.moleIcon.addEventListener('click', handler);
-    }
+    }//bindMoleIconClick
+
     displayComment(comment) {
         this.randomComment.textContent = comment;
         this.randomComment.style.display = 'block';
@@ -30,7 +30,7 @@ class GameView {
         setTimeout(() => {
             this.randomComment.style.display = 'none';
         }, 3000);
-    }
+    }//displayComment
 /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
 
 
@@ -44,10 +44,10 @@ class GameView {
             this.countdownElement.style.display = 'block';
             this.startCountdown(handler);
         });
-    }
-/*----------------------------------------------------------------*///START GAME BUTTON
+    }//comenzarJuego
+/*---------------------------------------------------------------------*///START GAME BUTTON
 
-/*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
+/*____________________________________________________________________________________________*///CREA TABLERO RANDOM HOLE
     createBoard() {
         this.gameBoard.innerHTML = '';
         const holePositions = [];
@@ -75,18 +75,18 @@ class GameView {
             
             this.gameBoard.appendChild(hole);
         }
-    }
+    }//createBoard
     noSuperposicion(left, top, positions) {
         for (let pos of positions) {
             const distance = Math.sqrt(Math.pow(left - pos.left, 2) + Math.pow(top - pos.top, 2));
             if (distance < 20) return true;
         }
         return false;
-    }
-/*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
+    }//noSuperposicion
+/*___________________________________________________________________________________________________*///CREA TABLERO RANDOM HOLE
 
 
-
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*///CUENTA ATRAS
 startCountdown(handler) {
     let countdown = 3;
     this.countdownElement.textContent = countdown;
@@ -102,6 +102,8 @@ startCountdown(handler) {
         }
     }, 1000);
 }
+/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*///CUENTA ATRAS
+
 
     // bindMoleClick(handler) {
     //     this.gameBoard.addEventListener('click', (event) => {

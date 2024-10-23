@@ -1,10 +1,4 @@
 class GameController {
-    // constructor(model, view) {
-    //     this.model = model;
-    //     this.view = view;
-    //     this.currentMole = null;
-    //     this.gameInterval = null;
-    // }
     constructor(gameModel, gameView) {
         this.gameModel = gameModel;
         this.gameView = gameView;
@@ -12,14 +6,15 @@ class GameController {
     }
 
     init() {
-        this.view.comenzarJuego(this.startGame.bind(this));
-
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
-        this.view.bindMoleIconClick(() => {
-            const comment = this.model.getRandomComment();
-            this.view.displayComment(comment);
+        this.gameView.bindMoleIconClick(() => {
+            console.log('El comentario del topito se está procesando...');
+            const comment = this.gameModel.getRandomComment();
+            this.gameView.displayComment(comment);
         });
-        /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
+        /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM
+        this.gameView.comenzarJuego(this.startGame.bind(this));
+
     }//init
 
 /*----------------------------------------------------------------*///START GAME BUTTON
@@ -28,47 +23,49 @@ class GameController {
         this.gameView.createBoard();
         this.addEventListeners();
         this.runGame();
-    }
+    }//startGame
 /*----------------------------------------------------------------*///START GAME BUTTON
 
 /*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
     addEventListeners() {
-        this.view.bindMoleClick(this.handleMoleClick.bind(this));
-    }
+        this.gameView.bindMoleClick(this.handleMoleClick.bind(this));
+    }//addEventListeners
+
+    
     handleMoleClick(index) {
         if (index === this.currentMole) {
-            this.model.incrementScore();
-            this.view.updateScore(this.model.score);
-            this.view.hitMole(this.currentMole);
+            this.gameModel.incrementScore();
+            this.gameView.updateScore(this.gameModel.score);
+            this.gameView.hitMole(this.currentMole);
         } else {
-            this.model.incrementMisses();
-            this.view.updateMisses(this.model.misses);
+            this.gameModel.incrementMisses();
+            this.gameView.updateMisses(this.gameModel.misses);
         }
 
-        if (this.model.isGameOver()) {
+        if (this.gameModel.isGameOver()) {
             this.endGame();
         }
-    }
+    }//handleMoleClick
 /*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
 
     runGame() {
         this.gameInterval = setInterval(() => {
             this.showRandomMole();
-        }, this.model.gameSpeed);
-    }
+        }, this.gameModel.gameSpeed);
+    }//runGame
 
     showRandomMole() {
         if (this.currentMole !== null) {
-            this.view.hideMole(this.currentMole);
+            this.gameView.hideMole(this.currentMole);
         }
-        this.currentMole = this.model.getRandomHoleIndex();
-        this.view.showMole(this.currentMole);
-    }
+        this.currentMole = this.gameModel.getRandomHoleIndex();
+        this.gameView.showMole(this.currentMole);
+    }//showRandomMole
 
 
 
     endGame() {
         clearInterval(this.gameInterval);
-        this.view.showGameOver(this.model.score);
-    }
+        this.gameView.showGameOver(this.gameModel.score);
+    }//endGame
 }

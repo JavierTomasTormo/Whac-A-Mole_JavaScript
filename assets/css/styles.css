@@ -11,8 +11,6 @@ body {
     background-position: center;
 }
 
-
-
 /*=======================================================================///COMENTARIOS DEL TOPITO RANDOM */
 #mole-icon {
     position: fixed;
@@ -51,8 +49,6 @@ body {
 }
 /*___________________________________________________________________//CREA TABLERO RANDOM HOLE*/
 
-
-
 /*´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´SCOREBOARD*/
 #scoreboard {
     display: flex;
@@ -83,6 +79,9 @@ body {
     grid-gap: 10px;
     margin: 20px auto;
 }
+
+
+
 
 
 
