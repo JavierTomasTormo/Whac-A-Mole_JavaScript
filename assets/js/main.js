@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const moleImages = [
-        'assets/images/Moles/Mole_1.png',
-        'assets/images/Moles/Mole_2.png',
-        'assets/images/Moles/Mole_3.png',
-        'assets/images/Moles/Mole_4.png',
-        'assets/images/Moles/Mole_5.png',
-        'assets/images/Moles/Mole_6.png',
-        'assets/images/Moles/Mole_7.png'
+        '../assets/images/Moles/Moles_1.png',
+        '../assets/images/Moles/Moles_2.png',
+        '../assets/images/Moles/Moles_3.png',
+        '../assets/images/Moles/Moles_4.png',
+        '../assets/images/Moles/Moles_5.png',
+        '../assets/images/Moles/Moles_6.png',
+        '../assets/images/Moles/Moles_7.png'
     ];
 
 
