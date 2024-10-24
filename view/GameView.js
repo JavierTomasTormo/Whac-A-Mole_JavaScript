@@ -51,7 +51,7 @@ class GameView {
     createBoard() {
         this.gameBoard.innerHTML = '';
         const holePositions = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 8; i++) {
             const hole = document.createElement('div');
             hole.classList.add('hole');
             let left, top;

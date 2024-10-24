@@ -52,14 +52,17 @@ class GameModel {
     }
 
     incrementScore() {
+        console.log(this.score);
         this.score++;
     }
 
     incrementMisses() {
+        console.log(this.misses);
         this.misses++;
     }
 
     isGameOver() {
+        console.log(this.misses);
         return this.misses >= this.maxMisses;
     }
     
