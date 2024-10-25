@@ -11,9 +11,12 @@ module.exports = (app) => {
     // Get user profile
     app.get('/profile', verifyJWT, userController.getCurrentUser);
 
-    // Get current user details at /user
+    // Get current user details
     app.get('/user', verifyJWT, userController.getCurrentUser);
 
-    // Logout
-    app.post('/users/logout', userController.logoutUser);
+    // Update game stats
+    app.post('/user/stats', verifyJWT, userController.updateGameStats);
+
+    // Update game settings
+    app.post('/user/settings', verifyJWT, userController.updateGameSettings);
 };

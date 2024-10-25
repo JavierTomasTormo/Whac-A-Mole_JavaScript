@@ -33,16 +33,12 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // Connecting to the database
-mongoose.connect(dbConfig.url, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-}).then(() => {
-    console.log("Successfully connected to the database");    
-}).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-});
-
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Successfully connected to MongoDB.'))
+    .catch(err => {
+        console.error('Connection error', err);
+        process.exit();
+    });
 // Routes setup
 // require('../routes/carousel.routes')(app);
 require('../routes/user.routes')(app);

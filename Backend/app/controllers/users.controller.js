@@ -27,8 +27,13 @@ const registerUser = asyncHandler(async (req, res) => {
         totalGamesPlayed: 0,
         totalMolesWhacked: 0,
         averageReactionTime: 0,
-        lastPlayedDate: null,
-        achievements: [],
+        achievements: [
+            {
+                name: "Beginner",
+                dateUnlocked: new Date(),
+                description: "Welcome to Whac-A-Mole!"
+            }
+        ],
         gameSettings: {
             difficulty: 'easy',
             soundEnabled: true,
@@ -37,6 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
         avatar: "https://static.productionready.io/images/mole-avatar.jpg",
         skins: []
     };
+
     const createdUser = await User.create(userObject);
 
     if (createdUser) {
@@ -53,6 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
     return res.status(422).json({ message: "Unable to register user" });
 });
+
 
 
 
