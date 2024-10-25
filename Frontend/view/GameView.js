@@ -65,7 +65,7 @@ class GameView {
             holePositions.push({ left, top });
             
             const holeImage = document.createElement('img');
-            holeImage.src = 'assets/images/utils/Hole.png';
+            holeImage.src = '../Frontend/assets/images/utils/Hole.png';
             holeImage.alt = 'Hole';
             hole.appendChild(holeImage);
     
