@@ -12,9 +12,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    refreshToken: { 
-        type: String 
-    },
     email: {
         type: String,
         required: true,
@@ -23,41 +20,55 @@ const userSchema = new mongoose.Schema({
         match: [/\S+@\S+\.\S+/, 'is invalid'],
         index: true
     },
-    bio: {
-        type: String,
-        default: ""
+    highScore: {
+        type: Number,
+        default: 0
     },
-    expiredRefreshTokens: [{ 
-        type: String,
-        default: [] 
-    }],    
-    city: {
-        type: String,
-        default: ""
+    totalGamesPlayed: {
+        type: Number,
+        default: 0
     },
-    aboutMe: {
-        type: String,
-        default: ""
+    totalMolesWhacked: {
+        type: Number,
+        default: 0
     },
-    skills: {
-        type: [String],
-        default: []
+    averageReactionTime: {
+        type: Number,
+        default: 0
     },
-    image: {
-        type: String,
-        default: "https://static.productionready.io/images/smiley-cyrus.jpg"
+    lastPlayedDate: {
+        type: Date,
+        default: null
     },
-    favouriteOfferts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Offert'
+    achievements: [{
+        name: String,
+        dateUnlocked: Date,
+        description: String
     }],
-    followingUsers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' 
-    }],
-    followers: [{  
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+    gameSettings: {
+        difficulty: {
+            type: String,
+            enum: ['easy', 'medium', 'hard'],
+            default: 'easy'
+        },
+        soundEnabled: {
+            type: Boolean,
+            default: true
+        },
+        musicEnabled: {
+            type: Boolean,
+            default: true
+        }
+    },
+    avatar: {
+        type: String,
+        default: "https://static.productionready.io/images/mole-avatar.jpg"
+    },
+    skins: [{
+        skinId: String,
+        name: String,
+        imageUrl: String,
+        unlockDate: Date
     }]
 }, {
     timestamps: true
@@ -65,91 +76,56 @@ const userSchema = new mongoose.Schema({
 
 userSchema.plugin(uniqueValidator);
 
-// Método para representar al usuario
 userSchema.methods.toUserResponse = function() {
     return {
-        // id: this._id,         
         username: this.username,
         email: this.email,
-        bio: this.bio,
-        image: this.image,
-        city: this.city,
-        aboutMe: this.aboutMe,
-        skills: this.skills,
-        refreshToken: this.refreshToken
+        highScore: this.highScore,
+        totalGamesPlayed: this.totalGamesPlayed,
+        totalMolesWhacked: this.totalMolesWhacked,
+        averageReactionTime: this.averageReactionTime,
+        achievements: this.achievements,
+        gameSettings: this.gameSettings,
+        avatar: this.avatar,
+        skins: this.skins
     };
 };
 
-// Método para representar al usuario en comentarios
 userSchema.methods.toProfileJSON = function() {
     return {
         id: this._id,         
         username: this.username,
-        email: this.email,
-        bio: this.bio,
-        image: this.image,
-        city: this.city,
-        aboutMe: this.aboutMe,
-        skills: this.skills,
+        highScore: this.highScore,
+        totalGamesPlayed: this.totalGamesPlayed,
+        achievements: this.achievements,
+        avatar: this.avatar,
+        skins: this.skins
     };
 };
 
-// Métodos para manejar el sistema de followers
-userSchema.methods.isFollowing = function(id) {
-    const idStr = id.toString();
-    return this.followingUsers.some(followingUser => followingUser.toString() === idStr);
-};
-
-userSchema.methods.follow = async function(id) {
-    if (!this.isFollowing(id)) {
-        this.followingUsers.push(id);
-        const followedUser = await mongoose.model('User').findById(id);
-        followedUser.followers.push(this._id); 
-        await followedUser.save();
-    }
-    return this.save();
-};
-
-userSchema.methods.unfollow = async function(id) {
-    const index = this.followingUsers.indexOf(id);
+userSchema.methods.updateGameStats = function(score, molesWhacked, reactionTime) {
+    this.totalGamesPlayed += 1;
+    this.totalMolesWhacked += molesWhacked;
     
-    if (index !== -1) {
-        this.followingUsers.splice(index, 1);
-
-        const unfollowedUser = await mongoose.model('User').findById(id);
-        
-        if (unfollowedUser) {
-            const followerIndex = unfollowedUser.followers.indexOf(this._id);
-
-            if (followerIndex !== -1) {
-                unfollowedUser.followers.splice(followerIndex, 1);
-                await unfollowedUser.save();  
-            }
-        }
+    if (score > this.highScore) {
+        this.highScore = score;
     }
-
+    
+    this.averageReactionTime = (
+        (this.averageReactionTime * (this.totalGamesPlayed - 1) + reactionTime) / 
+        this.totalGamesPlayed
+    );
+    
+    this.lastPlayedDate = new Date();
     return this.save();
 };
 
 
-// Métodos para manejar el sistema de favoritos (likes a ofertas)
-userSchema.methods.isFavourite = function(offertId) {
-    const idStr = offertId.toString();
-    return this.favouriteOfferts.some(offert => offert.toString() === idStr);
-};
-
-userSchema.methods.favorite = function(offertId) {
-    if (!this.isFavourite(offertId)) {
-        this.favouriteOfferts.push(offertId);
-    }
-    return this.save();
-};
-
-userSchema.methods.unfavorite = function(offertId) {
-    const index = this.favouriteOfferts.indexOf(offertId);
-    if (index !== -1) {
-        this.favouriteOfferts.splice(index, 1);
-    }
+userSchema.methods.updateGameSettings = function(settings) {
+    this.gameSettings = {
+        ...this.gameSettings,
+        ...settings
+    };
     return this.save();
 };
 
