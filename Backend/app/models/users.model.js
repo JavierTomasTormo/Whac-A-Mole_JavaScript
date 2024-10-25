@@ -40,13 +40,11 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: null
     },
-    achievements: {
-        name : {
-            name: String,
-            dateUnlocked: Date,
-            description: String
-        }
-    },
+    achievements: [{
+        name: String,
+        dateUnlocked: Date,
+        description: String
+    }],
     gameSettings: {
         difficulty: {
             type: String,
@@ -61,6 +59,10 @@ const userSchema = new mongoose.Schema({
             type: Boolean,
             default: true
         }
+    },
+    token: {
+        type: String,
+        default: null
     },
     avatar: {
         type: String,
