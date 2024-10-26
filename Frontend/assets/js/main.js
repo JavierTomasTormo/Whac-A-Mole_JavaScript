@@ -20,12 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
         '../Frontend/assets/images/Moles/Moles_7.png'
     ];
 
+    const splashImages = [
+        '../Frontend/assets/images/utils/splash/blood_2.png',
+        '../Frontend/assets/images/utils/splash/blood_3.png',
+        '../Frontend/assets/images/utils/splash/blood_4.png',
+        '../Frontend/assets/images/utils/splash/blood_5.png'
+    ];
 
 
     const randomImage = images[Math.floor(Math.random() * images.length)];
     document.getElementById('start-screen').style.backgroundImage = `url('${randomImage}')`;
 
-    const moleAnimation = new MoleAnimation(moleImages);
+    const moleAnimation = new MoleAnimation(moleImages, splashImages);
     const gameModel = new GameModel();
     const gameView = new GameView();
     const gameController = new GameController(gameModel, gameView, moleAnimation);

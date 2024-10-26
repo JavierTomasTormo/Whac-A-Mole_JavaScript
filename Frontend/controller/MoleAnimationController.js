@@ -1,17 +1,13 @@
 class MoleAnimation {
 
-    constructor(moleImages) {
+    constructor(moleImages, splashImages) {
         this.moleImages = moleImages;
+        this.splashImages = splashImages;
         this.currentIndex = 0;
         this.currentMole = null;
     }
 
     show(hole) {
-        // Clean up any existing mole first
-        if (this.currentMole) {
-            this.hide(this.currentMole);
-        }
-
         const mole = document.createElement('div');
         const curtain = document.createElement('div');
         
@@ -22,17 +18,26 @@ class MoleAnimation {
         mole.style.backgroundImage = `url(${randomMoleImage})`;
         mole.style.left = '25%';
         
-        hole.appendChild(mole);
         hole.appendChild(curtain);
+        hole.appendChild(mole);
         
-        mole.classList.add('up');
-        curtain.classList.add('up');
+        setTimeout(() => {
+            curtain.classList.add('up');
+            setTimeout(() => {
+                mole.classList.add('up');
+            }, 100);
+        }, 50);
+
+        mole.addEventListener('click', () => {
+            const randomMoleImage = this.splashImages[Math.floor(Math.random() * this.splashImages.length)];
+            mole.style.backgroundImage = `url(${randomMoleImage})`;
+        });
         
-        const elements = { mole, curtain };
-        this.currentMole = elements;
-        
-        return elements;
+        return { mole, curtain };
     }
+
+
+    
 
 
 
@@ -40,15 +45,18 @@ class MoleAnimation {
         if (!elements) return;
         
         const { mole, curtain } = elements;
+
+        
+
+    setTimeout(() => {
         mole.classList.remove('up');
         curtain.classList.add('down');
+
         
         setTimeout(() => {
             mole.remove();
             curtain.remove();
-            if (this.currentMole === elements) {
-                this.currentMole = null;
-            }
         }, 300);
+    }, 500); 
     }
 }
