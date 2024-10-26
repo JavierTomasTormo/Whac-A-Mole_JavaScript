@@ -1,18 +1,15 @@
 class MoleAnimation {
+
     constructor(moleImages) {
         this.moleImages = moleImages;
         this.currentIndex = 0;
-        this.holeQueue = [];
-        this.isMoleVisible = false;
-        // console.log(this.holeQueue);
+        this.currentMole = null;
     }
 
     show(hole) {
-        console.log(hole);
-
-        if (this.isMoleVisible) {
-            this.holeQueue.push(hole);
-            return;
+        // Clean up any existing mole first
+        if (this.currentMole) {
+            this.hide(this.currentMole);
         }
 
         const mole = document.createElement('div');
@@ -23,6 +20,7 @@ class MoleAnimation {
         
         const randomMoleImage = this.moleImages[Math.floor(Math.random() * this.moleImages.length)];
         mole.style.backgroundImage = `url(${randomMoleImage})`;
+        mole.style.left = '25%';
         
         hole.appendChild(mole);
         hole.appendChild(curtain);
@@ -30,31 +28,27 @@ class MoleAnimation {
         mole.classList.add('up');
         curtain.classList.add('up');
         
-        this.isMoleVisible = true;
-
-
-        console.log(mole);
-        console.log(curtain);    
+        const elements = { mole, curtain };
+        this.currentMole = elements;
         
-        return { mole, curtain };
+        return elements;
     }
 
-    hide(elements) {
-        console.log(elements);
 
+
+    hide(elements) {
+        if (!elements) return;
+        
         const { mole, curtain } = elements;
         mole.classList.remove('up');
         curtain.classList.add('down');
         
         setTimeout(() => {
-            curtain.classList.remove('down');
             mole.remove();
             curtain.remove();
-            this.isMoleVisible = false;
-            if (this.holeQueue.length > 0) {
-                const nextHole = this.holeQueue.shift();
-                this.show(nextHole);
+            if (this.currentMole === elements) {
+                this.currentMole = null;
             }
-        }, 1000);
+        }, 300);
     }
 }

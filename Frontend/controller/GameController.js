@@ -4,106 +4,93 @@ class GameController {
         this.gameView = gameView;
         this.moleAnimation = moleAnimation;
         this.gameView.comenzarJuego(this.startGame.bind(this));
-        this.timeLevelMole = 2000; // 2 seconds default
+        this.timeLevelMole = 2000;
+        this.gameInterval = null;
+        this.isProcessing = false;
     }
 
     init() {
-       
         this.gameView.bindMoleIconClick(() => { /*====*///COMENTARIOS DEL TOPITO RANDOM 
-            // console.log('El comentario del topito se está procesando...');
             const comment = this.gameModel.getRandomComment();
             this.gameView.displayComment(comment);
-        });
-
-
-        this.gameView.comenzarJuego(this.startGame.bind(this));
+        });/*====*///COMENTARIOS DEL TOPITO RANDOM 
+        this.gameView.comenzarJuego(this.startGame.bind(this));//START GAME BUTTON
     }//init
 
 
-//ççççççççççççççççççççççççççççççççççççççççç//RAndom Mole in raNDOM 
+//••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM 
 
     addEventListeners() {
         const holes = document.querySelectorAll('.hole');
         holes.forEach(hole => {
-            hole.addEventListener('click', () => {
-                this.handleMoleClick(hole);
+            hole.addEventListener('click', (event) => {
+                if (event.target.classList.contains('mole')) {
+                    this.handleMoleClick(hole);
+                }
             });
         });
     }
 
-    // showRandomMole() {
-    //     const holes = document.querySelectorAll('.hole');
-    //     const randomHole = holes[Math.floor(Math.random() * holes.length)];
-    //     if (randomHole) {
-    //         const moleAnimation = new MoleAnimation(randomHole);
-    //         moleAnimation.show();
-            
-    //         setTimeout(() => {
-    //             moleAnimation.hide();
-    //         }, this.timeLevelMole);
-    //     }
-    // }
     showRandomMole() {
+        if (this.isProcessing || this.gameModel.isGameOver()) return;
+        
+        this.isProcessing = true;
         const holes = document.querySelectorAll('.hole');
         const randomHole = holes[Math.floor(Math.random() * holes.length)];
+        
         if (randomHole) {
             const elements = this.moleAnimation.show(randomHole);
-            setTimeout(() => {
-                this.moleAnimation.hide(elements);
-            }, this.timeLevelMole);
+            if (elements) {
+                let moleClicked = false;
+                
+                elements.mole.addEventListener('click', () => {
+                    if (!moleClicked) {
+                        moleClicked = true;
+                        this.gameModel.incrementScore();
+                        this.gameView.updateScore(this.gameModel.score);
+                        this.moleAnimation.hide(elements);
+                    }
+                });
+
+                setTimeout(() => {
+                    if (!moleClicked) {
+                        this.gameModel.incrementMisses();
+                        this.gameView.updateMisses(this.gameModel.misses);
+                        if (this.gameModel.isGameOver()) {
+                            this.endGame();
+                            return;
+                        }
+                    }
+                    this.moleAnimation.hide(elements);
+                    this.isProcessing = false;
+                }, this.timeLevelMole);
+            }
         }
     }
-//ççççççççççççççççççççççççççççççççççççççççç//RAndom Mole in raNDOM HOLE
+//••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM HOLE
 
 
 
-/*------------*///START GAME BUTTON
+/*╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚*///START GAME BUTTON
 
     startGame() {
         this.gameModel.resetGame();
         this.gameView.createBoard();
-        this.addEventListeners();
         this.runGame();
     }//startGame
+/*╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚*///START GAME BUTTON
 
-/*-------------*///START GAME BUTTON
-
-/*______________*///CREA TABLERO RANDOM HOLE
-
-    addEventListeners() {
-        this.gameView.bindMoleClick(this.handleMoleClick.bind(this));
-    }//addEventListeners
-
-    
-    handleMoleClick(index) {
-        if (index === this.currentMole) {
-            this.gameModel.incrementScore();
-            this.gameView.updateScore(this.gameModel.score);
-            this.gameView.hitMole(this.currentMole);
-        } else {
-            this.gameModel.incrementMisses();
-            this.gameView.updateMisses(this.gameModel.misses);
-        }
-
-        if (this.gameModel.isGameOver()) {
-            this.endGame();
-        }
-    }//handleMoleClick
-
-/*_________________________*///CREA TABLERO RANDOM HOLE
-
-    runGame() {
-        this.gameInterval = setInterval(() => {
+runGame() {
+    this.gameInterval = setInterval(() => {
+        if (!this.isProcessing) {
             this.showRandomMole();
-        }, this.gameModel.gameSpeed);
-    }//runGame
-
-
-
+        }
+    }, 100);
+}
 
 
     endGame() {
         clearInterval(this.gameInterval);
-        this.gameView.showGameOver(this.gameModel.score);
-    }//endGame
+        this.gameView.showGameOver(this.gameModel.score, this.gameModel.misses);
+    }
 }
