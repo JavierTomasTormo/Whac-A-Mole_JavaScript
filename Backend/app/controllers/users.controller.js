@@ -79,9 +79,15 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
     const { user } = req.body;
-    console.log(req.body.user.email);
+    
+    // Extract email from token
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const email = decoded.user.email;
 
-    const email = req.body.user.email;
+    // console.log(decoded); 
+    // console.log("Email:", email);
 
     if (!user) {
         return res.status(400).json({ message: "User data is required" });
@@ -118,8 +124,15 @@ const updateUser = asyncHandler(async (req, res) => {
 
 
 
+
 const getCurrentUser = asyncHandler(async (req, res) => {
-    const email = req.userEmail;
+    // Extract email from token
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const email = decoded.user.email;
+    
     const user = await User.findOne({ email }).select('+token').exec();
     
     res.status(200).json({
@@ -128,6 +141,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
         }
     });
 });
+
 
 
 

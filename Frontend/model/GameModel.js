@@ -51,20 +51,20 @@ class GameModel {
         this.misses = 0;
     }
 
-    incrementScore() {
-        console.log(this.score);
-        this.score++;
-    }
+    // incrementScore() {
+    //     console.log(this.score);
+    //     this.score++;
+    // }
 
-    incrementMisses() {
-        console.log(this.misses);
-        this.misses++;
-    }
+    // incrementMisses() {
+    //     console.log(this.misses);
+    //     this.misses++;
+    // }
 
-    isGameOver() {
-        console.log(this.misses);
-        return this.misses >= this.maxMisses;
-    }
+    // isGameOver() {
+    //     console.log(this.misses);
+    //     return this.misses >= this.maxMisses;
+    // }
     
 /*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
     getRandomHoleIndex() {
