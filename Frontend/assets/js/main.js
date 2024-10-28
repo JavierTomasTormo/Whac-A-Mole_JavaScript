@@ -27,6 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     const randomImage = images[Math.floor(Math.random() * images.length)];
     document.getElementById('start-screen').style.backgroundImage = `url('${randomImage}')`;
+
+    const logoutButton = document.getElementById('logout-button');
+    const profileButton = document.getElementById('profile-button');
+
+
+    logoutButton.addEventListener('click', () => {
+        userController.handleLogout();
+    });
+
+    profileButton.addEventListener('click', () => {
+        userController.handleProfile();
+    });
 /*■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 
 // ············································································USER

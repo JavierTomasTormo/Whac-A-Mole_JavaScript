@@ -3,6 +3,7 @@ class GameView {
         this.gameBoard = document.getElementById('game-board');
         this.scoreElement = document.getElementById('score-value');
         this.missesElement = document.getElementById('misses-value');
+        this.ticketsElement = document.getElementById('tickets-value');
 
 
         this.startScreen = document.getElementById('start-screen');
@@ -106,14 +107,6 @@ startCountdown(handler) {
 
 //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM 
 
-    // bindMoleClick(handler) {
-    //     this.gameBoard.addEventListener('click', (event) => {
-    //         if (event.target.classList.contains('mole')) {
-    //             const index = Array.from(this.gameBoard.children).indexOf(event.target.parentElement);
-    //             handler(index);
-    //         }
-    //     });
-    // }
     bindMoleClick(handler) {
         const holes = document.querySelectorAll('.hole');
         holes.forEach((hole, index) => {
@@ -121,7 +114,9 @@ startCountdown(handler) {
         });
     }
 //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM 
-
+    updateTickets(tickets) {
+        this.ticketsElement.textContent = tickets;
+    }
 
     updateScore(score) {
         this.scoreElement.textContent = score;

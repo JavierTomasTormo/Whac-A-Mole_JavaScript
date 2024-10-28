@@ -3,6 +3,7 @@ class GameModel {
         this.score = 0;
         this.misses = 0;
         this.gameSpeed = 1000;
+        this.tickets = 0;
         this.maxMisses = 3;
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
 
@@ -49,6 +50,7 @@ class GameModel {
     resetGame() {
         this.score = 0;
         this.misses = 0;
+        this.tickets = 0;
     }
 
     incrementScore() {
@@ -57,6 +59,11 @@ class GameModel {
         console.log( "score", this.score);    
 
         return this.score;
+    }
+
+    incrementTickets() {
+        this.tickets = Math.floor(this.score / 2);
+        return this.tickets;
     }
 
     incrementMisses() {

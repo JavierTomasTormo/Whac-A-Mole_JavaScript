@@ -3,6 +3,8 @@ class UserController {
         this.model = userModel;
         this.view = userView;
         this.init();
+        this.setupLogoutAndProfile();
+
     }
 
     init() {
@@ -13,6 +15,19 @@ class UserController {
             this.view.hideLoginForm();
         }
     }
+    setupLogoutAndProfile() {
+        const logoutBtn = document.getElementById('logout-button');
+        const profileBtn = document.getElementById('profile-button');
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => this.handleLogout());
+        }
+        
+        if (profileBtn) {
+            profileBtn.addEventListener('click', () => this.handleProfile());
+        }
+    }
+
     setupEventListeners() {
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
@@ -139,4 +154,37 @@ class UserController {
             console.error('Registration error:', error);
         }
     }
-}
+
+    handleLogout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        window.location.reload();
+    }
+
+    handleProfile() {
+        const modal = document.getElementById('profile-modal');
+        const closeButton = document.querySelector('.close-button');
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        document.getElementById('profile-username').textContent = currentUser.username;
+        document.getElementById('profile-score').textContent = this.model.getHighScore() || '0';
+        document.getElementById('profile-tickets').textContent = this.model.getTickets() || '0';
+        
+        modal.style.display = 'block';
+        
+        closeButton.onclick = () => {
+            modal.style.display = 'none';
+        }
+        
+        window.onclick = (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    }
+
+}// End of UserController class
+
+
+
+

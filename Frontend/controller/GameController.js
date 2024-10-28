@@ -48,6 +48,8 @@ class GameController {
                         moleClicked = true;
                         this.gameModel.incrementScore();
                         this.gameView.updateScore(this.gameModel.score);
+                        this.gameView.updateTickets(this.gameModel.incrementTickets());
+
                         this.moleAnimation.hide(elements);
                     }
                 });

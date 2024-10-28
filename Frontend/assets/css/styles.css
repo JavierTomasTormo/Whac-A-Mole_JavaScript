@@ -100,7 +100,7 @@ body {
     outline: none;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
-    filter: drop-shadow(0 0 10px rgb(255, 255, 255));
+    /* filter: drop-shadow(0 0 10px rgb(255, 255, 255)); */
 }
 
 .mole.up {
@@ -110,9 +110,9 @@ body {
 .mole:hover {
     overflow: visible;
     z-index: 1000;
-    transform: scale(1.8);
+    /* transform: scale(1.8); */
     width: 60%;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.532));
 }
 
 
@@ -151,4 +151,117 @@ body {
 
 .mole.up {
     bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+#logout-button, #profile-button {
+    background: linear-gradient(135deg, #ff7f50, #ff4500);
+    color: #fff;
+    border: 2px solid #ffdd57;
+    padding: 12px 24px;
+    margin: 8px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    opacity: 0; 
+    transform: translateY(20px); 
+    animation: slideIn 0.6s forwards; 
+}
+
+#logout-button:hover, #profile-button:hover {
+    background: linear-gradient(135deg, #ff4500, #ff7f50);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+}
+
+#logout-button:active, #profile-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal-start-screen button {
+    margin: 10px;
+    display: inline-block;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1500;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #4a4a4a;
+    margin: 15% auto;
+    padding: 20px;
+    border: 2px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    color: white;
+    position: relative;
+}
+
+.close-button {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #999;
 }

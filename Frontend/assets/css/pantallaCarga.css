@@ -30,7 +30,7 @@
     padding: 15px 30px;
     margin: 20px 0;
     cursor: pointer;
-    background-color: #ff6b6b;
+    background: linear-gradient(45deg, #ee9090, #f52e3e);
     color: white;
     border: none;
     border-radius: 25px;
@@ -42,9 +42,9 @@
 }
 
 #start-button:hover {
-    background-color: #ff4757;
+    background: linear-gradient(45deg, #f48129, #edb78e);
     transform: translateY(2px);
-    box-shadow: 0 4px #ff1f1f;
+    box-shadow: 0 4px #ff7c1f;
 }
 
 #start-button:active {

@@ -38,9 +38,30 @@
                     <img src="./Frontend/assets/images/utils/title.png" alt="Title" width="45%">
                     <br>
                     <button id="start-button">Start Game</button>
+
+                    <div class="button-container">
+                        <button id="logout-button">LogOut</button>
+                        <button id="profile-button">Profile</button>
+                    </div>
+                    
                 </div>
             </div>
         <!-- PANTALLA DE CARGA -->
+
+        <!-- Profile -->
+        <div id="profile-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Player Profile</h2>
+                <div id="profile-info">
+                    <p>Username: <span id="profile-username"></span></p>
+                    <p>Total Score: <span id="profile-score"></span></p>
+                    <p>Tickets: <span id="profile-tickets"></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Profile -->
+
 
 
         <div id="countdown" style="display: none;">3</div>
