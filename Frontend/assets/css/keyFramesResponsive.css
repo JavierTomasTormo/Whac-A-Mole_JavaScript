@@ -59,3 +59,107 @@
 }
 
 
+
+/*AUTH*/
+@keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translate(-50%, -60%); }
+    100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes jump {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    50% { transform: translate(-50%, -70%) rotate(-10deg); }
+}
+
+
+
+@media (max-width: 1024px) {
+    .auth-container {
+        width: 70%;
+    }
+
+    .character {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .auth-container {
+        width: 80%;
+        padding: 2rem;
+    }
+
+    .character {
+        width: 80px;
+        height: 80px;
+    }
+
+    .auth-container h2 {
+        font-size: 20px;
+    }
+
+    .auth-container button {
+        font-size: 14px;
+    }
+
+    .auth-container input {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .auth-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    .character {
+        width: 80px;
+        height: 80px;
+    }
+
+    .auth-container h2 {
+        font-size: 18px;
+    }
+
+    .auth-container button {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    .auth-container input {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 400px) {
+    .auth-container {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .character {
+        display: none; 
+    }
+
+    .auth-container h2 {
+        font-size: 16px;
+    }
+
+    .auth-container button {
+        font-size: 12px;
+    }
+
+    .auth-container input {
+        font-size: 12px;
+    }
+}
+

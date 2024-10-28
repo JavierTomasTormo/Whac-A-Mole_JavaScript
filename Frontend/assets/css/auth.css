@@ -1,41 +1,41 @@
-/* Contenedor principal */
 .auth-container {
     position: fixed;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: linear-gradient(135deg, #FFEB3B, #FFC107);
-    padding: 2.5rem;
+    padding: 3rem;
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
     z-index: 1000;
     width: 350px;
-    display: none; /* Inicialmente oculto */
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    max-width: 90vw;
     text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    animation: fadeIn 1s ease-in-out;
 }
 
-/* Encabezado */
+.character {
+    width: 140px;
+    height: 140px;
+    background-image: url('../images/utils/sprite.png'); 
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: jump 1.5s ease-in-out infinite;
+}
+
 .auth-container h2 {
     color: #333;
     font-size: 24px;
     margin-bottom: 20px;
-    background: -webkit-linear-gradient(#ff5722, #ff9800);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    animation: bounceIn 1.5s ease;
 }
 
-/* Animación para el título */
-@keyframes bounceIn {
-    0% { transform: scale(0.8); opacity: 0; }
-    50% { transform: scale(1.1); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
-}
 
-/* Campos de entrada */
+
 .auth-container input {
     width: 100%;
     padding: 12px;
@@ -53,11 +53,8 @@
     border-color: #FF5722;
     outline: none;
     background: #fff3b0;
-    transform: scale(1.05);
-    box-shadow: 0 0 8px #FF9800;
 }
 
-/* Botones */
 .auth-container button {
     width: 100%;
     padding: 14px;
@@ -70,21 +67,11 @@
     font-size: 16px;
     margin-top: 15px;
     text-transform: uppercase;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px #d14000;
+    transition: background 0.3s ease;
 }
 
 .auth-container button:hover {
     background: linear-gradient(45deg, #FF9800, #FF5722);
-    transform: translateY(-3px);
-    box-shadow: 0 6px #d14000;
-}
-
-/* Animación para el botón */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
 }
 
 .auth-container button:active {
@@ -92,7 +79,6 @@
     box-shadow: 0 2px #d14000;
 }
 
-/* Links */
 .auth-container p {
     margin-top: 20px;
     font-size: 14px;
@@ -103,27 +89,12 @@
     color: #FF5722;
     font-weight: bold;
     cursor: pointer;
-    transition: color 0.3s;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 .auth-container .link:hover {
     color: #FF9800;
 }
 
-/* Fondo móvil */
-@media (max-width: 600px) {
-    .auth-container {
-        width: 90%;
-        padding: 2rem;
-    }
-    
-    .auth-container button {
-        font-size: 14px;
-    }
-    
-    .auth-container input {
-        padding: 10px;
-        font-size: 14px;
-    }
-}
+
+
