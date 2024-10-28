@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const registerUser = asyncHandler(async (req, res) => {
     const { user } = req.body;
 
+    console.log("users.controller.js, 9:", user);
+
     if (!user || !user.email || !user.username || !user.password) {
         return res.status(400).json({ message: "All fields are required" });
     }

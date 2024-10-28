@@ -60,12 +60,20 @@ class UserController {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('/users/login', {
+            const response = await fetch('http://localhost:3002/users/login', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    user: {
+                        username: username,
+                        password: password
+                    }
+                 })
             });
-
+        // console.log(response);
             if (response.ok) {
                 const data = await response.json();
                 this.model.setLoginStatus(true, username, data.token);
@@ -91,11 +99,22 @@ class UserController {
         const username = document.getElementById('regUsername').value;
         const password = document.getElementById('regPassword').value;
 
+        const email = username + "@whacamole.com";
+
         try {
-            const response = await fetch('/users/register', {
+            const response = await fetch('http://localhost:3002/users/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    user: {
+                        username: username,
+                        password: password,
+                        email: email
+                    }
+                })
             });
 
             if (response.ok) {
