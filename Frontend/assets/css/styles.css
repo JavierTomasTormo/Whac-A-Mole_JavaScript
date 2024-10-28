@@ -179,7 +179,6 @@ body {
     align-items: center;
     gap: 15px;
     margin-top: 20px;
-    animation: fadeInUp 0.6s ease-out;
 }
 
 #logout-button, #profile-button {
@@ -193,22 +192,21 @@ body {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
-    opacity: 0; 
-    transform: translateY(20px); 
-    animation: slideIn 0.6s forwards; 
+    transition: background 0.3s;
 }
 
 #logout-button:hover, #profile-button:hover {
     background: linear-gradient(135deg, #ff4500, #ff7f50);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+    animation: bounce 0.3s ease infinite;
 }
+
+
 
 #logout-button:active, #profile-button:active {
     transform: translateY(1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
+
 
 
 
