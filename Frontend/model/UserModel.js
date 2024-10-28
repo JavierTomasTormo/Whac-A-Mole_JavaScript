@@ -12,6 +12,7 @@ class UserModel {
         this.username = username;
         this.token = token;
         localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
     }
 
     checkLoginStatus() {

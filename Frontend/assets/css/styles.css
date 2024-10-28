@@ -85,24 +85,6 @@ body {
 }
 
 
-/* .mole {
-    width: 50%;
-    height: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: absolute;
-    bottom: -100%;
-    transition: bottom 0.8s;
-    cursor: pointer;
-    pointer-events: auto;
-    z-index: 10;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
-} */
-
 .mole {
     width: 60%;
     height: 100%;

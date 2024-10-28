@@ -13,43 +13,42 @@ class UserController {
             this.view.hideLoginForm();
         }
     }
-
     setupEventListeners() {
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
-
+    
         const handleKeyPress = (e, handler) => {
             if (e.key === 'Enter' || e.keyCode === 13) {
                 e.preventDefault();
                 handler();
             }
         };
-
+    
         loginBtn.addEventListener('click', (e) => {
             e.preventDefault();
             this.handleLogin();
         });
-
+    
         loginBtn.addEventListener('keydown', (e) => handleKeyPress(e, this.handleLogin.bind(this)));
-
+    
         registerBtn.addEventListener('click', () => {
             this.handleRegister();
         });
-
+    
         registerBtn.addEventListener('keydown', (e) => handleKeyPress(e, this.handleRegister.bind(this)));
-
+    
         document.getElementById('showRegister').addEventListener('click', () => {
             this.view.showRegisterSection();
         });
-
+    
         document.getElementById('showRegister').addEventListener('keydown', (e) => handleKeyPress(e,
             this.view.showRegisterSection.bind(this.view)
         ));
-
+    
         document.getElementById('showLogin').addEventListener('click', () => {
             this.view.showLoginSection();
         });
-
+    
         document.getElementById('showLogin').addEventListener('keydown', (e) => handleKeyPress(e,
             this.view.showLoginSection.bind(this.view)
         ));
@@ -71,13 +70,16 @@ class UserController {
                         username: username,
                         password: password
                     }
-                 })
+                })
             });
         // console.log(response);
             if (response.ok) {
                 const data = await response.json();
                 this.model.setLoginStatus(true, username, data.token);
                 this.view.hideLoginForm();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
             } else {
                 Swal.fire({
                     icon: "error",
