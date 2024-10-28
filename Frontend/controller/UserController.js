@@ -1,76 +1,3 @@
-// class UserController {
-//     constructor(userModel, userView) {
-//         this.model = userModel;
-//         this.view = userView;
-//         this.init();
-//     }
-
-//     init() {
-//         this.view.loginForm.addEventListener('submit', (e) => this.handleLogin(e));
-//         document.getElementById('showRegister').addEventListener('click', () => this.view.showRegisterSection());
-//         document.getElementById('showLogin').addEventListener('click', () => this.view.showLoginSection());
-//         document.getElementById('registerBtn').addEventListener('click', () => this.handleRegister());
-        
-//         // Check if user is already logged in
-//         const token = localStorage.getItem('token');
-//         if (token) {
-//             this.validateToken(token);
-//         }
-//     }
-
-//     async handleLogin(e) {
-//         e.preventDefault();
-//         const username = document.getElementById('username').value;
-//         const password = document.getElementById('password').value;
-
-//         try {
-//             const response = await fetch('/api/login', {
-//                 method: 'POST',
-//                 headers: { 'Content-Type': 'application/json' },
-//                 body: JSON.stringify({ username, password })
-//             });
-
-//             if (response.ok) {
-//                 const data = await response.json();
-//                 this.model.setLoginStatus(true, username, data.token);
-//                 this.view.hideLoginForm();
-//             } else {
-//                 alert('Invalid credentials');
-//             }
-//         } catch (error) {
-//             alert('Error during login');
-//         }
-//     }
-
-//     async handleRegister() {
-//         const username = document.getElementById('regUsername').value;
-//         const password = document.getElementById('regPassword').value;
-
-//         try {
-//             const response = await fetch('/api/register', {
-//                 method: 'POST',
-//                 headers: { 'Content-Type': 'application/json' },
-//                 body: JSON.stringify({ username, password })
-//             });
-
-//             if (response.ok) {
-//                 alert('Registration successful! Please login.');
-//                 this.view.showLoginSection();
-//             } else {
-//                 alert('Registration failed');
-//             }
-//         } catch (error) {
-//             alert('Error during registration');
-//         }
-//     }
-
-//     async validateToken(token) {
-//         // Add token validation logic here
-//         // If token is valid, hide login form and show game
-//         this.view.hideLoginForm();
-//     }
-// }
-
 class UserController {
     constructor(userModel, userView) {
         this.model = userModel;
@@ -88,22 +15,44 @@ class UserController {
     }
 
     setupEventListeners() {
-        document.getElementById('loginBtn').addEventListener('click', (e) => {
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+
+        const handleKeyPress = (e, handler) => {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                e.preventDefault();
+                handler();
+            }
+        };
+
+        loginBtn.addEventListener('click', (e) => {
             e.preventDefault();
             this.handleLogin();
         });
 
-        document.getElementById('registerBtn').addEventListener('click', () => {
+        loginBtn.addEventListener('keydown', (e) => handleKeyPress(e, this.handleLogin.bind(this)));
+
+        registerBtn.addEventListener('click', () => {
             this.handleRegister();
         });
+
+        registerBtn.addEventListener('keydown', (e) => handleKeyPress(e, this.handleRegister.bind(this)));
 
         document.getElementById('showRegister').addEventListener('click', () => {
             this.view.showRegisterSection();
         });
 
+        document.getElementById('showRegister').addEventListener('keydown', (e) => handleKeyPress(e,
+            this.view.showRegisterSection.bind(this.view)
+        ));
+
         document.getElementById('showLogin').addEventListener('click', () => {
             this.view.showLoginSection();
         });
+
+        document.getElementById('showLogin').addEventListener('keydown', (e) => handleKeyPress(e,
+            this.view.showLoginSection.bind(this.view)
+        ));
     }
 
     async handleLogin() {
@@ -111,7 +60,7 @@ class UserController {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('/users/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
@@ -122,7 +71,16 @@ class UserController {
                 this.model.setLoginStatus(true, username, data.token);
                 this.view.hideLoginForm();
             } else {
-                alert('Invalid credentials');
+                Swal.fire({
+                    icon: "error",
+                    title: "Vaya...",
+                    text: "Las Credenciales no son correctas",
+                    footer: "Por favor, intente nuevamente.",
+                    backdrop: `
+                            url("Frontend/assets/images/utils/auth_wallpaper_mobile.jpg")
+                            left top
+                        `
+                    });
             }
         } catch (error) {
             console.error('Login error:', error);
@@ -134,17 +92,27 @@ class UserController {
         const password = document.getElementById('regPassword').value;
 
         try {
-            const response = await fetch('/api/register', {
+            const response = await fetch('/users/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
             });
 
             if (response.ok) {
-                alert('Registration successful! Please login.');
+                Swal.fire({
+                    icon: "success",
+                    title: "Bienvenido...",
+                    text: "El Registro ha sido exitoso",
+                    footer: "Por Favor Inicia Sesion",
+                });
                 this.view.showLoginSection();
             } else {
-                alert('Registration failed');
+                Swal.fire({
+                    icon: "error",
+                    title: "Vaya...",
+                    text: "El Registro ha fallado",
+                    footer: "Por favor, inténtelo mas tarde",
+                });
             }
         } catch (error) {
             console.error('Registration error:', error);

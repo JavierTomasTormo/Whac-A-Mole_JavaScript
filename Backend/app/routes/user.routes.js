@@ -7,16 +7,16 @@ module.exports = (app) => {
     app.get('/users', userController.getAllUsers);
 
     // Update user details
-    app.put('/users', verifyJWT ,userController.updateUser);
+    app.put('/users/update', verifyJWT ,userController.updateUser);
 
     // User registration
-    app.post('/users', userController.registerUser);
+    app.post('/users/register', userController.registerUser);
 
     // User login
     app.post('/users/login', userController.userLogin);
 
     // Get user profile
-    app.get('/profile', verifyJWT, userController.getCurrentUser);
+    app.get('/users/profile', verifyJWT, userController.getCurrentUser);
 
     // Get current user details
     app.get('/user', verifyJWT, userController.getCurrentUser);

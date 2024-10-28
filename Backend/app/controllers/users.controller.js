@@ -20,7 +20,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
     const hashedPwd = await argon2.hash(user.password);
     const token = jwt.sign(
-        { user: { email: user.email } },
+        // { user: { email: user.email } },
+        { user: { username: user.username, email: user.email } },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '1h' }
     );
@@ -64,6 +65,12 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 
+
+
+
+
+
+
 const getAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find().exec();
     
@@ -73,6 +80,12 @@ const getAllUsers = asyncHandler(async (req, res) => {
     
     res.status(200).json({ users: usersResponse });
 });
+
+
+
+
+
+
 
 
 
@@ -125,6 +138,10 @@ const updateUser = asyncHandler(async (req, res) => {
 
 
 
+
+
+
+
 const getCurrentUser = asyncHandler(async (req, res) => {
     // Extract email from token
     const authHeader = req.headers.authorization;
@@ -151,11 +168,13 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 const userLogin = asyncHandler(async (req, res) => {
     const { user } = req.body;
 
-    if (!user || !user.email || !user.password) {
+    console.log("Received user data:", user);
+
+    if (!user || !user.username || !user.password) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
-    const loginUser = await User.findOne({ email: user.email }).exec();
+    const loginUser = await User.findOne({ username: user.username }).exec();
 
     if (!loginUser) {
         return res.status(404).json({ message: "User Not Found" });
@@ -165,7 +184,7 @@ const userLogin = asyncHandler(async (req, res) => {
     if (!match) return res.status(401).json({ message: 'Unauthorized: Wrong password' });
 
     const token = jwt.sign(
-        { user: { id: loginUser._id, email: loginUser.email } },
+        { user: { id: loginUser._id, username: loginUser.username, email: loginUser.email } },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '1h' }
     );
@@ -177,6 +196,12 @@ const userLogin = asyncHandler(async (req, res) => {
         }
     });
 });
+
+
+
+
+
+
 
 const updateGameStats = asyncHandler(async (req, res) => {
     const { score, molesWhacked, reactionTime } = req.body;
