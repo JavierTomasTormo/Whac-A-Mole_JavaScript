@@ -1,27 +1,26 @@
+
+
 class UserModel {
     constructor() {
-        this.currentUser = null;
+        this.isLoggedIn = false;
+        this.username = null;
+        this.token = null;
     }
 
-    login(username, password) {
-        // In a real app, you'd validate against a server
-        if (username && password) {
-            this.currentUser = username;
-            localStorage.setItem('currentUser', username);
+    setLoginStatus(status, username, token) {
+        this.isLoggedIn = status;
+        this.username = username;
+        this.token = token;
+        localStorage.setItem('token', token);
+    }
+
+    checkLoginStatus() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            this.isLoggedIn = true;
+            this.token = token;
             return true;
         }
         return false;
-    }
-
-    logout() {
-        this.currentUser = null;
-        localStorage.removeItem('currentUser');
-    }
-
-    getCurrentUser() {
-        if (!this.currentUser) {
-            this.currentUser = localStorage.getItem('currentUser');
-        }
-        return this.currentUser;
     }
 }
