@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const registerUser = asyncHandler(async (req, res) => {
     const { user } = req.body;
 
-    console.log("users.controller.js, 9:", user);
+    // console.log("users.controller.js, 9:", user);
 
     if (!user || !user.email || !user.username || !user.password) {
         return res.status(400).json({ message: "All fields are required" });
@@ -170,13 +170,15 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 const userLogin = asyncHandler(async (req, res) => {
     const { user } = req.body;
 
-    console.log("Received user data:", user);
+    // console.log("Received user data:", user);
 
     if (!user || !user.username || !user.password) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
     const loginUser = await User.findOne({ username: user.username }).exec();
+
+    // console.log("loginUser:", loginUser);
 
     if (!loginUser) {
         return res.status(404).json({ message: "User Not Found" });
@@ -221,19 +223,40 @@ const updateGameStats = asyncHandler(async (req, res) => {
 });
 
 const updateGameSettings = asyncHandler(async (req, res) => {
-    const { settings } = req.body;
-    const email = req.userEmail;
-    
-    const user = await User.findOne({ email }).exec();
-    if (!user) {
-        return res.status(404).json({ message: "User not found" });
+
+    // console.log("updateGameSettings:", req.body);
+
+    const userId = req.userId;
+    const { gameSettings } = req.body;
+
+    if (!gameSettings) {
+        return res.status(400).json({ message: "Game settings are required" });
     }
 
-    await user.updateGameSettings(settings);
-    res.status(200).json({
-        user: user.toUserResponse()
-    });
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.gameSettings = {
+            difficulty: gameSettings.difficulty,
+            soundEnabled: gameSettings.soundEnabled,
+            musicEnabled: gameSettings.musicEnabled,
+            gameSpeed: gameSettings.gameSpeed
+        };
+
+        await user.save();
+
+        return res.status(200).json({
+            message: "Game settings updated successfully",
+            gameSettings: user.gameSettings
+        });
+    } catch (error) {
+        return res.status(500).json({ message: "Error updating game settings" });
+    }
 });
+
 
 module.exports = {
     registerUser,
