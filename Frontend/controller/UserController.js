@@ -161,28 +161,6 @@ class UserController {
         window.location.reload();
     }
 
-    // handleProfile() {
-    //     const modal = document.getElementById('profile-modal');
-    //     const closeButton = document.querySelector('.close-button');
-    //     const currentUser = localStorage.getItem('username');
-
-    //     document.getElementById('profile-username').textContent = currentUser;
-    //     // document.getElementById('profile-score').textContent = this.model.getHighScore() || '0';
-    //     // document.getElementById('profile-tickets').textContent = this.model.getTickets() || '0';
-        
-    //     modal.style.display = 'block';
-        
-    //     closeButton.onclick = () => {
-    //         modal.style.display = 'none';
-    //     }
-        
-    //     window.onclick = (event) => {
-    //         if (event.target === modal) {
-    //             modal.style.display = 'none';
-    //         }
-    //     }
-    // }
-
     handleProfile() {
         const modal = document.getElementById('profile-modal');
         const closeButton = document.querySelector('.close-button');
@@ -195,7 +173,7 @@ class UserController {
         // Statistics
         document.getElementById('high-score').textContent = localStorage.getItem('highScore') || '0';
         document.getElementById('total-games').textContent = localStorage.getItem('totalGames') || '0';
-        document.getElementById('win-rate').textContent = localStorage.getItem('winRate') || '0%';
+        document.getElementById('mole-whack').textContent = localStorage.getItem('totalMolesWhacked') || '0';
     
         // Load saved settings if they exist
         document.getElementById('difficulty').value = localStorage.getItem('difficulty') || 'medium';
@@ -216,16 +194,18 @@ class UserController {
                 title: 'Selecciona un Avatar',
                 html: `
                     <div class="avatar-selection">
-                        <img src="Frontend/assets/images/avatars/avatar1.png" class="avatar-option">
-                        <img src="Frontend/assets/images/avatars/avatar2.png" class="avatar-option">
-                        <img src="Frontend/assets/images/avatars/avatar3.png" class="avatar-option">
-                        <img src="Frontend/assets/images/avatars/avatar4.png" class="avatar-option">
+                        <img src="Frontend/assets/images/Moles/Moles_7.png" class="avatar-option">
+                        <img src="Frontend/assets/images/Moles/Moles_3.png" class="avatar-option">
+                        <img src="Frontend/assets/images/Moles/Moles_6.png" class="avatar-option">
+                        <img src="Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png" class="avatar-option">
                     </div>
                 `,
                 showCancelButton: true,
                 confirmButtonText: 'Guardar',
                 cancelButtonText: 'Cancelar',
                 didOpen: () => {
+                    const sweetAlertContainer = document.querySelector('.swal2-container');
+                        sweetAlertContainer.style.zIndex = '100000';
                     const avatarOptions = document.querySelectorAll('.avatar-option');
                     avatarOptions.forEach(avatar => {
                         avatar.addEventListener('click', () => {
@@ -250,6 +230,10 @@ class UserController {
                 icon: "success",
                 title: "¡Guardado!",
                 text: "Los cambios han sido guardados exitosamente",
+                didOpen: () => {
+                    const sweetAlertContainer = document.querySelector('.swal2-container');
+                    sweetAlertContainer.style.zIndex = '100000';
+                }
             });
         });
     
@@ -264,7 +248,11 @@ class UserController {
                 `,
                 showCancelButton: true,
                 confirmButtonText: 'Cambiar',
-                cancelButtonText: 'Cancelar'
+                cancelButtonText: 'Cancelar',
+                didOpen: () => {
+                    const sweetAlertContainer = document.querySelector('.swal2-container');
+                    sweetAlertContainer.style.zIndex = '100000';
+                }
             });
         });
     
@@ -277,7 +265,11 @@ class UserController {
                 `,
                 showCancelButton: true,
                 confirmButtonText: 'Guardar',
-                cancelButtonText: 'Cancelar'
+                cancelButtonText: 'Cancelar',
+                didOpen: () => {
+                    const sweetAlertContainer = document.querySelector('.swal2-container');
+                    sweetAlertContainer.style.zIndex = '100000';
+                }
             });
         });
     
