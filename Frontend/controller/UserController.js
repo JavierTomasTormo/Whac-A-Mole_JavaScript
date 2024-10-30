@@ -164,11 +164,11 @@ class UserController {
     handleProfile() {
         const modal = document.getElementById('profile-modal');
         const closeButton = document.querySelector('.close-button');
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        
-        document.getElementById('profile-username').textContent = currentUser.username;
-        document.getElementById('profile-score').textContent = this.model.getHighScore() || '0';
-        document.getElementById('profile-tickets').textContent = this.model.getTickets() || '0';
+        const currentUser = localStorage.getItem('username');
+
+        document.getElementById('profile-username').textContent = currentUser;
+        // document.getElementById('profile-score').textContent = this.model.getHighScore() || '0';
+        // document.getElementById('profile-tickets').textContent = this.model.getTickets() || '0';
         
         modal.style.display = 'block';
         

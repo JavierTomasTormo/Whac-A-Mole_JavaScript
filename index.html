@@ -13,7 +13,7 @@
         <!-- CSS COMPONENETES DE LA APLICACIÓN  -->
             <link rel="stylesheet" href="./Frontend/assets/css/pantallaCarga.css">
             <link rel="stylesheet" href="./Frontend/assets/css/styles.css">
-            
+            <link rel="stylesheet" href="./Frontend/assets/css/profile.css">
             <link rel="stylesheet" href="./Frontend/assets/css/auth.css">
 
 
@@ -52,14 +52,70 @@
         <div id="profile-modal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
-                <h2>Player Profile</h2>
-                <div id="profile-info">
-                    <p>Username: <span id="profile-username"></span></p>
-                    <p>Total Score: <span id="profile-score"></span></p>
-                    <p>Tickets: <span id="profile-tickets"></span></p>
+                
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="assets/images/user-avatar.png" alt="User Avatar">
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profile-username">Username</h2>
+                        <p id="profile-email">user@email.com</p>
+                    </div>
                 </div>
+        
+                <div class="profile-sections">
+                    <div class="settings-section">
+                        <h3 class="settings-title">Game Settings</h3>
+                        <div class="setting-option">
+                            <label>Difficulty Level</label>
+                            <select id="difficulty">
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="setting-option">
+                            <label>Game Speed</label>
+                            <input type="range" id="game-speed" min="1" max="10">
+                        </div>
+                    </div>
+        
+                    <div class="settings-section">
+                        <h3 class="settings-title">Audio Settings</h3>
+                        <div class="setting-option">
+                            <label>Sound Effects</label>
+                            <input type="checkbox" id="sound-effects">
+                        </div>
+                        <div class="setting-option">
+                            <label>Background Music</label>
+                            <input type="checkbox" id="background-music">
+                        </div>
+                    </div>
+        
+                    <div class="settings-section">
+                        <h3 class="settings-title">Statistics</h3>
+                        <div class="setting-option">
+                            <p>High Score: <span id="high-score">0</span></p>
+                            <p>Total Games: <span id="total-games">0</span></p>
+                            <p>Win Rate: <span id="win-rate">0%</span></p>
+                        </div>
+                    </div>
+        
+                    <div class="settings-section">
+                        <h3 class="settings-title">Account Settings</h3>
+                        <div class="setting-optionbtt">
+                            <button id="change-password">Change Password</button>
+                            <button id="edit-profile">Edit Profile</button>
+                            <button class="save-settings">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+        
+                
             </div>
         </div>
+        
         <!-- Profile -->
 
 

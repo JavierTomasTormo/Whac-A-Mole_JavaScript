@@ -1,0 +1,253 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#logout-button, #profile-button {
+    background: linear-gradient(135deg, #ff7f50, #ff4500);
+    color: #fff;
+    border: 2px solid #ffdd57;
+    padding: 12px 24px;
+    margin: 8px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
+}
+
+#logout-button:hover, #profile-button:hover {
+    background: linear-gradient(135deg, #ff4500, #ff7f50);
+    animation: bounce 0.3s ease infinite;
+}
+
+
+
+#logout-button:active, #profile-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1500;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
+    margin: 5% auto;
+    padding: 30px;
+    border: 2px solid #888;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 20px;
+    color: white;
+    position: relative;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #666;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #ff7f50;
+    overflow: hidden;
+}
+
+.profile-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+.settings-section button {
+    background: linear-gradient(135deg, #ff7f50, #ff4500);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(255, 69, 0, 0.2);
+}
+
+.settings-section button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
+    background: linear-gradient(135deg, #ff4500, #ff7f50);
+}
+
+.settings-section button:active {
+    transform: translateY(1px);
+}
+
+.settings-section select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid #ff7f50;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.settings-section select:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.settings-section input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.settings-section input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #ff7f50, #ff4500);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
+}
+
+.settings-section input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+}
+
+.settings-section input[type="checkbox"] {
+    -webkit-appearance: none;
+    width: 50px;
+    height: 26px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 13px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.settings-section input[type="checkbox"]::before {
+    content: '';
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s ease;
+}
+
+.settings-section input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #ff7f50, #ff4500);
+}
+
+.settings-section input[type="checkbox"]:checked::before {
+    transform: translateX(24px);
+}
+
+.settings-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.close-button:hover {
+    color: #ff7f50;
+    transform: rotate(90deg);
+}
+
+
+
+
+.setting-optionbtt {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    /* background: rgba(0,0,0,0.2); */
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.setting-label {
+    flex: 0 0 40%;
+}
+
+.setting-control {
+    flex: 0 0 60%;
+}
+
+.buttons-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.setting-label label {
+    margin: 0;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+.setting-control select,
+.setting-control input[type="range"] {
+    width: 100%;
+}
+
+.setting-control input[type="checkbox"] {
+    margin: 0;
+}

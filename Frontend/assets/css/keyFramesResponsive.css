@@ -172,3 +172,27 @@
         transform: translateY(-12px);
     }
 }
+
+
+
+
+
+@media (max-width: 768px) {
+    .modal-content {
+        height: 100vh; 
+        overflow-y: auto; 
+        margin: 0; 
+        border-radius: 0; 
+    }
+
+    .setting-optionbtt {
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 15px; 
+    }
+
+    .buttons-group {
+        flex-direction: column; 
+        width: 100%;
+    }
+}
