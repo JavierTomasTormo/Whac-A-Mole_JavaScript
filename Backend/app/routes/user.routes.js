@@ -9,6 +9,9 @@ module.exports = (app) => {
     // Update user details
     app.put('/users/update', verifyJWT ,userController.updateUser);
 
+    app.put('/users/update-password', verifyJWT, userController.updatePassword);
+
+
     // User registration
     app.post('/users/register', userController.registerUser);
 

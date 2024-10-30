@@ -1,11 +1,13 @@
 class UserController {
+
+
     constructor(userModel, userView) {
         this.model = userModel;
         this.view = userView;
         this.init();
         this.setupLogoutAndProfile();
-
     }
+
 
     init() {
         if (!this.model.checkLoginStatus()) {
@@ -15,6 +17,9 @@ class UserController {
             this.view.hideLoginForm();
         }
     }
+
+
+
     setupLogoutAndProfile() {
         const logoutBtn = document.getElementById('logout-button');
         const profileBtn = document.getElementById('profile-button');
@@ -27,6 +32,7 @@ class UserController {
             profileBtn.addEventListener('click', () => this.handleProfile());
         }
     }
+
 
     setupEventListeners() {
         const loginBtn = document.getElementById('loginBtn');
@@ -70,10 +76,6 @@ class UserController {
     }
 
 
-
-
-
-
     async handleLogin() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
@@ -92,14 +94,12 @@ class UserController {
                     }
                 })
             });
-    
+
             if (response.ok) {
                 const data = await response.json();
                 // console.log(data);
                 this.model.setLoginStatus(true, username, data.user.token);
-
-                console.log(data.user);
-                
+                // console.log(data.user);
                 localStorage.setItem('highScore', data.user.highScore || '0');
                 localStorage.setItem('totalGames', data.user.totalGamesPlayed || '0');
                 localStorage.setItem('totalMolesWhacked', data.user.totalMolesWhacked || '0'); 
@@ -111,7 +111,6 @@ class UserController {
                 localStorage.setItem('difficulty', data.user.gameSettings.difficulty);
                 localStorage.setItem('gameSpeed', data.user.gameSettings.gameSpeed);
                 // console.log(data.user.gameSettings);
-
                 this.view.hideLoginForm();
                 setTimeout(() => {
                     window.location.reload();
@@ -174,8 +173,6 @@ class UserController {
     }
 
 
-
-
     handleLogout() {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
@@ -193,23 +190,23 @@ class UserController {
         window.location.reload();
     }
 
+
     handleProfile() {
         const modal = document.getElementById('profile-modal');
         const closeButton = document.querySelector('.close-button');
         const currentUser = localStorage.getItem('username');
         const userEmail = localStorage.getItem('userEmail');
 
-    
         // Basic Profile Info
         document.getElementById('profile-username').textContent = currentUser;
         document.getElementById('profile-email').textContent = userEmail || `${currentUser}@whacamole.com`;
-    
+
         // Statistics
         document.getElementById('high-score').textContent = localStorage.getItem('highScore') + "   📊" || '0   📊';
         document.getElementById('total-games').textContent = localStorage.getItem('totalGames') + " 👾" || '0   👾';
         document.getElementById('mole-whack').textContent = localStorage.getItem('totalMolesWhacked') + "   🎯" || '0   🎯';
         document.getElementById('tickets-earned').textContent = localStorage.getItem('ticketsEarned') + "   💰" || '0   💰';
-    
+
         // Load saved settings if they exist
         document.getElementById('difficulty').value = localStorage.getItem('difficulty') || 'medium';
         document.getElementById('game-speed').value = localStorage.getItem('gameSpeed') || '5';
@@ -220,9 +217,7 @@ class UserController {
         const avatarImg = document.querySelector('.profile-avatar img');
         const storedAvatar = localStorage.getItem('userAvatar') || 'Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png';
         avatarImg.src = storedAvatar;
-    
 
-        // Make avatar clickable for updates
         avatarImg.style.cursor = 'pointer';
         avatarImg.addEventListener('click', () => {
             Swal.fire({
@@ -257,7 +252,7 @@ class UserController {
                                         }
                                     })
                                 });
-        
+
                                 if (response.ok) {
                                     localStorage.setItem('userAvatar', avatar.src);
                                     avatarImg.src = avatar.src;
@@ -273,7 +268,6 @@ class UserController {
             });
         });
 
-        // Event listeners for settings
         document.querySelector('.save-settings').addEventListener('click', async () => {
             const settings = {
                 difficulty: document.getElementById('difficulty').value,
@@ -281,7 +275,7 @@ class UserController {
                 soundEnabled: document.getElementById('sound-effects').checked,
                 musicEnabled: document.getElementById('background-music').checked
             };
-        
+
             try {
                 const token = localStorage.getItem('token');
                 // console.log(token);
@@ -293,7 +287,7 @@ class UserController {
                     },
                     body: JSON.stringify({ gameSettings: settings })
                 });
-        
+
                 if (response.ok) {
                     localStorage.setItem('difficulty', settings.difficulty);
                     localStorage.setItem('gameSpeed', settings.gameSpeed);
@@ -301,7 +295,6 @@ class UserController {
                     localStorage.setItem('musicEnabled', settings.musicEnabled);
                     await this.updateUserStats();
 
-        
                     Swal.fire({
                         icon: "success",
                         title: "¡Guardado!",
@@ -329,7 +322,6 @@ class UserController {
         });
         
     
-        // Account settings buttons
         document.getElementById('change-password').addEventListener('click', () => {
             Swal.fire({
                 title: 'Cambiar Contraseña',
@@ -341,31 +333,114 @@ class UserController {
                 showCancelButton: true,
                 confirmButtonText: 'Cambiar',
                 cancelButtonText: 'Cancelar',
+                preConfirm: async () => {
+                    const currentPassword = document.getElementById('current-password').value;
+                    const newPassword = document.getElementById('new-password').value;
+                    const confirmPassword = document.getElementById('confirm-password').value;
+        
+                    if (newPassword !== confirmPassword) {
+                        Swal.showValidationMessage('Las contraseñas no coinciden');
+                        return false;
+                    }
+        
+                    try {
+                        const response = await fetch('http://localhost:3002/users/update-password', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            },
+                            body: JSON.stringify({
+                                user: {
+                                    currentPassword,
+                                    password: newPassword
+                                }
+                            })
+                        });
+        
+                        if (!response.ok) {
+                            throw new Error('Contraseña actual incorrecta');
+                        }
+        
+                        return true;
+                    } catch (error) {
+                        Swal.showValidationMessage(error.message);
+                        return false;
+                    }
+                },
                 didOpen: () => {
                     const sweetAlertContainer = document.querySelector('.swal2-container');
                     sweetAlertContainer.style.zIndex = '100000';
                 }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Contraseña actualizada correctamente'
+                    });
+                }
             });
         });
+        
     
         document.getElementById('edit-profile').addEventListener('click', () => {
             Swal.fire({
                 title: 'Editar Perfil',
                 html: `
                     <input type="text" id="edit-username" class="swal2-input" placeholder="Nombre de Usuario" value="${currentUser}">
-                    <input type="email" id="edit-email" class="swal2-input" placeholder="Email" value="${currentUser}@whacamole.com">
+                    <input type="email" id="edit-email" class="swal2-input" placeholder="Email" value="${userEmail}" readonly>
                 `,
                 showCancelButton: true,
                 confirmButtonText: 'Guardar',
                 cancelButtonText: 'Cancelar',
+                preConfirm: async () => {
+                    const newUsername = document.getElementById('edit-username').value;
+                    const newEmail = document.getElementById('edit-email').value;
+        
+                    try {
+                        const response = await fetch('http://localhost:3002/users/update', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            },
+                            body: JSON.stringify({
+                                user: {
+                                    username: newUsername,
+                                    email: newEmail
+                                }
+                            })
+                        });
+        
+                        if (!response.ok) {
+                            throw new Error('Error al actualizar el perfil');
+                        }
+        
+                        localStorage.setItem('username', newUsername);
+                        localStorage.setItem('userEmail', newEmail);
+                        await this.updateUserStats();
+                        return true;
+                    } catch (error) {
+                        Swal.showValidationMessage(error.message);
+                        return false;
+                    }
+                },
                 didOpen: () => {
                     const sweetAlertContainer = document.querySelector('.swal2-container');
                     sweetAlertContainer.style.zIndex = '100000';
                 }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Perfil actualizado correctamente'
+                    });
+                }
             });
         });
     
-        // Show modal and setup close handlers
         modal.style.display = 'block';
         
         closeButton.onclick = () => {
@@ -378,9 +453,6 @@ class UserController {
             }
         }
     }
-    
-
-
 
 
     async updateUserStats() {
@@ -413,7 +485,8 @@ class UserController {
     }
 
 
-
+                                                                                                                                //
+                                                                                                                                //
 }// End of UserController class
 
 

@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 
+
 const registerUser = asyncHandler(async (req, res) => {
     const { user } = req.body;
 
@@ -67,12 +68,6 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
-
-
-
 const getAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find().exec();
     
@@ -82,14 +77,6 @@ const getAllUsers = asyncHandler(async (req, res) => {
     
     res.status(200).json({ users: usersResponse });
 });
-
-
-
-
-
-
-
-
 
 
 const updateUser = asyncHandler(async (req, res) => {
@@ -138,12 +125,6 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
-
-
-
 const getCurrentUser = asyncHandler(async (req, res) => {
     // Extract email from token
     const authHeader = req.headers.authorization;
@@ -162,37 +143,22 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
-
-
 const userLogin = asyncHandler(async (req, res) => {
     const { user } = req.body;
-
-    // console.log("Received user data:", user);
-
     if (!user || !user.username || !user.password) {
         return res.status(400).json({ message: "All fields are required" });
     }
-
     const loginUser = await User.findOne({ username: user.username }).exec();
-
-    // console.log("loginUser:", loginUser);
-
     if (!loginUser) {
         return res.status(404).json({ message: "User Not Found" });
     }
-
     const match = await argon2.verify(loginUser.password, user.password);
     if (!match) return res.status(401).json({ message: 'Unauthorized: Wrong password' });
-
     const token = jwt.sign(
         { user: { id: loginUser._id, username: loginUser.username, email: loginUser.email } },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '1h' }
     );
-
     res.status(200).json({
         user: {
             ...loginUser.toUserResponse(),
@@ -202,52 +168,51 @@ const userLogin = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
+const updatePassword = asyncHandler(async (req, res) => {
+    const userId = req.userId;
+    const { currentPassword, password } = req.body.user;
+    const user = await User.findById(userId);
+    if (!user) {return res.status(404).json({ message: "Usuario no encontrado" });}
+    const isMatch = await argon2.verify(user.password, currentPassword);
+    if (!isMatch) {return res.status(401).json({ message: "Contraseña actual incorrecta" });}
+    user.password = await argon2.hash(password);
+    await user.save();
+    res.status(200).json({ message: "Contraseña actualizada correctamente" });
+});
 
 
 const updateGameStats = asyncHandler(async (req, res) => {
     const { score, molesWhacked, reactionTime } = req.body;
     const email = req.userEmail;
-    
     const user = await User.findOne({ email }).exec();
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
-
     await user.updateGameStats(score, molesWhacked, reactionTime);
     res.status(200).json({
         user: user.toUserResponse()
     });
 });
 
+
 const updateGameSettings = asyncHandler(async (req, res) => {
-
-    // console.log("updateGameSettings:", req.body);
-
     const userId = req.userId;
     const { gameSettings } = req.body;
-
     if (!gameSettings) {
         return res.status(400).json({ message: "Game settings are required" });
     }
-
     try {
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
         user.gameSettings = {
             difficulty: gameSettings.difficulty,
             soundEnabled: gameSettings.soundEnabled,
             musicEnabled: gameSettings.musicEnabled,
             gameSpeed: gameSettings.gameSpeed
         };
-
         await user.save();
-
         return res.status(200).json({
             message: "Game settings updated successfully",
             gameSettings: user.gameSettings
@@ -265,5 +230,6 @@ module.exports = {
     getCurrentUser,
     userLogin,
     updateGameStats,
-    updateGameSettings
+    updateGameSettings,
+    updatePassword,
 };
