@@ -161,15 +161,127 @@ class UserController {
         window.location.reload();
     }
 
+    // handleProfile() {
+    //     const modal = document.getElementById('profile-modal');
+    //     const closeButton = document.querySelector('.close-button');
+    //     const currentUser = localStorage.getItem('username');
+
+    //     document.getElementById('profile-username').textContent = currentUser;
+    //     // document.getElementById('profile-score').textContent = this.model.getHighScore() || '0';
+    //     // document.getElementById('profile-tickets').textContent = this.model.getTickets() || '0';
+        
+    //     modal.style.display = 'block';
+        
+    //     closeButton.onclick = () => {
+    //         modal.style.display = 'none';
+    //     }
+        
+    //     window.onclick = (event) => {
+    //         if (event.target === modal) {
+    //             modal.style.display = 'none';
+    //         }
+    //     }
+    // }
+
     handleProfile() {
         const modal = document.getElementById('profile-modal');
         const closeButton = document.querySelector('.close-button');
         const currentUser = localStorage.getItem('username');
-
+    
+        // Basic Profile Info
         document.getElementById('profile-username').textContent = currentUser;
-        // document.getElementById('profile-score').textContent = this.model.getHighScore() || '0';
-        // document.getElementById('profile-tickets').textContent = this.model.getTickets() || '0';
-        
+        document.getElementById('profile-email').textContent = `${currentUser}@whacamole.com`;
+    
+        // Statistics
+        document.getElementById('high-score').textContent = localStorage.getItem('highScore') || '0';
+        document.getElementById('total-games').textContent = localStorage.getItem('totalGames') || '0';
+        document.getElementById('win-rate').textContent = localStorage.getItem('winRate') || '0%';
+    
+        // Load saved settings if they exist
+        document.getElementById('difficulty').value = localStorage.getItem('difficulty') || 'medium';
+        document.getElementById('game-speed').value = localStorage.getItem('gameSpeed') || '1';
+        document.getElementById('sound-effects').checked = localStorage.getItem('soundEffects') === 'true';
+        document.getElementById('background-music').checked = localStorage.getItem('backgroundMusic') === 'true';
+
+        // Avatar handling
+        const avatarImg = document.querySelector('.profile-avatar img');
+        const storedAvatar = localStorage.getItem('userAvatar') || 'Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png';
+        avatarImg.src = storedAvatar;
+    
+
+        // Make avatar clickable for updates
+        avatarImg.style.cursor = 'pointer';
+        avatarImg.addEventListener('click', () => {
+            Swal.fire({
+                title: 'Selecciona un Avatar',
+                html: `
+                    <div class="avatar-selection">
+                        <img src="Frontend/assets/images/avatars/avatar1.png" class="avatar-option">
+                        <img src="Frontend/assets/images/avatars/avatar2.png" class="avatar-option">
+                        <img src="Frontend/assets/images/avatars/avatar3.png" class="avatar-option">
+                        <img src="Frontend/assets/images/avatars/avatar4.png" class="avatar-option">
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Guardar',
+                cancelButtonText: 'Cancelar',
+                didOpen: () => {
+                    const avatarOptions = document.querySelectorAll('.avatar-option');
+                    avatarOptions.forEach(avatar => {
+                        avatar.addEventListener('click', () => {
+                            localStorage.setItem('userAvatar', avatar.src);
+                            avatarImg.src = avatar.src;
+                            Swal.close();
+                        });
+                    });
+                }
+            });
+        });
+
+        // Event listeners for settings
+        document.querySelector('.save-settings').addEventListener('click', () => {
+            // Save all settings to localStorage
+            localStorage.setItem('difficulty', document.getElementById('difficulty').value);
+            localStorage.setItem('gameSpeed', document.getElementById('game-speed').value);
+            localStorage.setItem('soundEffects', document.getElementById('sound-effects').checked);
+            localStorage.setItem('backgroundMusic', document.getElementById('background-music').checked);
+            
+            Swal.fire({
+                icon: "success",
+                title: "¡Guardado!",
+                text: "Los cambios han sido guardados exitosamente",
+            });
+        });
+    
+        // Account settings buttons
+        document.getElementById('change-password').addEventListener('click', () => {
+            Swal.fire({
+                title: 'Cambiar Contraseña',
+                html: `
+                    <input type="password" id="current-password" class="swal2-input" placeholder="Contraseña Actual">
+                    <input type="password" id="new-password" class="swal2-input" placeholder="Nueva Contraseña">
+                    <input type="password" id="confirm-password" class="swal2-input" placeholder="Confirmar Contraseña">
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Cambiar',
+                cancelButtonText: 'Cancelar'
+            });
+        });
+    
+        document.getElementById('edit-profile').addEventListener('click', () => {
+            Swal.fire({
+                title: 'Editar Perfil',
+                html: `
+                    <input type="text" id="edit-username" class="swal2-input" placeholder="Nombre de Usuario" value="${currentUser}">
+                    <input type="email" id="edit-email" class="swal2-input" placeholder="Email" value="${currentUser}@whacamole.com">
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Guardar',
+                cancelButtonText: 'Cancelar'
+            });
+        });
+    
+        // Show modal and setup close handlers
         modal.style.display = 'block';
         
         closeButton.onclick = () => {
@@ -182,6 +294,7 @@ class UserController {
             }
         }
     }
+    
 
 }// End of UserController class
 
