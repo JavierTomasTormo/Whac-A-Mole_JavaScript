@@ -22,7 +22,7 @@ module.exports = (app) => {
     app.get('/users/profile', verifyJWT, userController.getCurrentUser);
 
     // Get current user details
-    app.get('/user', verifyJWT, userController.getCurrentUser);
+    // app.get('/user', verifyJWT, userController.getCurrentUser);
 
     // Update game stats
     app.post('/user/stats', verifyJWT, userController.updateGameStats);

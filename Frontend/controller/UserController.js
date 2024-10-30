@@ -304,6 +304,11 @@ class UserController {
                             sweetAlertContainer.style.zIndex = '100000';
                         }
                     });
+
+                    setTimeout(() => {
+                        this.handleLogout();
+                        window.location.reload();
+                    }, 1000);
                 } else {
                     throw new Error('Failed to save settings');
                 }
@@ -388,8 +393,8 @@ class UserController {
             Swal.fire({
                 title: 'Editar Perfil',
                 html: `
-                    <input type="text" id="edit-username" class="swal2-input" placeholder="Nombre de Usuario" value="${currentUser}">
-                    <input type="email" id="edit-email" class="swal2-input" placeholder="Email" value="${userEmail}" readonly>
+                    <input type="text" id="edit-username" class="swal2-input" placeholder="Nombre de Usuario" value="${currentUser}" required>
+                    <input type="email" id="edit-email" class="swal2-input" placeholder="Email" value="${userEmail}" required>
                 `,
                 showCancelButton: true,
                 confirmButtonText: 'Guardar',
