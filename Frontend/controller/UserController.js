@@ -306,7 +306,7 @@ class UserController {
                     });
 
                     setTimeout(() => {
-                        this.handleLogout();
+                        // this.handleLogout();
                         window.location.reload();
                     }, 1000);
                 } else {
@@ -384,6 +384,7 @@ class UserController {
                         title: '¡Éxito!',
                         text: 'Contraseña actualizada correctamente'
                     });
+                    this.handleLogout();
                 }
             });
         });
