@@ -4,7 +4,7 @@ class GameModel {
         this.misses = 0;
         this.gameSpeed = 1000;
         this.tickets = 0;
-        this.maxMisses = 3;
+        this.maxMisses = 5;
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
 
         this.comments = [

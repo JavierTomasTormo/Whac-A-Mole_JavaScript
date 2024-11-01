@@ -4,6 +4,7 @@ class GameView {
         this.scoreElement = document.getElementById('score-value');
         this.missesElement = document.getElementById('misses-value');
         this.ticketsElement = document.getElementById('tickets-value');
+        this.currentPrizePot = document.getElementById('prize-pot-value');
 
 
         this.startScreen = document.getElementById('start-screen');
@@ -36,9 +37,6 @@ class GameView {
 
 
 /*----------------------------------------------------------------*///START GAME BUTTON
-    // comenzarJuego(handler) {
-    //     this.startButton.addEventListener('click', handler);
-    // }
     comenzarJuego(handler) {
         this.startButton.addEventListener('click', () => {
             this.startScreen.style.display = 'none';
@@ -88,25 +86,24 @@ class GameView {
 
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*///CUENTA ATRAS
-startCountdown(handler) {
-    let countdown = 3;
-    this.countdownElement.textContent = countdown;
-    const interval = setInterval(() => {
-        countdown--;
-        if (countdown > 0) {
-            this.countdownElement.textContent = countdown;
-        } else {
-            clearInterval(interval);
-            this.countdownElement.style.display = 'none';
-            this.gameContainer.style.display = 'block';
-            handler();
-        }
-    }, 1000);
-}
+    startCountdown(handler) {
+        let countdown = 3;
+        this.countdownElement.textContent = countdown;
+        const interval = setInterval(() => {
+            countdown--;
+            if (countdown > 0) {
+                this.countdownElement.textContent = countdown;
+            } else {
+                clearInterval(interval);
+                this.countdownElement.style.display = 'none';
+                this.gameContainer.style.display = 'block';
+                handler();
+            }
+        }, 999);
+    }
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*///CUENTA ATRAS
 
 //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM 
-
     bindMoleClick(handler) {
         const holes = document.querySelectorAll('.hole');
         holes.forEach((hole, index) => {
@@ -116,19 +113,89 @@ startCountdown(handler) {
 //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM 
     updateTickets(tickets) {
         this.ticketsElement.textContent = tickets;
+        this.updatePrizePot(tickets);
     }
 
     updateScore(score) {
         this.scoreElement.textContent = score;
+
+        const currentMoles = localStorage.getItem('totalMolesWhacked');
+        const newTotalMolesWhacked = parseInt(currentMoles) + 1;
+        // console.log(newTotalMolesWhacked);
+        // console.log(currentMoles);
+        localStorage.setItem('totalMolesWhacked', newTotalMolesWhacked);
     }
 
     updateMisses(misses) {
         this.missesElement.textContent = misses;
     }
 
+    updatePrizePot(ticketsEarned) {
+        
+        const currentTickets = localStorage.getItem('ticketsEarned');
+        const newTotal = parseInt(currentTickets) + parseInt(ticketsEarned);
+        // console.log(newTotal);
+        this.currentPrizePot.textContent = newTotal;
+        localStorage.setItem('newTotalticketsEarned', newTotal);
+    }
+
 
     showGameOver(score, misses) {
-        alert(`Game Over! Your score: ${score}, Your Misses: ${misses}`);
-        window.location.reload();
+        const randomGifIndex = Math.floor(Math.random() * 4) + 1;
+        const randomGifPath = `../Frontend/assets/images/gif/${randomGifIndex}.gif`;
+        const currentTickets = parseInt(localStorage.getItem('newTotalticketsEarned')) || 0;
+        
+        Swal.fire({
+            title: '¡Game Over!',
+            html: `
+                <div class="game-over-stats">
+                    <h3>Final Score: <span class="score-value">${score}</span></h3>
+                    <h3>Misses: <span class="misses-value">${misses}</span></h3>
+                    <img src="${randomGifPath}" alt="Game Over GIF" style="margin-top: 20px; max-width: 200px;">
+                </div>
+            `,
+            icon: 'info',
+            confirmButtonText: 'Play Again',
+            background: '#f8f9fa',
+            backdrop: 'rgba(0,0,123,0.4)',
+            customClass: {
+                title: 'game-over-title',
+                confirmButton: 'game-over-button'
+            }
+        }).then(() => {
+            fetch('http://localhost:3002/user/stats', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    totalMolesWhacked: localStorage.getItem('totalMolesWhacked'),
+                    ticketsEarned: currentTickets,
+                    highScore: score
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // console.log('Stats updated:', data);
+                localStorage.setItem('highScore', data.user.highScore || '0');
+                localStorage.setItem('totalGames', data.user.totalGamesPlayed || '0');
+                localStorage.setItem('totalMolesWhacked', data.user.totalMolesWhacked || '0'); 
+                localStorage.setItem('ticketsEarned', data.user.ticketsEarned || '0');
+                localStorage.setItem('userAvatar', data.user.avatar || 'Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png');
+                localStorage.setItem('userEmail', data.user.email); 
+                localStorage.setItem('soundEffects', data.user.gameSettings.soundEnabled);
+                localStorage.setItem('musicEnabled', data.user.gameSettings.musicEnabled);
+                localStorage.setItem('difficulty', data.user.gameSettings.difficulty);
+                localStorage.setItem('gameSpeed', data.user.gameSettings.gameSpeed);
+            })
+            .then(() => {
+                window.location.reload();
+            })
+            .catch(error => console.error('Error:', error));
+        });
     }
-}
+
+
+
+}//GameView
