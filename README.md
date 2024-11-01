@@ -1,4 +1,4 @@
-# 🎉🎉 ¡Bienvenidos al Increíble Juego de Whac-A-Mole! 🎉🎉
+# 🎉 ¡Bienvenidos al Increíble Juego de Whac-A-Mole! 🎉
 
 ¡Prepárate para la diversión más loca y emocionante que jamás hayas experimentado! ¡Es hora de golpear topos y ganar premios! 🥳🎁
 
@@ -15,33 +15,48 @@ Nuestro proyecto está organizado de la siguiente manera:
 ├── 🌐 Frontend/
 │   ├── 🎨 assets/
 │   │   ├── 🌈 css/
-│   │   │   └── auth.css
+│   │   │   ├── auth.css
+│   │   │   ├── keyFramesResponsive.css
+│   │   │   └── pantallaCarga.css
+│   │   │   └── profile.css
+│   │   │   └── styles.css
 │   │   ├── 🖼 images/
+│   │   │   ├── gif/
+│   │   │   ├── Moles/
+│   │   │   └── utils/
+│   │   │   │   └── splash/
+│   │   │   └── Wallpaper_Charge/
 │   │   └── 📜 js/
-│   │       ├── 🎮 controller/
-│   │       │   ├── GameController.js
-│   │       │   ├── LeaderBoardController.js
-│   │       │   ├── MoleAnimationController.js
-│   │       │   └── UserController.js
-│   │       ├── 🛠 model/
-│   │       │   ├── GameModel.js
-│   │       │   └── UserModel.js
-│   │       └── 👁️ view/
-│   │           ├── GameView.js
-│   │           ├── LeaderBoardView.js
-│   │           └── UserView.js
-│   └── 📝 index.html
+│   │   │   └── main.js/
+│   ├── 🎮 controller/
+│   │       ├── GameController.js
+│   │       ├── LeaderBoardController.js
+│   │       ├── MoleAnimationController.js
+│   │       └── UserController.js
+│   ├── 🛠 model/
+│   │       ├── GameModel.js
+│   │       └── UserModel.js
+│   └── 👁️ view/
+│   │        ├── GameView.js
+│   │        ├── LeaderBoardView.js
+│   │        └── UserView.js
+│   ├── 📝 index.html
+
 │
 ├── 🏙 Backend/
 │   ├── 🔧 app/
+│   │   └── server.js
 │   ├── 🔌 api/
+│   │   └── api.js
 │   ├── 📝 index.js
 │   ├── ⚙️ config/
-│   │   └── database.config.js
+│   │   ├── database.config.js
+│   │   └── cors.config.js
 │   ├── 📁 controllers/
 │   │   └── users.controller.js
 │   ├── 🔒 middleware/
-│   │   └── verifyJWT.js
+│   │   ├── verifyJWT.js
+│   │   └── errorHandler.js
 │   ├── 📦 models/
 │   │   └── users.model.js
 │   └── 📑 routes/
@@ -51,7 +66,34 @@ Nuestro proyecto está organizado de la siguiente manera:
 ├── 🔒 .env
 └── 🗑️ .gitignore
 
+
 ```
+## Explicación de la Estructura
+
+### Frontend 🌐
+Todo lo relacionado con la parte del cliente.
+- **assets** 🎨: Contiene CSS, imágenes y archivos JavaScript.
+  - **css** 🌈: Estilos específicos, como `auth.css`.
+  - **images** 🖼: Recursos gráficos para el juego.
+  - **js** 📜: Scripts de JavaScript organizados en controladores, modelos y vistas.
+    - **controller** 🎮: Controladores de la lógica del juego y la interacción del usuario.
+    - **model** 🛠: Modelos de datos para el juego y los usuarios.
+    - **view** 👁️: Vistas que manejan la presentación de datos.
+
+### Backend 🏙
+Todo lo relacionado con la parte del servidor.
+- **app** 🔧: La aplicación principal de Express.
+- **api** 🔌: Punto de entrada para las rutas de la API.
+- **config** ⚙️: Configuraciones de la base de datos y otras variables.
+- **controllers** 📁: Controladores para manejar la lógica relacionada con los usuarios.
+- **middleware** 🔒: Funciones middleware como la verificación de JWT.
+- **models** 📦: Modelos de datos que representan la estructura de usuarios.
+- **routes** 📑: Definiciones de las rutas de la API.
+
+### Archivos Raíz
+- **package.json** 📦: Archivo de configuración de Node.js que contiene dependencias y scripts.
+- **.env** 🔒: Variables de entorno para la configuración sensible.
+- **.gitignore** 🗑️: Archivos y carpetas que no deberían ser rastreados por Git.
 
 
 ## 🎮 Cómo Jugar
