@@ -79,63 +79,6 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 
-// const updateUser = asyncHandler(async (req, res) => {
-//     const { user } = req.body;
-    
-//     // Extract email from token
-//     const authHeader = req.headers.authorization;
-//     const token = authHeader.split(' ')[1];
-//     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-//     const currentEmail = decoded.user.email;
-
-//     if (!user) {
-//         return res.status(400).json({ message: "User data is required" });
-//     }
-
-//     const existingUser = await User.findOne({ email: currentEmail }).exec();
-
-//     if (!existingUser) {
-//         return res.status(404).json({ message: "User not found" });
-//     }
-
-//     // Check if new username or email already exists
-//     if (user.username) {
-//         const usernameExists = await User.findOne({ username: user.username }).exec();
-//         if (usernameExists && usernameExists._id.toString() !== existingUser._id.toString()) {
-//             return res.status(400).json({ message: "Username already exists" });
-//         }
-//     }
-
-//     if (user.email) {
-//         const emailExists = await User.findOne({ email: user.email }).exec();
-//         if (emailExists && emailExists._id.toString() !== existingUser._id.toString()) {
-//             return res.status(400).json({ message: "Email already exists" });
-//         }
-//     }
-
-//     if (user.username) existingUser.username = user.username;
-//     if (user.email) existingUser.email = user.email;
-//     if (user.avatar) existingUser.avatar = user.avatar;
-//     if (user.gameSettings) existingUser.gameSettings = { ...existingUser.gameSettings, ...user.gameSettings };
-//     if (user.skins) existingUser.skins = user.skins;
-//     if (user.totalMolesWhacked !== undefined) existingUser.totalMolesWhacked = user.totalMolesWhacked;
-//     if (user.averageReactionTime !== undefined) existingUser.averageReactionTime = user.averageReactionTime;
-//     if (user.achievements) existingUser.achievements = [...existingUser.achievements, ...user.achievements];
-
-//     if (user.password) {
-//         existingUser.password = await argon2.hash(user.password);
-//     }
-
-//     const updatedUser = await existingUser.save();
-
-//     if (!updatedUser) {
-//         return res.status(400).json({ message: "Failed to update user" });
-//     }
-
-//     res.status(200).json({
-//         user: updatedUser.toUserResponse()
-//     });
-// });
 const updateUser = asyncHandler(async (req, res) => {
     const { user } = req.body;
     
@@ -188,24 +131,6 @@ const updateUser = asyncHandler(async (req, res) => {
 
 
 
-
-
-// const getCurrentUser = asyncHandler(async (req, res) => {
-//     // Extract email from token
-//     const authHeader = req.headers.authorization;
-//     const token = authHeader.split(' ')[1];
-    
-//     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-//     const email = decoded.user.email;
-    
-//     const user = await User.findOne({ email }).select('+token').exec();
-    
-//     res.status(200).json({
-//         user: {
-//             ...user.toUserResponse(),
-//         }
-//     });
-// });
 const getCurrentUser = asyncHandler(async (req, res) => {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(' ')[1];
@@ -224,6 +149,66 @@ const getCurrentUser = asyncHandler(async (req, res) => {
             ...user.toObject(),
             token: user.token
         }
+    });
+});
+
+
+// const updateGameStats = asyncHandler(async (req, res) => {
+//     const authHeader = req.headers.authorization;
+//     const token = authHeader.split(' ')[1];
+//     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+//     const email = decoded.user.email;
+
+//     const { totalMolesWhacked, ticketsEarned, highScore } = req.body;
+    
+//     const validMoles = totalMolesWhacked;
+//     const validTickets = ticketsEarned;
+
+//     const user = await User.findOne({ email }).select('+token').exec();
+//     if (!user) {return res.status(404).json({ message: "User not found" });}
+
+//     if (validMoles > user.totalMolesWhacked) {
+//         user.totalMolesWhacked = validMoles;
+//     }
+    
+//     if (highScore > user.highScore) {
+//         user.highScore = highScore;
+//     }
+
+//     user.tickets = validTickets;
+
+//     await user.save();
+//     res.status(200).json({
+//         user: user.toUserResponse()
+//     });
+// });
+const updateGameStats = asyncHandler(async (req, res) => {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const email = decoded.user.email;
+
+    const { totalMolesWhacked, ticketsEarned, highScore } = req.body;
+    
+    const validMoles = totalMolesWhacked;
+    const validTickets = ticketsEarned;
+
+    const user = await User.findOne({ email }).select('+token').exec();
+    if (!user) {return res.status(404).json({ message: "User not found" });}
+
+    if (validMoles > user.totalMolesWhacked) {
+        user.totalMolesWhacked = validMoles;
+    }
+    
+    if (highScore > user.highScore) {
+        user.highScore = highScore;
+    }
+
+    user.ticketsEarned = validTickets;
+
+    await user.save();
+    res.status(200).json({
+        user: user.toUserResponse()
     });
 });
 
@@ -266,20 +251,6 @@ const updatePassword = asyncHandler(async (req, res) => {
     user.password = await argon2.hash(password);
     await user.save();
     res.status(200).json({ message: "Contraseña actualizada correctamente" });
-});
-
-
-const updateGameStats = asyncHandler(async (req, res) => {
-    const { score, molesWhacked, reactionTime } = req.body;
-    const email = req.userEmail;
-    const user = await User.findOne({ email }).exec();
-    if (!user) {
-        return res.status(404).json({ message: "User not found" });
-    }
-    await user.updateGameStats(score, molesWhacked, reactionTime);
-    res.status(200).json({
-        user: user.toUserResponse()
-    });
 });
 
 
