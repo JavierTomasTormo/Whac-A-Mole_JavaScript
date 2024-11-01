@@ -4,7 +4,9 @@ class GameController {
         this.gameView = gameView;
         this.moleAnimation = moleAnimation;
         this.gameView.comenzarJuego(this.startGame.bind(this));
-        this.timeLevelMole = 2000;
+
+        this.timeLevelMole = this.getTimeLevel();//2000        
+        
         this.gameInterval = null;
         this.isProcessing = false;
     }
@@ -16,6 +18,26 @@ class GameController {
         });/*====*///COMENTARIOS DEL TOPITO RANDOM 
         this.gameView.comenzarJuego(this.startGame.bind(this));//START GAME BUTTON
     }//init
+
+    getTimeLevel() {
+        const levelTime = localStorage.getItem('gameSpeed');
+
+        if (!levelTime) return 2000; // Default speed
+        
+        switch (parseInt(levelTime)) {
+            case 1: return 3000;
+            case 2: return 2800;
+            case 3: return 2600;
+            case 4: return 2400;
+            case 5: return 2200;
+            case 6: return 2000;
+            case 7: return 1800;
+            case 8: return 1600;
+            case 9: return 1400;
+            case 10: return 1200;
+            default: return 2000;
+        }
+    };
 
 
 //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM 
@@ -62,6 +84,8 @@ class GameController {
                             this.endGame();
                             return;
                         }
+                        const comment = this.gameModel.getRandomComment();
+                        this.gameView.displayComment(comment);
                     }
                     this.moleAnimation.hide(elements);
                     this.isProcessing = false;

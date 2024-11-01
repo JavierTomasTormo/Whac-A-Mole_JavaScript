@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (userModel.checkLoginStatus()) {
         const moleAnimation = new MoleAnimation(moleImages, splashImages);
         const gameModel = new GameModel();
-        const gameView = new GameView();
+        const gameView = new GameView(userController);
         const gameController = new GameController(gameModel, gameView, moleAnimation);
         gameController.init();
     }

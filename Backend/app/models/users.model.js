@@ -112,19 +112,33 @@ userSchema.methods.toProfileJSON = function() {
     };
 };
 
-userSchema.methods.updateGameStats = function(score, molesWhacked, reactionTime) {
-    this.totalGamesPlayed += 1;
-    this.totalMolesWhacked += molesWhacked;
+// userSchema.methods.updateGameStats = function(score, molesWhacked, reactionTime) {
+//     this.totalGamesPlayed += 1;
+//     this.totalMolesWhacked += molesWhacked;
     
-    if (score > this.highScore) {
-        this.highScore = score;
+//     if (score > this.highScore) {
+//         this.highScore = score;
+//     }
+    
+//     this.ticketsEarned = (reactionTime);
+    
+//     this.lastPlayedDate = new Date();
+//     return this.save();
+// };
+userSchema.methods.updateGameStats = function(totalMolesWhacked, ticketsEarned, highScore) {
+    if (highScore > this.highScore) {
+        this.highScore = highScore;
     }
-    
-    this.ticketsEarned = (reactionTime);
-    
+    // console.log('totalmoles:', totalMolesWhacked);
+
+    this.totalMolesWhacked = totalMolesWhacked;
+    this.ticketsEarned = ticketsEarned;
+    this.totalGamesPlayed += 1;
     this.lastPlayedDate = new Date();
+    
     return this.save();
 };
+
 
 userSchema.methods.updateGameSettings = function(settings) {
     this.gameSettings = {
