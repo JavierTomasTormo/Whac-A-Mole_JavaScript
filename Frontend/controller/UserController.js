@@ -37,42 +37,29 @@ class UserController {
     setupEventListeners() {
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
     
-        const handleKeyPress = (e, handler) => {
-            if (e.key === 'Enter' || e.keyCode === 13) {
-                e.preventDefault();
-                handler();
-            }
-        };
-    
+        // Asocia los clics a las funciones
         loginBtn.addEventListener('click', (e) => {
             e.preventDefault();
             this.handleLogin();
         });
     
-        loginBtn.addEventListener('keydown', (e) => handleKeyPress(e, this.handleLogin.bind(this)));
-    
-        registerBtn.addEventListener('click', () => {
+        registerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             this.handleRegister();
         });
     
-        registerBtn.addEventListener('keydown', (e) => handleKeyPress(e, this.handleRegister.bind(this)));
-    
-        document.getElementById('showRegister').addEventListener('click', () => {
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
             this.view.showRegisterSection();
         });
     
-        document.getElementById('showRegister').addEventListener('keydown', (e) => handleKeyPress(e,
-            this.view.showRegisterSection.bind(this.view)
-        ));
-    
-        document.getElementById('showLogin').addEventListener('click', () => {
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
             this.view.showLoginSection();
         });
-    
-        document.getElementById('showLogin').addEventListener('keydown', (e) => handleKeyPress(e,
-            this.view.showLoginSection.bind(this.view)
-        ));
     }
 
 
@@ -441,9 +428,14 @@ class UserController {
                     Swal.fire({
                         icon: 'success',
                         title: '¡Éxito!',
-                        text: 'Perfil actualizado correctamente'
-                    });
-                }
+                        text: 'Perfil actualizado correctamente',
+                        didOpen: () => {
+                            const sweetAlertContainer = document.querySelector('.swal2-container');
+                            sweetAlertContainer.style.zIndex = '100000';
+                        }
+                    }).then(() => {
+                        setTimeout(() =>{this.handleLogout();});
+                    });                }
             });
         });
     
