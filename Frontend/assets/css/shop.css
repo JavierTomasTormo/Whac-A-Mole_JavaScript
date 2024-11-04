@@ -1,0 +1,212 @@
+.modal-content-shop {
+    background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
+    /* margin: 5% auto; */
+    padding: 30px;
+    /* width: 90%; */
+    /* max-width: 800px; */
+    border-radius: 20px;
+    color: white;
+    position: relative;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
+
+.shop-title {
+    font-size: 26px;
+    color: #ff4500;
+    margin-bottom: 20px;
+}
+
+.user-tickets {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4500;
+    margin-bottom: 20px;
+}
+
+@keyframes bounce-and-sparkle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes floating-emotes {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--x), -30px);
+    }
+}
+
+.ticket-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+    animation: bounce-and-sparkle 1s infinite ease-in-out;
+    position: relative;
+}
+
+.ticket-icon::before,
+.ticket-icon::after {
+    content: '✨';
+    position: absolute;
+    animation: floating-emotes 1.5s infinite;
+    font-size: 20px;
+}
+
+.ticket-icon::before {
+    --x: -20px;
+    left: 0;
+    animation-delay: 0.5s;
+}
+
+.ticket-icon::after {
+    --x: 20px;
+    right: 0;
+    content: '🎵';
+    animation-delay: 0.8s;
+}
+
+
+
+.tickets-label {
+    font-weight: bold;
+    color: #ffdd57;
+}
+
+.tickets-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-left: 5px;
+}
+
+.wallpaper-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.shop-item {
+    background: #2e2e2e;
+    border: 3px solid #ffdd57;
+    border-radius: 10px;
+    padding: 10px;
+    width: 180px;
+    text-align: center;
+    color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+    position: relative;
+}
+
+.shop-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(255, 127, 80, 0.7);
+}
+
+.item-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.item-frame img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #ffdd57;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.item-frame:hover .item-overlay {
+    opacity: 1;
+}
+
+.item-title {
+    font-size: 18px;
+    color: #ffdd57;
+    margin: 10px 0 5px;
+}
+
+.price-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #ffdd57;
+    margin-bottom: 10px;
+}
+
+.price-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+.buy-button {
+    font-weight: bold;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.buy-button.available {
+    background: linear-gradient(135deg, #ff4500, #ff7f50);
+}
+
+.buy-button.locked {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.buy-button.available:hover {
+    background: linear-gradient(135deg, #ff7f50, #ff4500);
+    transform: scale(1.05);
+}
+
+.custom-close-button {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.custom-close-button:hover {
+    transform: rotate(90deg);
+    filter: drop-shadow(0 0 10px #ff0000);
+    
+}

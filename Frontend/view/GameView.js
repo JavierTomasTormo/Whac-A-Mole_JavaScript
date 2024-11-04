@@ -18,6 +18,9 @@ class GameView {
         this.moleIcon = document.getElementById('mole-icon');
         this.randomComment = document.getElementById('random-comment');
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
+    
+        this.bindShopButton();
+        this.shopButton = document.createElement('button');
     }
 
 /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
@@ -83,7 +86,6 @@ class GameView {
         return false;
     }//noSuperposicion
 /*♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪*///CREA TABLERO RANDOM HOLE
-
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*///CUENTA ATRAS
     startCountdown(handler) {
@@ -196,6 +198,120 @@ class GameView {
         });
     }
 
+
+/**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
+
+
+    bindShopButton() {
+        this.shopButton = document.getElementById('shop-button');
+        if (this.shopButton) {
+            this.shopButton.addEventListener('click', () => this.showShopModal());
+        } else {
+            alert('This button had a lazy day');
+        }
+    }
+    // bindShopItemClick(handler) {
+    //     const shopItems = document.querySelectorAll('.shop-item');
+    //     shopItems.forEach((item, index) => {
+    //         item.addEventListener('click', () => handler(index));
+    //     });
+    // }
+    // bindShopItemBuy(handler) {
+    //     const shopItems = document.querySelectorAll('.shop-item');
+    //     shopItems.forEach((item, index) => {
+    //         item.addEventListener('click', () => handler(index));
+    //     });
+    // }
+
+    showShopModal() {
+        const currentTickets = localStorage.getItem('ticketsEarned') || 0;
+        
+        const modalContent = `
+        <div class="modal-content-shop">
+            <div class="shop-header">
+                <h2 class="shop-title">🎮 WALLPAPER SHOP 🎮</h2>
+                <div class="user-tickets">
+                    <img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="ticket-icon">
+                    <span class="tickets-label">Your Tickets:</span>
+                    <span id="shop-tickets" class="tickets-value">${currentTickets}</span>
+                </div>
+            </div>
+            
+            <div id="wallpaper-grid" class="wallpaper-grid">
+                <div class="shop-item">
+                    <div class="item-frame">
+                        <img src="Frontend/assets/images/Wallpaper_Charge/wv1.png" alt="Wallpaper 1" width="200" height="200">
+                        <div class="item-overlay">
+                            <span class="preview-text">👀 Preview</span>
+                        </div>
+                    </div>
+                    <h3 class="item-title">Forest Theme</h3>
+                    <div class="price-tag">
+                        <img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="price-icon">
+                        <span>100</span>
+                    </div>
+                    <button class="buy-button ${currentTickets >= 100 ? 'available' : 'locked'}" 
+                            ${currentTickets >= 100 ? '' : 'disabled'}>
+                        ${currentTickets >= 100 ? '🛒 Buy Now!' : '🔒 Locked'}
+                    </button>
+                </div>
+    
+                <div class="shop-item">
+                    <div class="item-frame">
+                        <img src="Frontend/assets/images/Wallpaper_Charge/wv2.png" alt="Wallpaper 2" width="200" height="200">
+                        <div class="item-overlay">
+                            <span class="preview-text">👀 Preview</span>
+                        </div>
+                    </div>
+                    <h3 class="item-title">Desert Theme</h3>
+                    <div class="price-tag">
+                        <img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="price-icon">
+                        <span>200</span>
+                    </div>
+                    <button class="buy-button ${currentTickets >= 200 ? 'available' : 'locked'}" 
+                            ${currentTickets >= 200 ? '' : 'disabled'}>
+                        ${currentTickets >= 200 ? '🛒 Buy Now!' : '🔒 Locked'}
+                    </button>
+                </div>
+    
+                <div class="shop-item">
+                    <div class="item-frame">
+                        <img src="Frontend/assets/images/Wallpaper_Charge/wv3.png" alt="Wallpaper 3" width="200" height="200">
+                        <div class="item-overlay">
+                            <span class="preview-text">👀 Preview</span>
+                        </div>
+                    </div>
+                    <h3 class="item-title">Snow Theme</h3>
+                    <div class="price-tag">
+                        <img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="price-icon">
+                        <span>300</span>
+                    </div>
+                    <button class="buy-button ${currentTickets >= 300 ? 'available' : 'locked'}" 
+                            ${currentTickets >= 300 ? '' : 'disabled'}>
+                        ${currentTickets >= 300 ? '🛒 Buy Now!' : '🔒 Locked'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    
+        Swal.fire({
+            html: modalContent,
+            width: '80%',
+            backdrop: 'rgba(0, 0, 0, 0.9)',
+            showCloseButton: true,
+            closeButtonHtml: '❌',
+            showConfirmButton: false,
+            customClass: {
+                container: 'shop-modal-container',
+                popup: 'shop-modal-popup',
+                closeButton: 'custom-close-button'
+            }
+        });
+    }
+    
+/**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
 
 
 }//GameView
