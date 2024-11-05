@@ -25,25 +25,7 @@
     margin-bottom: 20px;
 }
 
-@keyframes bounce-and-sparkle {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
 
-@keyframes floating-emotes {
-    0% {
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(var(--x), -30px);
-    }
-}
 
 .ticket-icon {
     width: 50px;
@@ -51,27 +33,6 @@
     margin-right: 8px;
     animation: bounce-and-sparkle 1s infinite ease-in-out;
     position: relative;
-}
-
-.ticket-icon::before,
-.ticket-icon::after {
-    content: '✨';
-    position: absolute;
-    animation: floating-emotes 1.5s infinite;
-    font-size: 20px;
-}
-
-.ticket-icon::before {
-    --x: -20px;
-    left: 0;
-    animation-delay: 0.5s;
-}
-
-.ticket-icon::after {
-    --x: 20px;
-    right: 0;
-    content: '🎵';
-    animation-delay: 0.8s;
 }
 
 
@@ -210,3 +171,53 @@
     filter: drop-shadow(0 0 10px #ff0000);
     
 }
+
+
+
+#shop-button {
+    width: 20%;
+    background: linear-gradient(135deg, #a7a83d, #76361f);
+    color: #fff;
+    border: 2px solid #ffdd57;
+    padding: 12px 24px;
+    margin: 8px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
+}
+
+#shop-button:hover {
+    background: linear-gradient(135deg, #76361f, #a7a83d);
+    animation: bounce 0.3s ease infinite;
+}
+
+#logout-button:active, #profile-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+.no-items-message {
+    font-size: 1.5em;
+    color: #ff0000; /* Color rojo para resaltar */
+    background-color: #fff0f0; /* Fondo ligeramente rosado */
+    border: 2px dashed #ff0000; /* Borde rojo punteado */
+    padding: 20px;
+    text-align: center;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Fuente apenada */
+    animation: fadeIn_shopitem 2s, pulse_shopitem 1s infinite alternate, infinite;
+}
+
+
+
+
+

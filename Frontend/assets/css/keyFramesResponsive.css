@@ -196,3 +196,66 @@
         width: 100%;
     }
 }
+
+
+
+
+@media (max-width: 768px) {
+    #shop-button {
+        width: 40%; 
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    #shop-button {
+        width: 60%; 
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+
+@keyframes bounce-and-sparkle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes floating-emotes {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--x), -30px);
+    }
+}
+
+
+@keyframes fadeIn_shopitem {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes pulse_shopitem {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+
+@keyframes slideIn_shopitem {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes glow_shopitem {
+    0% { box-shadow: 0 0 5px #ff0000; }
+    50% { box-shadow: 0 0 20px #ff0000; }
+    100% { box-shadow: 0 0 5px #ff0000; }
+}
