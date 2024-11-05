@@ -38,6 +38,7 @@ mongoose.connect(process.env.MONGODB_URI)
     });
 
 require('../routes/user.routes')(app);
+require('../routes/shop_items.routes')(app);
 
 
 app.listen(process.env.PORT, () => {
