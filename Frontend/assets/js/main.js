@@ -53,5 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const gameView = new GameView(userController);
         const gameController = new GameController(gameModel, gameView, moleAnimation);
         gameController.init();
+        // gameController.fetchShop_Items();
     }
 });

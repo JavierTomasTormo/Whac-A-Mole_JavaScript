@@ -115,8 +115,21 @@ runGame() {
 }
 
 
-    endGame() {
+endGame() {
         clearInterval(this.gameInterval);
         this.gameView.showGameOver(this.gameModel.score, this.gameModel.misses);
+}
+
+async fetchShop_Items() {
+    try {
+        const response = await fetch('http://localhost:3002/shop_items');
+        console.log(response);
+
+        const wallpapers = await response.json();
+        this.gameView.showShopModal(wallpapers);
+    } catch (error) {
+        console.error('Error fetching wallpapers:', error);
     }
 }
+
+}//GameController

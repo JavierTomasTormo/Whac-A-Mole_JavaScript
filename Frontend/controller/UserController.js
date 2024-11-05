@@ -1,13 +1,10 @@
 class UserController {
-
-
     constructor(userModel, userView) {
         this.model = userModel;
         this.view = userView;
         this.init();
         this.setupLogoutAndProfile();
     }
-
 
     init() {
         if (!this.model.checkLoginStatus()) {
@@ -17,8 +14,6 @@ class UserController {
             this.view.hideLoginForm();
         }
     }
-
-
 
     setupLogoutAndProfile() {
         const logoutBtn = document.getElementById('logout-button');
@@ -32,7 +27,6 @@ class UserController {
             profileBtn.addEventListener('click', () => this.handleProfile());
         }
     }
-
 
     setupEventListeners() {
         const loginBtn = document.getElementById('loginBtn');
@@ -61,7 +55,6 @@ class UserController {
             this.view.showLoginSection();
         });
     }
-
 
     async handleLogin() {
         const username = document.getElementById('username').value;
@@ -115,7 +108,6 @@ class UserController {
         }
     }
 
-
     async handleRegister() {
         const username = document.getElementById('regUsername').value;
         const password = document.getElementById('regPassword').value;
@@ -159,7 +151,6 @@ class UserController {
         }
     }
 
-
     handleLogout() {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
@@ -176,7 +167,6 @@ class UserController {
         localStorage.removeItem('gameSpeed');
         window.location.reload();
     }
-
 
     handleProfile() {
         const modal = document.getElementById('profile-modal');
@@ -451,7 +441,6 @@ class UserController {
             }
         }
     }
-
 
     async updateUserStats() {
         try {
