@@ -201,19 +201,30 @@ class GameView {
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
 
-
     bindShopButton() {
         this.shopButton = document.getElementById('shop-button');
         if (this.shopButton) {
-            this.shopButton.addEventListener('click', () => this.showShopModal());
-        } else {
-            alert('This button had a lazy day');
+            this.shopButton.addEventListener('click', () => {
+                fetch('http://localhost:3002/shop_items', {
+                    method: 'GET',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // console.log('Shop items:', data);
+
+                    this.showShopModal(data.items);
+                })
+                .catch(error => {
+                    console.error('Error fetching shop items:', error);
+                    this.showShopModal(); 
+                });
+            });
         }
     }
+    
 
     showShopModal(shopItems) {
         const currentTickets = localStorage.getItem('ticketsEarned') || 0;
-
         if (!shopItems || !Array.isArray(shopItems)) {
             const shopItemsHtml = `<p class="no-items-message"> No hay más items que comprar en esta tienda</p>`;
             Swal.fire({
@@ -229,13 +240,168 @@ class GameView {
                     closeButton: 'custom-close-button'
                 }
             });
+            return;
         }
+
+        window.previewWallpaper = (wallpaper) => {
+            // console.log('Previewing wallpaper:', wallpaper);
+            const rarityStyles = {
+                common: 'color: #B0B0B0; text-shadow: 0 0 5px rgba(176, 176, 176, 0.5);',
+                uncommon: 'color: #1EFF00; text-shadow: 0 0 5px rgba(30, 255, 0, 0.5);',
+                rare: 'color: #0070DD; text-shadow: 0 0 5px rgba(0, 112, 221, 0.5); animation: pulse 2s infinite;',
+                epic: 'color: #A335EE; text-shadow: 0 0 8px rgba(163, 53, 238, 0.7); animation: glow 1.5s infinite;',
+                legendary: 'color: #FF8000; text-shadow: 0 0 10px rgba(255, 128, 0, 0.8); animation: legendary-shine 2s infinite;',
+                mythic: 'color: #FF0000; font-weight: bold; animation: mythic-fire 2.5s infinite alternate ease-in-out, mythic-float 3s ease-in-out infinite; transform-origin: center bottom;',
+
+            };
+            Swal.fire({
+            title: wallpaper.name,
+            html: `
+                <div class="preview-modal">
+                    <img src="${wallpaper.imageUrl}" alt="${wallpaper.name}" class="preview-image">
+                    <div class="preview-info">
+                        <p class="preview-description">${wallpaper.description}</p>
+                        <div class="preview-details">
+                            <p class="preview-price">💰 Price: 
+                                ${wallpaper.price}<img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="price-icon">
+                            </p>
+                            <p class="preview-rarity" style="${rarityStyles[wallpaper.rarity.toLowerCase()]}">
+                                Rarity: ${wallpaper.rarity}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    @keyframes pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                        100% { transform: scale(1); }
+                    }
+                    @keyframes glow {
+                        0% { text-shadow: 0 0 5px rgba(163, 53, 238, 0.7); }
+                        50% { text-shadow: 0 0 20px rgba(163, 53, 238, 0.9); }
+                        100% { text-shadow: 0 0 5px rgba(163, 53, 238, 0.7); }
+                    }
+                    @keyframes legendary-shine {
+                        0% { text-shadow: 0 0 10px #FF8000; }
+                        25% { text-shadow: 2px 2px 20px #FFD700; }
+                        50% { text-shadow: -2px -2px 20px #FFA500; }
+                        75% { text-shadow: 2px -2px 20px #FF8C00; }
+                        100% { text-shadow: 0 0 10px #FF8000; }
+                    }
+
+@keyframes mythic-fire {
+    0% {
+        text-shadow: 
+            0 0 15px #fff,
+            0 -10px 25px #fff5bd,
+            7px -20px 35px #ffd162,
+            -7px -30px 45px #ff8c00,
+            7px -40px 55px #ff4500,
+            -7px -50px 65px #ff0000,
+            12px -60px 75px #bd0000,
+            -12px -70px 90px #900000;
+        transform: scale(1.05) rotate(-2deg);
+    }
+    25% {
+        text-shadow: 
+            0 0 12px #fff,
+            -10px -10px 22px #fff5bd,
+            5px -22px 30px #ffd162,
+            -12px -32px 50px #ff8c00,
+            10px -42px 60px #ff4500,
+            -5px -52px 70px #ff0000,
+            15px -62px 80px #bd0000,
+            -15px -72px 90px #900000;
+        transform: scale(1.1) rotate(1deg);
+    }
+    50% {
+        text-shadow: 
+            0 0 18px #fff,
+            12px -10px 20px #fff5bd,
+            -12px -20px 40px #ffd162,
+            10px -32px 55px #ff8c00,
+            -12px -42px 65px #ff4500,
+            12px -52px 70px #ff0000,
+            -10px -62px 85px #bd0000,
+            10px -72px 95px #900000;
+        transform: scale(1.15) rotate(-3deg);
+    }
+    75% {
+        text-shadow: 
+            0 0 10px #fff,
+            -10px -10px 22px #fff5bd,
+            8px -22px 32px #ffd162,
+            -8px -30px 48px #ff8c00,
+            8px -40px 58px #ff4500,
+            -10px -50px 68px #ff0000,
+            10px -60px 78px #bd0000,
+            -10px -70px 88px #900000;
+        transform: scale(1.1) rotate(2deg);
+    }
+    100% {
+        text-shadow: 
+            0 0 15px #fff,
+            0 -10px 25px #fff5bd,
+            7px -20px 35px #ffd162,
+            -7px -30px 45px #ff8c00,
+            7px -40px 55px #ff4500,
+            -7px -50px 65px #ff0000,
+            12px -60px 75px #bd0000,
+            -12px -70px 90px #900000;
+        transform: scale(1.05) rotate(-1deg);
+    }
+}
+
+@keyframes mythic-float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+
+
+                </style>
+            `,
+            width: '60%',
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonText: 'Cancelar',
+            backdrop: 'rgba(0, 0, 0, 0.9)',
+            customClass: {
+                container: 'preview-modal-container',
+                popup: 'preview-modal-popup',
+                closeButton: 'custom-close-button'
+            }
+            }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.cancel) {
+                fetch('http://localhost:3002/shop_items', {
+                    method: 'GET',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.showShopModal(data.items);
+                    // this.showShopModal();
+                })
+                .catch(error => {
+                    console.error('Error fetching shop items:', error);
+                    this.showShopModal(); 
+                });
+            }
+            });
+        };
     
-        const shopItemsHtml = shopItems.map(item => `
+        const shopItemsHtml = shopItems.map(wallpaper => `
             <div class="shop-item">
                 <div class="item-frame">
-                    <img src="${wallpaper.imagePath}" alt="${wallpaper.name}" width="200" height="200">
-                    <div class="item-overlay">
+                    <img src="${wallpaper.imageUrl}" alt="${wallpaper.name}" width="200" height="200">
+                    <div class="item-overlay" onclick="previewWallpaper(${JSON.stringify(wallpaper).replace(/"/g, '&quot;')})">
                         <span class="preview-text">👀 Preview</span>
                     </div>
                 </div>
@@ -250,11 +416,14 @@ class GameView {
                 </button>
             </div>
         `).join('');
+        
+        
+
     
         const modalContent = `
             <div class="modal-content-shop">
                 <div class="shop-header">
-                    <h2 class="shop-title">🎮 WALLPAPER SHOP 🎮</h2>
+                    <h2 class="shop-title">🎮 SHOP 🎮</h2>
                     <div class="user-tickets">
                         <img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="ticket-icon">
                         <span class="tickets-label">Your Tickets:</span>
@@ -266,6 +435,9 @@ class GameView {
                 </div>
             </div>
         `;
+
+
+
     
         Swal.fire({
             html: modalContent,

@@ -221,3 +221,74 @@
 
 
 
+.preview-modal {
+    background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
+
+.preview-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    border: 3px solid #ffdd57;
+    box-shadow: 0 5px 15px rgba(255, 127, 80, 0.7);
+    margin-bottom: 20px;
+}
+
+.preview-info {
+    text-align: left;
+    padding: 20px;
+    background: #2e2e2e;
+    border-radius: 10px;
+    border: 2px solid #ff4500;
+}
+
+.preview-description {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.preview-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #ffdd57;
+}
+
+.preview-price, .preview-rarity {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffdd57;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.preview-modal-container .swal2-close {
+    color: #ff4500;
+    font-size: 28px;
+    transition: transform 0.3s ease;
+}
+
+.preview-modal-container .swal2-close:hover {
+    transform: rotate(90deg);
+    color: #ffdd57;
+}
+
+.preview-modal-popup {
+    background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
+    border: 3px solid #ff4500;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
