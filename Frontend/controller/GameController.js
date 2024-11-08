@@ -1,5 +1,13 @@
 class GameController {
-        constructor(gameModel, gameView, moleAnimation) {
+        constructor(gameModel, gameView, moleAnimation, userModel) {
+
+            this.userModel = userModel;
+            this.body = document.querySelector('body');
+            window.addEventListener('resize', () => this.setResponsiveBackgroundGame());
+            this.setResponsiveBackgroundGame();
+
+
+
             this.gameModel = gameModel;
             this.gameView = gameView;
             this.moleAnimation = moleAnimation;
@@ -94,16 +102,29 @@ class GameController {
             }
         }
     //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM HOLE
-
+    setResponsiveBackgroundGame() {
+        const selectedSkin = this.userModel.getSelectedSkin(); 
+        const mobileSuffix = '_Mobile';
+        const extensionIndex = selectedSkin.lastIndexOf('.');
+    
+        let mobileSkin = selectedSkin.slice(0, extensionIndex) + mobileSuffix + selectedSkin.slice(extensionIndex);
+    
+        if (window.innerWidth <= 768) {
+            this.backgroundContainer.style.backgroundImage = `url('${mobileSkin}')`;
+            this.backgroundContainer.style.backgroundColor = '#f0f0f0';
+        } else {
+            this.backgroundContainer.style.backgroundImage = `url('${selectedSkin}')`;
+        }
+    }
 
 
     /*╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚*///START GAME BUTTON
 
-        startGame() {
-            this.gameModel.resetGame();
-            this.gameView.createBoard();
-            this.runGame();
-        }//startGame
+    startGame() {
+        this.gameModel.resetGame();
+        this.gameView.createBoard();
+        this.runGame();
+    }//startGame
     /*╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚*///START GAME BUTTON
 
     runGame() {

@@ -71,7 +71,7 @@ class GameView {
             holePositions.push({ left, top });
             
             const holeImage = document.createElement('img');
-            holeImage.src = '../Frontend/assets/images/utils/Hole.png';
+            holeImage.src = '../Frontend/assets/images/utils/Hole2.png';
             holeImage.alt = 'Hole';
             hole.appendChild(holeImage);
     
@@ -236,11 +236,10 @@ class GameView {
             });
             return;
         }
-
         window.previewWallpaper = (wallpaper) => {
             // console.log('Previewing wallpaper:', wallpaper);
             const rarityStyles = {
-    poop: 'color: #8B4513; font-weight: bold; animation: poop-float 2s infinite ease-in-out, poop-spin 3s infinite linear; text-shadow: 0 0 8px rgba(139, 69, 19, 0.7); position: relative;',
+                poop: 'color: #8B4513; font-weight: bold; animation: poop-float 2s infinite ease-in-out, poop-spin 3s infinite linear; text-shadow: 0 0 8px rgba(139, 69, 19, 0.7); position: relative;',
                 common: 'color: #B0B0B0; text-shadow: 0 0 5px rgba(176, 176, 176, 0.5);',
                 uncommon: 'color: #1EFF00; text-shadow: 0 0 5px rgba(30, 255, 0, 0.5);',
                 rare: 'color: #0070DD; text-shadow: 0 0 5px rgba(0, 112, 221, 0.5); animation: pulse 2s infinite;',
@@ -266,11 +265,6 @@ class GameView {
                         </div>
                     </div>
                 </div>
-                <style>
-
-
-
-                </style>
             `,
             width: '60%',
             showCancelButton: true,
@@ -297,7 +291,6 @@ class GameView {
             }
             });
         };
-    
         const shopItemsHtml = shopItems.map(wallpaper => `
             <div class="shop-item">
                 <div class="item-frame">
@@ -317,10 +310,6 @@ class GameView {
                 </button>
             </div>
         `).join('');
-        
-        
-
-    
         const modalContent = `
             <div class="modal-content-shop">
                 <div class="shop-header">
@@ -336,10 +325,6 @@ class GameView {
                 </div>
             </div>
         `;
-
-
-
-    
         Swal.fire({
             html: modalContent,
             width: '80%',
@@ -356,6 +341,9 @@ class GameView {
     }
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
+
+
+
 
 
 }//GameView

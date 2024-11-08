@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const moleAnimation = new MoleAnimation(moleImages, splashImages);
         const gameModel = new GameModel();
         const gameView = new GameView(userController);
-        const gameController = new GameController(gameModel, gameView, moleAnimation);
+        const gameController = new GameController(gameModel, gameView, moleAnimation, userModel);
         gameController.init();
     }
 });
