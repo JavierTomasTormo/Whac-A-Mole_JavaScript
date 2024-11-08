@@ -66,4 +66,4 @@ shopItemSchema.methods.toItemResponse = function() {
     }
 }
 
-module.exports = mongoose.model('ShopItem', shopItemSchema)
+module.exports = mongoose.model('shop_items', shopItemSchema)

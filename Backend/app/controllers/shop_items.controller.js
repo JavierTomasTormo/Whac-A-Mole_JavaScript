@@ -1,127 +1,87 @@
-
 const ShopItem = require('../models/shop_items.model');
+const asyncHandler = require('express-async-handler');
 
-// Create and Save a new Shop Item
-exports.create = async (req, res) => {
-    try {
-        // Create a Shop Item
-        const shopItem = new ShopItem({
-            name: req.body.name,
-            description: req.body.description,
-            price: req.body.price,
-            type: req.body.type,
-            imageUrl: req.body.imageUrl,
-            isAvailable: req.body.isAvailable,
-            discount: req.body.discount,
-            rarity: req.body.rarity
-        });
+const createShopItem = asyncHandler(async (req, res) => {
+    const { item } = req.body;
 
-        // Save Shop Item in the database
-        const data = await shopItem.save();
-        res.status(201).send(data.toItemResponse());
-    } catch (err) {
-        res.status(500).send({
-            message: err.message || "Some error occurred while creating the Shop Item."
-        });
+    if (!item || !item.name || !item.price || !item.type) {
+        return res.status(400).json({ message: "All fields are required" });
     }
-};
 
-// Retrieve all Shop Items from the database
-exports.findAll = async (req, res) => {
-    try {
-        const shopItems = await ShopItem.find();
-        res.send(shopItems.map(item => item.toItemResponse()));
-    } catch (err) {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving shop items."
-        });
+    const itemObject = {
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        type: item.type,
+        imageUrl: item.imageUrl,
+        isAvailable: item.isAvailable || true,
+        discount: item.discount || 0,
+        rarity: item.rarity || 'common'
+    };
+
+    const createdItem = await ShopItem.create(itemObject);
+    return res.status(201).json({
+        item: createdItem.toItemResponse()
+    });
+});
+
+const getAllShopItems = asyncHandler(async (req, res) => {
+    const items = await ShopItem.find().sort({ price: 1 }).exec();
+    const itemsResponse = items.map(item => ({
+        ...item.toItemResponse()
+    }));
+    res.status(200).json({ items: itemsResponse });
+});
+
+const getShopItemById = asyncHandler(async (req, res) => {
+    const item = await ShopItem.findById(req.params.id);
+    if (!item) {
+        return res.status(404).json({ message: "Item not found" });
     }
-};
+    res.status(200).json({ item: item.toItemResponse() });
+});
 
-// Find a single Shop Item with an id
-exports.findOne = async (req, res) => {
-    try {
-        const shopItem = await ShopItem.findById(req.params.id);
-        if (!shopItem) {
-            return res.status(404).send({
-                message: "Shop Item not found with id " + req.params.id
-            });
-        }
-        res.send(shopItem.toItemResponse());
-    } catch (err) {
-        if (err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "Shop Item not found with id " + req.params.id
-            });
-        }
-        return res.status(500).send({
-            message: "Error retrieving Shop Item with id " + req.params.id
-        });
+const updateShopItem = asyncHandler(async (req, res) => {
+    const { item } = req.body;
+    const existingItem = await ShopItem.findById(req.params.id);
+
+    if (!existingItem) {
+        return res.status(404).json({ message: "Item not found" });
     }
-};
 
-// Update a Shop Item by the id
-exports.update = async (req, res) => {
-    try {
-        const shopItem = await ShopItem.findByIdAndUpdate(req.params.id, {
-            name: req.body.name,
-            description: req.body.description,
-            price: req.body.price,
-            type: req.body.type,
-            imageUrl: req.body.imageUrl,
-            isAvailable: req.body.isAvailable,
-            discount: req.body.discount,
-            rarity: req.body.rarity
-        }, { new: true });
+    if (item.name) existingItem.name = item.name;
+    if (item.description) existingItem.description = item.description;
+    if (item.price) existingItem.price = item.price;
+    if (item.type) existingItem.type = item.type;
+    if (item.imageUrl) existingItem.imageUrl = item.imageUrl;
+    if (item.isAvailable !== undefined) existingItem.isAvailable = item.isAvailable;
+    if (item.discount) existingItem.discount = item.discount;
+    if (item.rarity) existingItem.rarity = item.rarity;
 
-        if (!shopItem) {
-            return res.status(404).send({
-                message: "Shop Item not found with id " + req.params.id
-            });
-        }
-        res.send(shopItem.toItemResponse());
-    } catch (err) {
-        if (err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "Shop Item not found with id " + req.params.id
-            });
-        }
-        return res.status(500).send({
-            message: "Error updating Shop Item with id " + req.params.id
-        });
+    const updatedItem = await existingItem.save();
+    res.status(200).json({
+        item: updatedItem.toItemResponse()
+    });
+});
+
+const deleteShopItem = asyncHandler(async (req, res) => {
+    const item = await ShopItem.findByIdAndDelete(req.params.id);
+    if (!item) {
+        return res.status(404).json({ message: "Item not found" });
     }
-};
+    res.status(200).json({ message: "Item deleted successfully" });
+});
 
-// Delete a Shop Item with the specified id
-exports.delete = async (req, res) => {
-    try {
-        const shopItem = await ShopItem.findByIdAndRemove(req.params.id);
-        if (!shopItem) {
-            return res.status(404).send({
-                message: "Shop Item not found with id " + req.params.id
-            });
-        }
-        res.send({ message: "Shop Item deleted successfully!" });
-    } catch (err) {
-        if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-            return res.status(404).send({
-                message: "Shop Item not found with id " + req.params.id
-            });
-        }
-        return res.status(500).send({
-            message: "Could not delete Shop Item with id " + req.params.id
-        });
-    }
-};
+const deleteAllShopItems = asyncHandler(async (req, res) => {
+    await ShopItem.deleteMany({});
+    res.status(200).json({ message: "All items deleted successfully" });
+});
 
-// Delete all Shop Items from the database
-exports.deleteAll = async (req, res) => {
-    try {
-        await ShopItem.deleteMany({});
-        res.send({ message: "Shop Items deleted successfully!" });
-    } catch (err) {
-        res.status(500).send({
-            message: err.message || "Some error occurred while removing all shop items."
-        });
-    }
+module.exports = {
+    createShopItem,
+    getAllShopItems,
+    getShopItemById,
+    updateShopItem,
+    deleteShopItem,
+    deleteAllShopItems
 };
