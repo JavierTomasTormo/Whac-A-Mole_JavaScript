@@ -85,4 +85,5 @@ class GameModel {
         return Math.floor(Math.random() * 5);
     }
 /*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
-}
+}//class
+export default GameModel; 

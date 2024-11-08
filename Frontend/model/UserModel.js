@@ -24,4 +24,5 @@ class UserModel {
         }
         return false;
     }
-}
+}//UserModel
+export default UserModel; 

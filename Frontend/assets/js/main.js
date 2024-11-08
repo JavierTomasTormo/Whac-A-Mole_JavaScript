@@ -1,14 +1,31 @@
+import UserModel from '../../model/UserModel.js';
+import UserView from '../../view/UserView.js';
+import UserController from '../../controller/UserController.js';
+import GameModel from '../../model/GameModel.js';
+import GameView from '../../view/GameView.js';
+import GameController from '../../controller/GameController.js';
+import MoleAnimation from '../../controller/MoleAnimationController.js';
+import shopRequestsService from '../../services/shop.requests.service.js';
+import userRequestsService from '../../services/user.requests.service.js';
+
+
 document.addEventListener('DOMContentLoaded', () => {
 /*■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■IMG Charger■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
     const images = [
         'Frontend/assets/images/Wallpaper_Charge/wv9.png',
         'Frontend/assets/images/Wallpaper_Charge/wv1.png',
         'Frontend/assets/images/Wallpaper_Charge/wv8.png',
-        'Frontend/assets/images/Wallpaper_Charge/wv2.png',
+        'Frontend/assets/images/Wallpaper_Charge/wv2.webp',
         'Frontend/assets/images/Wallpaper_Charge/wv7.png',
         'Frontend/assets/images/Wallpaper_Charge/wv3.png',
         'Frontend/assets/images/Wallpaper_Charge/wv6.png',
         'Frontend/assets/images/Wallpaper_Charge/wv4.png',
+        // 'Frontend/assets/images/Wallpaper_Charge/wv10.png',
+        'Frontend/assets/images/Wallpaper_Charge/wv11.png',
+        'Frontend/assets/images/Wallpaper_Charge/wv12.png',
+        // 'Frontend/assets/images/Wallpaper_Charge/wv13.png',
+        // 'Frontend/assets/images/Wallpaper_Charge/wv14.png',
+        'Frontend/assets/images/Wallpaper_Charge/wv15.png',
     ];
     const moleImages = [
         '../Frontend/assets/images/Moles/Moles_1.png',

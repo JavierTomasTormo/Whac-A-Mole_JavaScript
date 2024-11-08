@@ -142,4 +142,5 @@ class UserView {
         document.getElementById('loginSection').style.display = 'block';
         document.getElementById('registerSection').style.display = 'none';
     }
-}
+}// End of UserView.js
+export default UserView; 

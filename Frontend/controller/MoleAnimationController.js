@@ -59,4 +59,5 @@ class MoleAnimation {
         }, 300);
     }, 500); 
     }
-}
+}//MoleAnimation
+export default MoleAnimation; 
