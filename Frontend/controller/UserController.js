@@ -1,3 +1,6 @@
+import shopRequestsService from '../services/shop.requests.service.js';
+import userRequestsService from '../services/user.requests.service.js';
+
 class UserController {
     constructor(userModel, userView) {
         this.model = userModel;
@@ -61,23 +64,14 @@ class UserController {
         const password = document.getElementById('password').value;
     
         try {
-            const response = await fetch('http://localhost:3002/users/login', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    user: {
-                        username: username,
-                        password: password
-                    }
-                })
-            });
+            const response = await userRequestsService.loginUser(username, password);
+
+            console.log(response);
 
             if (response.ok) {
                 const data = await response.json();
-                // console.log(data);
+                console.log(data);
+                
                 this.model.setLoginStatus(true, username, data.user.token);
                 // console.log(data.user);
                 localStorage.setItem('highScore', data.user.highScore || '0');
@@ -115,20 +109,7 @@ class UserController {
         const email = username + "@whacamole.com";
 
         try {
-            const response = await fetch('http://localhost:3002/users/register', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    user: {
-                        username: username,
-                        password: password,
-                        email: email
-                    }
-                })
-            });
+            const response = await userRequestsService.registerUser(username, password, email);
 
             if (response.ok) {
                 Swal.fire({
@@ -217,18 +198,7 @@ class UserController {
                     avatarOptions.forEach(avatar => {
                         avatar.addEventListener('click', async () => {
                             try {
-                                const response = await fetch('http://localhost:3002/users/update', {
-                                    method: 'PUT',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                                    },
-                                    body: JSON.stringify({
-                                        user: {
-                                            avatar: avatar.src
-                                        }
-                                    })
-                                });
+                                const response = await userRequestsService.updateUserAvatar(avatar.src);
 
                                 if (response.ok) {
                                     localStorage.setItem('userAvatar', avatar.src);
@@ -255,15 +225,7 @@ class UserController {
 
             try {
                 const token = localStorage.getItem('token');
-                // console.log(token);
-                const response = await fetch('http://localhost:3002/user/settings', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Token ${token}` 
-                    },
-                    body: JSON.stringify({ gameSettings: settings })
-                });
+                const response = await userRequestsService.updateUserSettings(token, settings);
 
                 if (response.ok) {
                     localStorage.setItem('difficulty', settings.difficulty);
@@ -326,19 +288,7 @@ class UserController {
                     }
         
                     try {
-                        const response = await fetch('http://localhost:3002/users/update-password', {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${localStorage.getItem('token')}`
-                            },
-                            body: JSON.stringify({
-                                user: {
-                                    currentPassword,
-                                    password: newPassword
-                                }
-                            })
-                        });
+                        const response = await userRequestsService.updateUserPassword(currentPassword, newPassword);
         
                         if (!response.ok) {
                             throw new Error('Contraseña actual incorrecta');
@@ -382,24 +332,11 @@ class UserController {
                     const newEmail = document.getElementById('edit-email').value;
         
                     try {
-                        const response = await fetch('http://localhost:3002/users/update', {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${localStorage.getItem('token')}`
-                            },
-                            body: JSON.stringify({
-                                user: {
-                                    username: newUsername,
-                                    email: newEmail
-                                }
-                            })
-                        });
-        
+                        const response = await userRequestsService.updateUserDetails(newUsername, newEmail);
+
                         if (!response.ok) {
                             throw new Error('Error al actualizar el perfil');
                         }
-        
                         localStorage.setItem('username', newUsername);
                         localStorage.setItem('userEmail', newEmail);
                         await this.updateUserStats();
@@ -444,12 +381,8 @@ class UserController {
 
     async updateUserStats() {
         try {
-            const response = await fetch('http://localhost:3002/users/profile', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-    
+            const response = await userRequestsService.getUserProfile();
+
             if (response.ok) {
                 const data = await response.json();
                 
@@ -475,7 +408,7 @@ class UserController {
                                                                                                                                 //
                                                                                                                                 //
 }// End of UserController class
-
+export default UserController;
 
 
 

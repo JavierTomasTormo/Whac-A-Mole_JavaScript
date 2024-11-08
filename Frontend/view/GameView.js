@@ -1,3 +1,7 @@
+import shopRequestsService from '../services/shop.requests.service.js';
+import userRequestsService from '../services/user.requests.service.js';
+
+
 class GameView {
     constructor() {
         this.gameBoard = document.getElementById('game-board');
@@ -165,18 +169,11 @@ class GameView {
                 confirmButton: 'game-over-button'
             }
         }).then(() => {
-            fetch('http://localhost:3002/user/stats', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({
-                    totalMolesWhacked: localStorage.getItem('totalMolesWhacked'),
-                    ticketsEarned: currentTickets,
-                    highScore: score
-                })
-            })
+            userRequestsService.updateUserStats(
+                localStorage.getItem('totalMolesWhacked'),
+                currentTickets,
+                score
+            )
             .then(response => response.json())
             .then(data => {
                 // console.log('Stats updated:', data);
@@ -205,18 +202,15 @@ class GameView {
         this.shopButton = document.getElementById('shop-button');
         if (this.shopButton) {
             this.shopButton.addEventListener('click', () => {
-                fetch('http://localhost:3002/shop_items', {
-                    method: 'GET',
-                })
+                shopRequestsService.getShopItems()
                 .then(response => response.json())
                 .then(data => {
                     // console.log('Shop items:', data);
-
                     this.showShopModal(data.items);
                 })
                 .catch(error => {
                     console.error('Error fetching shop items:', error);
-                    this.showShopModal(); 
+                    this.showShopModal();
                 });
             });
         }
@@ -246,6 +240,7 @@ class GameView {
         window.previewWallpaper = (wallpaper) => {
             // console.log('Previewing wallpaper:', wallpaper);
             const rarityStyles = {
+    poop: 'color: #8B4513; font-weight: bold; animation: poop-float 2s infinite ease-in-out, poop-spin 3s infinite linear; text-shadow: 0 0 8px rgba(139, 69, 19, 0.7); position: relative;',
                 common: 'color: #B0B0B0; text-shadow: 0 0 5px rgba(176, 176, 176, 0.5);',
                 uncommon: 'color: #1EFF00; text-shadow: 0 0 5px rgba(30, 255, 0, 0.5);',
                 rare: 'color: #0070DD; text-shadow: 0 0 5px rgba(0, 112, 221, 0.5); animation: pulse 2s infinite;',
@@ -272,98 +267,6 @@ class GameView {
                     </div>
                 </div>
                 <style>
-                    @keyframes pulse {
-                        0% { transform: scale(1); }
-                        50% { transform: scale(1.05); }
-                        100% { transform: scale(1); }
-                    }
-                    @keyframes glow {
-                        0% { text-shadow: 0 0 5px rgba(163, 53, 238, 0.7); }
-                        50% { text-shadow: 0 0 20px rgba(163, 53, 238, 0.9); }
-                        100% { text-shadow: 0 0 5px rgba(163, 53, 238, 0.7); }
-                    }
-                    @keyframes legendary-shine {
-                        0% { text-shadow: 0 0 10px #FF8000; }
-                        25% { text-shadow: 2px 2px 20px #FFD700; }
-                        50% { text-shadow: -2px -2px 20px #FFA500; }
-                        75% { text-shadow: 2px -2px 20px #FF8C00; }
-                        100% { text-shadow: 0 0 10px #FF8000; }
-                    }
-
-@keyframes mythic-fire {
-    0% {
-        text-shadow: 
-            0 0 15px #fff,
-            0 -10px 25px #fff5bd,
-            7px -20px 35px #ffd162,
-            -7px -30px 45px #ff8c00,
-            7px -40px 55px #ff4500,
-            -7px -50px 65px #ff0000,
-            12px -60px 75px #bd0000,
-            -12px -70px 90px #900000;
-        transform: scale(1.05) rotate(-2deg);
-    }
-    25% {
-        text-shadow: 
-            0 0 12px #fff,
-            -10px -10px 22px #fff5bd,
-            5px -22px 30px #ffd162,
-            -12px -32px 50px #ff8c00,
-            10px -42px 60px #ff4500,
-            -5px -52px 70px #ff0000,
-            15px -62px 80px #bd0000,
-            -15px -72px 90px #900000;
-        transform: scale(1.1) rotate(1deg);
-    }
-    50% {
-        text-shadow: 
-            0 0 18px #fff,
-            12px -10px 20px #fff5bd,
-            -12px -20px 40px #ffd162,
-            10px -32px 55px #ff8c00,
-            -12px -42px 65px #ff4500,
-            12px -52px 70px #ff0000,
-            -10px -62px 85px #bd0000,
-            10px -72px 95px #900000;
-        transform: scale(1.15) rotate(-3deg);
-    }
-    75% {
-        text-shadow: 
-            0 0 10px #fff,
-            -10px -10px 22px #fff5bd,
-            8px -22px 32px #ffd162,
-            -8px -30px 48px #ff8c00,
-            8px -40px 58px #ff4500,
-            -10px -50px 68px #ff0000,
-            10px -60px 78px #bd0000,
-            -10px -70px 88px #900000;
-        transform: scale(1.1) rotate(2deg);
-    }
-    100% {
-        text-shadow: 
-            0 0 15px #fff,
-            0 -10px 25px #fff5bd,
-            7px -20px 35px #ffd162,
-            -7px -30px 45px #ff8c00,
-            7px -40px 55px #ff4500,
-            -7px -50px 65px #ff0000,
-            12px -60px 75px #bd0000,
-            -12px -70px 90px #900000;
-        transform: scale(1.05) rotate(-1deg);
-    }
-}
-
-@keyframes mythic-float {
-    0% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-5px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
-}
 
 
 
@@ -381,17 +284,15 @@ class GameView {
             }
             }).then((result) => {
             if (result.dismiss === Swal.DismissReason.cancel) {
-                fetch('http://localhost:3002/shop_items', {
-                    method: 'GET',
-                })
+                shopRequestsService.getShopItems()
                 .then(response => response.json())
                 .then(data => {
+                    // console.log('Shop items:', data);
                     this.showShopModal(data.items);
-                    // this.showShopModal();
                 })
                 .catch(error => {
                     console.error('Error fetching shop items:', error);
-                    this.showShopModal(); 
+                    this.showShopModal();
                 });
             }
             });
@@ -458,3 +359,4 @@ class GameView {
 
 
 }//GameView
+export default GameView;
