@@ -2,6 +2,15 @@
 
 ¡Prepárate para la diversión más loca y emocionante que jamás hayas experimentado! ¡Es hora de golpear topos y ganar premios! 🥳🎁
 
+## 📋 Índice
+- [🎉 ¡Bienvenidos al Increíble Juego de Whac-A-Mole! 🎉](#-bienvenidos-al-increíble-juego-de-whac-a-mole-)
+- [🚀 ¿Qué es Whac-A-Mole?](#-qué-es-whac-a-mole)
+- [🛠️ Estructura del Proyecto](#️-estructura-del-proyecto)
+- [📦 Instalación](#-instalación)
+- [🚀 Uso](#-uso)
+- [🤝 Contribuciones](#-contribuciones)
+- [📄 Licencia](#-licencia)
+
 ## 🚀 ¿Qué es Whac-A-Mole?
 
 Whac-A-Mole es un juego clásico de arcade donde los jugadores deben golpear topos que aparecen aleatoriamente en diferentes agujeros. ¡Pero espera! ¡Este no es un juego cualquiera! ¡Es el juego más divertido y adictivo que jamás hayas jugado! 🎮🎉
@@ -20,48 +29,68 @@ Nuestro proyecto está organizado de la siguiente manera:
 │   │   │   └── pantallaCarga.css
 │   │   │   └── profile.css
 │   │   │   └── styles.css
+│   │   │   └── shop.css
+│   │   │
 │   │   ├── 🖼 images/
+│   │   │   ├── favicon.ico
 │   │   │   ├── gif/
 │   │   │   ├── Moles/
-│   │   │   └── utils/
-│   │   │   │   └── splash/
+│   │   │   ├── utils/
+│   │   │   │    └── splash/
 │   │   │   └── Wallpaper_Charge/
+│   │   │
 │   │   └── 📜 js/
-│   │   │   └── main.js/
+│   │       └── main.js
+│   │   
 │   ├── 🎮 controller/
-│   │       ├── GameController.js
-│   │       ├── LeaderBoardController.js
-│   │       ├── MoleAnimationController.js
-│   │       └── UserController.js
+│   │   ├── GameController.js
+│   │   ├── LeaderBoardController.js
+│   │   ├── MoleAnimationController.js
+│   │   └── UserController.js
+│   │   
 │   ├── 🛠 model/
-│   │       ├── GameModel.js
-│   │       └── UserModel.js
+│   │   ├── GameModel.js
+│   │   └── UserModel.js
+│   │   
+│   ├── 🛠 services/
+│   │   ├── shop.requests.service.js
+│   │   └── user.requests.service.js
+│   │   
 │   └── 👁️ view/
-│   │        ├── GameView.js
-│   │        ├── LeaderBoardView.js
-│   │        └── UserView.js
-│   ├── 📝 index.html
-
+│        ├── GameView.js
+│        ├── LeaderBoardView.js
+│        └── UserView.js
+│    
+│   
 │
 ├── 🏙 Backend/
 │   ├── 🔧 app/
-│   │   └── server.js
-│   ├── 🔌 api/
-│   │   └── api.js
-│   ├── 📝 index.js
-│   ├── ⚙️ config/
-│   │   ├── database.config.js
-│   │   └── cors.config.js
-│   ├── 📁 controllers/
-│   │   └── users.controller.js
-│   ├── 🔒 middleware/
-│   │   ├── verifyJWT.js
-│   │   └── errorHandler.js
-│   ├── 📦 models/
-│   │   └── users.model.js
-│   └── 📑 routes/
-│       └── user.routes.js
+│   │   ├── api/
+│   │   │   └── index.js
+│   │   │
+│   │   ├── config/
+│   │   │   └── database.config.js
+│   │   │
+│   │   ├── controllers/
+│   │   │   └── users.controller.js
+│   │   │   └── shop_items.controller.js
+│   │   │
+│   │   ├── middleware/
+│   │   │   └── verifyJWT.js
+│   │   │
+│   │   ├── models/
+│   │   │   └── users.model.js
+│   │   │   └── shop_items.model.js
+│   │   │
+│   │   ├── routes/
+│   │   │   └── user.routes.js
+│   │   └── └── shop_items.routes.js
+│   │   
+│   ├── 📦 package.json
+│   ├── 🔒 .env
+│   └── 🗑️ .gitignore
 │
+├── 📝 index.html
 ├── 📦 package.json
 ├── 🔒 .env
 └── 🗑️ .gitignore
