@@ -6,7 +6,7 @@ class UserModel {
         this.username = null;
         this.token = null;
 
-        this.skin = 'http://127.0.0.1:5500/Frontend/assets/images/Wallpaper_Charge/shop_items/god_h.webp';
+        this.skin = 'http://127.0.0.1:5500/Frontend/assets/images/Wallpaper_Charge/shop_items/god_h.jpg';
     }
 
     getSelectedSkin() {

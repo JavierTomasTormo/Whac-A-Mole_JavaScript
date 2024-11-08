@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 'Frontend/assets/images/Wallpaper_Charge/wv13.png',
         // 'Frontend/assets/images/Wallpaper_Charge/wv14.png',
         'Frontend/assets/images/Wallpaper_Charge/wv15.png',
+        'Frontend/assets/images/Wallpaper_Charge/wv16.webp',
     ];
     const moleImages = [
         '../Frontend/assets/images/Moles/Moles_1.png',

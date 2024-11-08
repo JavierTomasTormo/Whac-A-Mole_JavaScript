@@ -108,14 +108,17 @@ class GameController {
         const extensionIndex = selectedSkin.lastIndexOf('.');
     
         let mobileSkin = selectedSkin.slice(0, extensionIndex) + mobileSuffix + selectedSkin.slice(extensionIndex);
-    
+
+        // console.log(mobileSkin);
+        // console.log(selectedSkin);
+
+        
         if (window.innerWidth <= 768) {
-            this.backgroundContainer.style.backgroundImage = `url('${mobileSkin}')`;
-            this.backgroundContainer.style.backgroundColor = '#f0f0f0';
+            this.body.style.backgroundImage = `url('${mobileSkin}')`;
+            this.body.style.backgroundColor = '#f0f0f0';
         } else {
-            this.backgroundContainer.style.backgroundImage = `url('${selectedSkin}')`;
-        }
-    }
+            this.body.style.backgroundImage = `url('${selectedSkin}')`;
+        }    }
 
 
     /*╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚*///START GAME BUTTON
