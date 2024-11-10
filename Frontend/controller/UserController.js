@@ -66,14 +66,16 @@ class UserController {
         try {
             const response = await userRequestsService.loginUser(username, password);
 
-            console.log(response);
+            // console.log(response);
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 
                 this.model.setLoginStatus(true, username, data.user.token);
-                // console.log(data.user);
+
+                console.log(data.user);
+
                 localStorage.setItem('highScore', data.user.highScore || '0');
                 localStorage.setItem('totalGames', data.user.totalGamesPlayed || '0');
                 localStorage.setItem('totalMolesWhacked', data.user.totalMolesWhacked || '0'); 
@@ -84,6 +86,7 @@ class UserController {
                 localStorage.setItem('musicEnabled', data.user.gameSettings.musicEnabled);
                 localStorage.setItem('difficulty', data.user.gameSettings.difficulty);
                 localStorage.setItem('gameSpeed', data.user.gameSettings.gameSpeed);
+                localStorage.setItem('selectedSkin', data.user.selectedSkin);
                 // console.log(data.user.gameSettings);
                 this.view.hideLoginForm();
                 setTimeout(() => {
@@ -146,6 +149,7 @@ class UserController {
         localStorage.removeItem('musicEnabled');
         localStorage.removeItem('userEmail');
         localStorage.removeItem('gameSpeed');
+        localStorage.removeItem('selectedSkin');
         window.location.reload();
     }
 
@@ -170,6 +174,18 @@ class UserController {
         document.getElementById('game-speed').value = localStorage.getItem('gameSpeed') || '5';
         document.getElementById('sound-effects').checked = localStorage.getItem('soundEffects') === 'true';
         document.getElementById('background-music').checked = localStorage.getItem('musicEnabled') === 'true';
+        
+        // console.log(this.model.getSelectedSkin());
+        // document.getElementById('selected-skin-imagen').value = this.model.getSelectedSkin();
+        // console.log(this.model.getSelectedSkin());
+        const selectedSkinElement = document.getElementById('selected-skin-image');
+        if (selectedSkinElement) {
+            selectedSkinElement.src = this.model.getSelectedSkin();
+        } else {
+            console.error('Element with ID "selected-skin" not found.');
+        }
+
+
 
         // Avatar handling
         const avatarImg = document.querySelector('.profile-avatar img');
@@ -203,7 +219,7 @@ class UserController {
                                 if (response.ok) {
                                     localStorage.setItem('userAvatar', avatar.src);
                                     avatarImg.src = avatar.src;
-                                    await this.updateUserStats(); // Reuse existing method
+                                    await this.updateUserStats();
                                     Swal.close();
                                 }
                             } catch (error) {
@@ -362,7 +378,8 @@ class UserController {
                         }
                     }).then(() => {
                         setTimeout(() =>{this.handleLogout();});
-                    });                }
+                    });                
+                }
             });
         });
     

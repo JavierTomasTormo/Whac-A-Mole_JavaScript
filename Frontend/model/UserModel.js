@@ -6,16 +6,25 @@ class UserModel {
         this.username = null;
         this.token = null;
 
-        this.skin = 'http://127.0.0.1:5500/Frontend/assets/images/Wallpaper_Charge/shop_items/god_h.jpg';
+        this.defaultSkin = "http://127.0.0.1:5500/Frontend/assets/images/Wallpaper_Charge/shop_items/god_h.jpg";
+    
+        const storedSkin = localStorage.getItem('selectedSkin');
+        this.skin = storedSkin && storedSkin !== 'null' ? storedSkin : this.defaultSkin;
     }
 
     getSelectedSkin() {
-        return this.skin;
+        // console.log("Selected Skin:", this.skin);
+        // console.log("Default Skin:", this.defaultSkin);
+
+        return this.skin || this.defaultSkin;
     }
 
-    setSelectedSkin(skin) {
-        this.skin = skin;
+
+    setSelectedSkin(newSkin) {
+        this.skin = newSkin;
+        localStorage.setItem('selectedSkin', newSkin);
     }
+
 
     setLoginStatus(status, username, token) {
         this.isLoggedIn = status;

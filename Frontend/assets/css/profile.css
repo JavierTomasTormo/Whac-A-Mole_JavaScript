@@ -291,3 +291,14 @@
     border-color: #4CAF50;
 }
 
+
+
+
+.profile-selected-skin {
+    text-align: center;
+}
+
+.profile-selected-skin img {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}

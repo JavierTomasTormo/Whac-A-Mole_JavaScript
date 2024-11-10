@@ -51,6 +51,7 @@ const registerUser = asyncHandler(async (req, res) => {
         },
         avatar: "/Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png",
         skins: [],
+        selectedSkin: null,
         token: token
     };
 
@@ -92,6 +93,7 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     const existingUser = await User.findOne({ email: currentEmail }).exec();
+    
 
     if (!existingUser) {
         return res.status(404).json({ message: "User not found" });
@@ -105,6 +107,7 @@ const updateUser = asyncHandler(async (req, res) => {
     if (user.totalMolesWhacked !== undefined) existingUser.totalMolesWhacked = user.totalMolesWhacked;
     if (user.averageReactionTime !== undefined) existingUser.averageReactionTime = user.averageReactionTime;
     if (user.achievements) existingUser.achievements = [...existingUser.achievements, ...user.achievements];
+    if (user.selectedSkin) existingUser.selectedSkin = user.selectedSkin;
 
     if (user.password) {
         existingUser.password = await argon2.hash(user.password);
@@ -153,35 +156,6 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 
-// const updateGameStats = asyncHandler(async (req, res) => {
-//     const authHeader = req.headers.authorization;
-//     const token = authHeader.split(' ')[1];
-//     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-//     const email = decoded.user.email;
-
-//     const { totalMolesWhacked, ticketsEarned, highScore } = req.body;
-    
-//     const validMoles = totalMolesWhacked;
-//     const validTickets = ticketsEarned;
-
-//     const user = await User.findOne({ email }).select('+token').exec();
-//     if (!user) {return res.status(404).json({ message: "User not found" });}
-
-//     if (validMoles > user.totalMolesWhacked) {
-//         user.totalMolesWhacked = validMoles;
-//     }
-    
-//     if (highScore > user.highScore) {
-//         user.highScore = highScore;
-//     }
-
-//     user.tickets = validTickets;
-
-//     await user.save();
-//     res.status(200).json({
-//         user: user.toUserResponse()
-//     });
-// });
 const updateGameStats = asyncHandler(async (req, res) => {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(' ')[1];

@@ -58,6 +58,12 @@ class UserView {
                             <p><b>Tickets Earned:</b><span id="tickets-earned">0</span></p>
                         </div>
                     </div>
+                    <div class="setting-section">
+                        <div class="profile-selected-skin">
+                            <h3>Selected Skin</h3>
+                            <img id="selected-skin-image" src="" alt="Selected Skin" height="130">
+                        </div>
+                    </div>
 
                     <div class="settings-section">
                         <h3 class="settings-title">Account Settings</h3>

@@ -5,6 +5,7 @@ class GameModel {
         this.gameSpeed = 1000;
         this.tickets = 0;
         this.maxMisses = 5;
+        
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
 
         this.comments = [
@@ -85,5 +86,8 @@ class GameModel {
         return Math.floor(Math.random() * 5);
     }
 /*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
+
+
+
 }//class
 export default GameModel; 

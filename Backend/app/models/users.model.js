@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
@@ -78,7 +77,11 @@ const userSchema = new mongoose.Schema({
         name: String,
         imageUrl: String,
         unlockDate: Date
-    }]
+    }],
+    selectedSkin: {
+        type: String,
+        default: 'http://127.0.0.1:5500/Frontend/assets/images/Wallpaper_Charge/shop_items/Wallpaper.jpg'
+    }
 }, {
     timestamps: true
 });
@@ -96,7 +99,8 @@ userSchema.methods.toUserResponse = function() {
         achievements: this.achievements,
         gameSettings: this.gameSettings,
         avatar: this.avatar,
-        skins: this.skins
+        skins: this.skins,
+        selectedSkin: this.selectedSkin
     };
 };
 
@@ -108,29 +112,15 @@ userSchema.methods.toProfileJSON = function() {
         totalGamesPlayed: this.totalGamesPlayed,
         achievements: this.achievements,
         avatar: this.avatar,
-        skins: this.skins
+        skins: this.skins,
+        selectedSkin: this.selectedSkin
     };
 };
 
-// userSchema.methods.updateGameStats = function(score, molesWhacked, reactionTime) {
-//     this.totalGamesPlayed += 1;
-//     this.totalMolesWhacked += molesWhacked;
-    
-//     if (score > this.highScore) {
-//         this.highScore = score;
-//     }
-    
-//     this.ticketsEarned = (reactionTime);
-    
-//     this.lastPlayedDate = new Date();
-//     return this.save();
-// };
 userSchema.methods.updateGameStats = function(totalMolesWhacked, ticketsEarned, highScore) {
     if (highScore > this.highScore) {
         this.highScore = highScore;
     }
-    // console.log('totalmoles:', totalMolesWhacked);
-
     this.totalMolesWhacked = totalMolesWhacked;
     this.ticketsEarned = ticketsEarned;
     this.totalGamesPlayed += 1;
@@ -138,7 +128,6 @@ userSchema.methods.updateGameStats = function(totalMolesWhacked, ticketsEarned, 
     
     return this.save();
 };
-
 
 userSchema.methods.updateGameSettings = function(settings) {
     this.gameSettings = {
