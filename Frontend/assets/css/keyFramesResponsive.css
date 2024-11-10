@@ -415,3 +415,25 @@
         opacity: 0;
     }
 }
+
+
+
+
+
+@keyframes shineOwnedBTT {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+
+
+@keyframes glowPulseOwnedButton {
+    0% { box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 15px #ff8c00; }
+    50% { box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ff8c00; }
+    100% { box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 15px #ff8c00; }
+}
+
+@keyframes sparkleOwnedBTT {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}

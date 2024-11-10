@@ -56,6 +56,8 @@
     gap: 15px;
 }
 
+
+
 .shop-item {
     background: #2e2e2e;
     border: 3px solid #ffdd57;
@@ -227,6 +229,57 @@
 
 
 
+    .owned-button {
+        background: linear-gradient(135deg, #ffd700, #ff8c00);
+        color: #2c1810;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: 3px solid #ffd700;
+        border-radius: 15px;
+        cursor: default;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        overflow: hidden;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        animation: glowPulseOwnedButton 2s infinite;
+        transform: translateY(2px);
+    }   
+    .owned-button::after {
+        content: "★";
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        color: #2c1810;
+        font-size: 14px;
+        animation: sparkleOwnedBTT 1.5s infinite;
+    }   
+    .owned-button::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg,
+            rgba(255, 215, 0, 0) 0%,
+            rgba(255, 215, 0, 0.5) 50%,
+            rgba(255, 215, 0, 0) 100%
+        );
+        transform: rotate(45deg);
+        animation: shineOwnedBTT 3s infinite;
+    }   
+    .owned-button:hover {
+        filter: brightness(1.1);
+        transform: scale(1.02) translateY(2px);
+        transition: all 0.3s ease;
+    }   
+
+
+
+
 
 
 
@@ -254,6 +307,9 @@
     transform: translateY(1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
+
+
+
 
 
 

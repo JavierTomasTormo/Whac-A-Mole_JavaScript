@@ -301,12 +301,23 @@ class GameView {
         const userSkins = data.user.skins;
 
         // console.log(userSkins);
-
         const shopItemsHtml = shopItems.map(wallpaper => {
             const isSelected = wallpaper.imageUrl === selectedSkin;
+
+
+
             const isOwned = userSkins.includes(wallpaper.imageUrl);
-            // console.log(wallpaper);
-            // console.log(wallpaper.imageUrl);
+            // userSkins.forEach(skinUrl => {
+            //     console.log(skinUrl, wallpaper.imageUrl);
+            //     if (skinUrl === wallpaper.imageUrl) {
+            //         isOwned = true;
+            //     }
+            // });
+    
+            // console.log("Checking:", wallpaper.imageUrl);
+            // console.log("Against:", userSkins);
+            // console.log("Result:", isOwned);
+            
             return `
                 <div class="shop-item">
                     <div class="item-frame">
@@ -320,15 +331,16 @@ class GameView {
                         <img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="price-icon">
                         <span>${wallpaper.price}</span>
                     </div>
-                    ${isSelected ? '<button class="selected-button">Selected</button>' : 
-                    isOwned ? `<button class="stored-button" onclick="selectSkin('${wallpaper.imageUrl}')">Almacenado</button>` : 
-                    `<button class="buy-button ${currentTickets >= wallpaper.price ? 'available' : 'locked'}" 
+                    ${isSelected ? '<button class="selected-button">Selected</button>' :
+                    isOwned ? `<button class="owned-button" onclick="selectSkin('${wallpaper.imageUrl}')">Comprada</button>` :
+                    `<button class="buy-button ${currentTickets >= wallpaper.price ? 'available' : 'locked'}"
                             ${currentTickets >= wallpaper.price ? '' : 'disabled'} onclick="buySkin('${wallpaper.imageUrl}', ${wallpaper.price})">
                         ${currentTickets >= wallpaper.price ? '🛒 Buy Now!' : '🔒 Locked'}
                     </button>`}
                 </div>
             `;
         }).join('');
+
 
         const modalContent = `
             <div class="modal-content-shop">
@@ -391,13 +403,13 @@ class GameView {
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
 
-async buySkin(skinUrl, price) {
+buySkin(skinUrl, price) {
     try {
-        await userRequestsService.purchaseSkin(skinUrl, price);
+         userRequestsService.purchaseSkin(skinUrl, price);
         this.userModel.updateTickets(-price);
         this.userModel.addSkin(skinUrl);
         
-        const shopItems = await shopRequestsService.getShopItems();
+        const shopItems =  shopRequestsService.getShopItems();
         this.showShopModal(shopItems.items);
     } catch (error) {
         console.error('Error purchasing skin:', error);
@@ -407,10 +419,10 @@ async buySkin(skinUrl, price) {
 async selectSkin(skinUrl) {
     try {
         const response = await userRequestsService.updateUserSkin(skinUrl);
-        const data = await response.json();
-        
-        if (data.success) {
+        if (response.ok) {
+            const data = await response.json();
             this.userModel.setSelectedSkin(skinUrl);
+            // Refresh shop modal with updated selection
             const shopItems = await shopRequestsService.getShopItems();
             this.showShopModal(shopItems.items);
         }

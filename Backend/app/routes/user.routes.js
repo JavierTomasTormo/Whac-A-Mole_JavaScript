@@ -25,6 +25,7 @@ module.exports = (app) => {
     // app.get('/user', verifyJWT, userController.getCurrentUser);
     app.post('/user/updateSkin', verifyJWT, userController.updateSkin);
 
+
     // Update game stats
     app.post('/user/stats', verifyJWT, userController.updateGameStats);
 
