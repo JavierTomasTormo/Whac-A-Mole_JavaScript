@@ -10,23 +10,36 @@ class UserModel {
         const storedSkin = localStorage.getItem('selectedSkin');
         this.skin = storedSkin && storedSkin !== 'null' ? storedSkin : this.defaultSkin;
 
-        const storedSkins = JSON.parse(localStorage.getItem('skins')) || [];
+        const storedSkins = localStorage.getItem('skins') || [];
         this.skins = storedSkins;
 
         const storedTickets = parseInt(localStorage.getItem('tickets'), 10) || 0;
         this.tickets = storedTickets;
     }
 
+
+    getCurrentTickets() {
+        return parseInt(localStorage.getItem('ticketsEarned')) || 0;
+    }
+
+
     getSelectedSkin() {
-        // console.log("Selected Skin:", this.skin);
-        // console.log("Default Skin:", this.defaultSkin);
-        return this.skin || this.defaultSkin;
+        if (this.skin && this.skin !== 'undefined') {
+            return this.skin;
+        } else {
+            return this.defaultSkin;
+        }
     }
 
 
     setSelectedSkin(newSkin) {
-        this.skin = newSkin;
-        localStorage.setItem('selectedSkin', newSkin);
+        if (newSkin && newSkin !== 'undefined') {
+            this.skin = newSkin;
+            localStorage.setItem('selectedSkin', newSkin);
+        } else {
+            this.skin = this.defaultSkin;
+            localStorage.setItem('selectedSkin', this.defaultSkin);
+        }
     }
 
     getSkins() {

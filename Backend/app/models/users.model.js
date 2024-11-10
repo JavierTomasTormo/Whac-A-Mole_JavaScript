@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const { type } = require('os');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -73,10 +74,8 @@ const userSchema = new mongoose.Schema({
         default: "https://static.productionready.io/images/mole-avatar.jpg"
     },
     skins: [{
-        skinId: String,
-        name: String,
-        imageUrl: String,
-        unlockDate: Date
+        type: String,
+        default: 'http://127.0.0.1:5500/Frontend/assets/images/Wallpaper_Charge/shop_items/Wallpaper.jpg'
     }],
     selectedSkin: {
         type: String,

@@ -138,6 +138,30 @@ class UserRequestsService {
         });
         return response;
     }
+
+
+    async getUserSkins() {
+        const response = await fetch(`${this.baseURL}/users/profile`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response;
+    }
+
+
+    async purchaseSkin(skinUrl, price) {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${this.baseURL}/user/purchaseSkin`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ skinUrl, price })
+        });
+        return response.json();
+    }
     
 }
 

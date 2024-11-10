@@ -255,29 +255,71 @@ const updateGameSettings = asyncHandler(async (req, res) => {
     }
 });
 
-const updateSkin = asyncHandler(async (req, res) => {
-    console.log("updateSkin function called");
-    
-    const userId = req.userId;
+const updateSkin = (req, res) => {
     const { skin } = req.body;
-    if (!skin) {
-        return res.status(400).json({ message: "Skin is required" });
-    }
-    try {
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-        user.selectedSkin = skin;
-        await user.save();
-        return res.status(200).json({
-            message: "Skin updated successfully",
-            selectedSkin: user.selectedSkin
+    const userId = req.userId;
+
+    User.findByIdAndUpdate(userId, { selectedSkin: skin }, { new: true })
+        .then(user => {
+            if (!user) {
+                return res.status(404).send({ success: false, message: 'User not found' });
+            }
+            res.send({ success: true, message: 'Skin updated successfully' });
+        })
+        .catch(err => {
+            res.status(500).send({ success: false, message: 'Error updating skin' });
         });
-    } catch (error) {
-        return res.status(500).json({ message: "Error updating skin" });
+};
+
+
+
+const getUserSkins = asyncHandler(async (req, res) => {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const email = decoded.user.email;
+    
+    const user = await User.findOne({ email }).select('+token').exec();
+    
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
     }
+    
+    res.status(200).json({
+        user: {
+            ...user.toObject(),
+            token: user.token
+        }
+    });
 });
+
+
+
+const purchaseShopItem = async (req, res) => {
+    const userId = req.user.id;
+    const { skinUrl, price } = req.body;
+    
+    const user = await User.findById(userId);
+    
+    if (user.ticketsEarned >= price) {
+        user.ticketsEarned -= price;
+        user.ownedSkins.push(skinUrl);
+        await user.save();
+        
+        res.json({
+            success: true,
+            message: 'Skin purchased successfully',
+            newTicketBalance: user.ticketsEarned
+        });
+    } else {
+        res.status(400).json({
+            success: false,
+            message: 'Insufficient tickets'
+        });
+    }
+};
+
 
 module.exports = {
     registerUser,
@@ -289,4 +331,6 @@ module.exports = {
     updateGameSettings,
     updatePassword,
     updateSkin,
+    getUserSkins,
+    purchaseShopItem,
 };

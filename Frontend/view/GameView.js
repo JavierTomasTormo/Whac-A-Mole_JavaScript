@@ -218,12 +218,9 @@ class GameView {
     }
     
 
-    showShopModal(shopItems) {
-        const currentTickets = localStorage.getItem('ticketsEarned') || 0;
+    async showShopModal(shopItems) {
+        const currentTickets = this.userModel.getCurrentTickets();
         const selectedSkin = this.userModel.getSelectedSkin();
-        const userSkins = this.userModel.getSkins();
-
-        console.log('Skins:', userSkins);
 
         if (!shopItems || !Array.isArray(shopItems)) {
             const shopItemsHtml = `<p class="no-items-message"> No hay más items que comprar en esta tienda</p>`;
@@ -298,10 +295,18 @@ class GameView {
             });
         };
 
+
+        const response = await userRequestsService.getUserSkins();
+        const data = await response.json();
+        const userSkins = data.user.skins;
+
+        // console.log(userSkins);
+
         const shopItemsHtml = shopItems.map(wallpaper => {
             const isSelected = wallpaper.imageUrl === selectedSkin;
             const isOwned = userSkins.includes(wallpaper.imageUrl);
             // console.log(wallpaper);
+            // console.log(wallpaper.imageUrl);
             return `
                 <div class="shop-item">
                     <div class="item-frame">
@@ -354,13 +359,30 @@ class GameView {
             closeButton: 'custom-close-button'
         },
         didOpen: () => {
-            // Add event listener after modal is fully rendered
-            document.querySelector('.wallpaper-grid').addEventListener('click', (e) => {
+            document.querySelector('.wallpaper-grid').addEventListener('click', async (e) => {
                 const buyButton = e.target.closest('.buy-button');
                 if (buyButton && buyButton.classList.contains('available')) {
                     const shopItem = buyButton.closest('.shop-item');
                     const skinUrl = shopItem.dataset.skinUrl;
-                    this.selectSkin(skinUrl);
+                    const price = parseInt(shopItem.querySelector('.price-tag span').textContent);
+
+
+
+
+
+                    const userSkins = await userRequestsService.getUserSkins();
+                    console.log(userSkins);
+
+                    if (userSkins.includes(skinUrl)) {
+                        this.selectSkin(skinUrl);
+                    } else {
+                        // User needs to buy the skin
+                        if (this.userModel.getCurrentTickets() >= price) {
+                            // Purchase and select the skin
+                            await shopRequestsService.purchaseSkin(skinUrl, price);
+                            this.selectSkin(skinUrl);
+                        }
+                    }
                 }
             });
         }
@@ -369,22 +391,46 @@ class GameView {
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
 
+async buySkin(skinUrl, price) {
+    try {
+        await userRequestsService.purchaseSkin(skinUrl, price);
+        this.userModel.updateTickets(-price);
+        this.userModel.addSkin(skinUrl);
+        
+        const shopItems = await shopRequestsService.getShopItems();
+        this.showShopModal(shopItems.items);
+    } catch (error) {
+        console.error('Error purchasing skin:', error);
+    }
+}
+
+async selectSkin(skinUrl) {
+    try {
+        const response = await userRequestsService.updateUserSkin(skinUrl);
+        const data = await response.json();
+        
+        if (data.success) {
+            this.userModel.setSelectedSkin(skinUrl);
+            const shopItems = await shopRequestsService.getShopItems();
+            this.showShopModal(shopItems.items);
+        }
+    } catch (error) {
+        console.error('Error selecting skin:', error);
+    }
+}
+
 // selectSkin(skinUrl) {
 //     this.userModel.setSelectedSkin(skinUrl);
 
 //     userRequestsService.updateUserSkin(skinUrl)
 //     .then(response => response.json())
 //     .then(data => {
-//         console.log("I'm in selectSkin");
-
 //         if (data.success) {
 //             console.log('Skin updated successfully');
-//             // Actualizar la vista de la tienda
 //             shopRequestsService.getShopItems()
 //             .then(response => response.json())
 //             .then(data => {
-//                 const gameView = new GameView(userModel);
-//                 gameView.showShopModal(data.items);
+//                 this.showShopModal(data.items);
 //             })
 //             .catch(error => {
 //                 console.error('Error fetching shop items:', error);
@@ -397,48 +443,20 @@ class GameView {
 //         console.error('Error updating skin:', error);
 //     });
 // }
-selectSkin(skinUrl) {
-    this.userModel.setSelectedSkin(skinUrl);
 
-    userRequestsService.updateUserSkin(skinUrl)
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            console.log('Skin updated successfully');
-            // Actualizar la vista de la tienda
-            shopRequestsService.getShopItems()
-            .then(response => response.json())
-            .then(data => {
-                this.showShopModal(data.items);
-            })
-            .catch(error => {
-                console.error('Error fetching shop items:', error);
-            });
-        } else {
-            console.error('Error updating skin:', data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error updating skin:', error);
-    });
-}
+// buySkin(skinUrl, price) {
+//     this.userModel.updateTickets(-price);
+//     this.userModel.addSkin(skinUrl);
 
-buySkin(skinUrl, price) {
-    // Lógica para comprar la skin y actualizar los tickets del usuario
-    // Asume que tienes un método para actualizar los tickets del usuario
-    this.userModel.updateTickets(-price);
-    this.userModel.addSkin(skinUrl);
-
-    // Actualizar la vista de la tienda
-    shopRequestsService.getShopItems()
-    .then(response => response.json())
-    .then(data => {
-        this.showShopModal(data.items);
-    })
-    .catch(error => {
-        console.error('Error fetching shop items:', error);
-    });
-}
+//     shopRequestsService.getShopItems()
+//     .then(response => response.json())
+//     .then(data => {
+//         this.showShopModal(data.items);
+//     })
+//     .catch(error => {
+//         console.error('Error fetching shop items:', error);
+//     });
+// }
 
 
 }//GameView

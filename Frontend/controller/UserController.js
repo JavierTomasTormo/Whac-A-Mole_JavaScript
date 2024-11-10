@@ -151,6 +151,10 @@ class UserController {
         localStorage.removeItem('userEmail');
         localStorage.removeItem('gameSpeed');
         localStorage.removeItem('selectedSkin');
+        localStorage.removeItem('skins');
+        localStorage.removeItem('backgroundMusic');
+        localStorage.removeItem('newTotalticketsEarned');
+        localStorage.removeItem('totalmolesWhacked');
         window.location.reload();
     }
 
@@ -182,6 +186,7 @@ class UserController {
         const selectedSkinElement = document.getElementById('selected-skin-image');
         if (selectedSkinElement) {
             selectedSkinElement.src = this.model.getSelectedSkin();
+            // console.log(selectedSkinElement.src);
         } else {
             console.error('Element with ID "selected-skin" not found.');
         }

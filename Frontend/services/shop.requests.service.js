@@ -14,7 +14,6 @@ class ShopRequestsService {
 
 
 
-
 }
 
 const shopRequestsService = new ShopRequestsService('http://localhost:3002');

@@ -28,6 +28,10 @@ module.exports = (app) => {
     // Update game stats
     app.post('/user/stats', verifyJWT, userController.updateGameStats);
 
+    app.get('/user/getUserSkins', verifyJWT, userController.getUserSkins);
+
+    app.post('/user/purchaseSkin', verifyJWT, userController.purchaseShopItem);
+
     // Update game settings
     app.post('/user/settings', verifyJWT, userController.updateGameSettings);
 };

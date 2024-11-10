@@ -77,11 +77,15 @@ const deleteAllShopItems = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "All items deleted successfully" });
 });
 
+
+
+
+
 module.exports = {
     createShopItem,
     getAllShopItems,
     getShopItemById,
     updateShopItem,
     deleteShopItem,
-    deleteAllShopItems
+    deleteAllShopItems,
 };
