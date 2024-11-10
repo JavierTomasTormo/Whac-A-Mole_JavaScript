@@ -126,6 +126,19 @@ class UserRequestsService {
         });
         return response;
     }
+
+    async updateUserSkin(skinUrl) {
+        const response = await fetch(`${this.baseURL}/user/updateSkin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ skin: skinUrl })
+        });
+        return response;
+    }
+    
 }
 
 const userRequestsService = new UserRequestsService('http://localhost:3002');

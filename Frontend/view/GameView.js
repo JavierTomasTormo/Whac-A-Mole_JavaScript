@@ -3,7 +3,8 @@ import userRequestsService from '../services/user.requests.service.js';
 
 
 class GameView {
-    constructor() {
+    constructor(userModel) {
+        this.userModel = userModel;
         this.gameBoard = document.getElementById('game-board');
         this.scoreElement = document.getElementById('score-value');
         this.missesElement = document.getElementById('misses-value');
@@ -219,6 +220,11 @@ class GameView {
 
     showShopModal(shopItems) {
         const currentTickets = localStorage.getItem('ticketsEarned') || 0;
+        const selectedSkin = this.userModel.getSelectedSkin();
+        const userSkins = this.userModel.getSkins();
+
+        console.log('Skins:', userSkins);
+
         if (!shopItems || !Array.isArray(shopItems)) {
             const shopItemsHtml = `<p class="no-items-message"> No hay más items que comprar en esta tienda</p>`;
             Swal.fire({
@@ -291,25 +297,34 @@ class GameView {
             }
             });
         };
-        const shopItemsHtml = shopItems.map(wallpaper => `
-            <div class="shop-item">
-                <div class="item-frame">
-                    <img src="${wallpaper.imageUrl}" alt="${wallpaper.name}" width="200" height="200">
-                    <div class="item-overlay" onclick="previewWallpaper(${JSON.stringify(wallpaper).replace(/"/g, '&quot;')})">
-                        <span class="preview-text">👀 Preview</span>
+
+        const shopItemsHtml = shopItems.map(wallpaper => {
+            const isSelected = wallpaper.imageUrl === selectedSkin;
+            const isOwned = userSkins.includes(wallpaper.imageUrl);
+            // console.log(wallpaper);
+            return `
+                <div class="shop-item">
+                    <div class="item-frame">
+                        <img src="${wallpaper.imageUrl}" alt="${wallpaper.name}" width="200" height="200">
+                        <div class="item-overlay" onclick="previewWallpaper(${JSON.stringify(wallpaper).replace(/"/g, '&quot;')})">
+                            <span class="preview-text">👀 Preview</span>
+                        </div>
                     </div>
+                    <h3 class="item-title">${wallpaper.name}</h3>
+                    <div class="price-tag">
+                        <img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="price-icon">
+                        <span>${wallpaper.price}</span>
+                    </div>
+                    ${isSelected ? '<button class="selected-button">Selected</button>' : 
+                    isOwned ? `<button class="stored-button" onclick="selectSkin('${wallpaper.imageUrl}')">Almacenado</button>` : 
+                    `<button class="buy-button ${currentTickets >= wallpaper.price ? 'available' : 'locked'}" 
+                            ${currentTickets >= wallpaper.price ? '' : 'disabled'} onclick="buySkin('${wallpaper.imageUrl}', ${wallpaper.price})">
+                        ${currentTickets >= wallpaper.price ? '🛒 Buy Now!' : '🔒 Locked'}
+                    </button>`}
                 </div>
-                <h3 class="item-title">${wallpaper.name}</h3>
-                <div class="price-tag">
-                    <img src="Frontend/assets/images/utils/ticket.png" alt="ticket" class="price-icon">
-                    <span>${wallpaper.price}</span>
-                </div>
-                <button class="buy-button ${currentTickets >= wallpaper.price ? 'available' : 'locked'}" 
-                        ${currentTickets >= wallpaper.price ? '' : 'disabled'}>
-                    ${currentTickets >= wallpaper.price ? '🛒 Buy Now!' : '🔒 Locked'}
-                </button>
-            </div>
-        `).join('');
+            `;
+        }).join('');
+
         const modalContent = `
             <div class="modal-content-shop">
                 <div class="shop-header">
@@ -325,25 +340,105 @@ class GameView {
                 </div>
             </div>
         `;
-        Swal.fire({
-            html: modalContent,
-            width: '80%',
-            backdrop: 'rgba(0, 0, 0, 0.9)',
-            showCloseButton: true,
-            closeButtonHtml: '❌',
-            showConfirmButton: false,
-            customClass: {
-                container: 'shop-modal-container',
-                popup: 'shop-modal-popup',
-                closeButton: 'custom-close-button'
-            }
-        });
-    }
+
+    Swal.fire({
+        html: modalContent,
+        width: window.innerWidth <= 768 ? '80%' : '60%',
+        backdrop: 'rgba(0, 0, 0, 0.9)',
+        showCloseButton: true,
+        closeButtonHtml: '❌',
+        showConfirmButton: false,
+        customClass: {
+            container: 'shop-modal-container',
+            popup: 'shop-modal-popup',
+            closeButton: 'custom-close-button'
+        },
+        didOpen: () => {
+            // Add event listener after modal is fully rendered
+            document.querySelector('.wallpaper-grid').addEventListener('click', (e) => {
+                const buyButton = e.target.closest('.buy-button');
+                if (buyButton && buyButton.classList.contains('available')) {
+                    const shopItem = buyButton.closest('.shop-item');
+                    const skinUrl = shopItem.dataset.skinUrl;
+                    this.selectSkin(skinUrl);
+                }
+            });
+        }
+    });
+}
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
 
+// selectSkin(skinUrl) {
+//     this.userModel.setSelectedSkin(skinUrl);
 
+//     userRequestsService.updateUserSkin(skinUrl)
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log("I'm in selectSkin");
 
+//         if (data.success) {
+//             console.log('Skin updated successfully');
+//             // Actualizar la vista de la tienda
+//             shopRequestsService.getShopItems()
+//             .then(response => response.json())
+//             .then(data => {
+//                 const gameView = new GameView(userModel);
+//                 gameView.showShopModal(data.items);
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching shop items:', error);
+//             });
+//         } else {
+//             console.error('Error updating skin:', data.message);
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error updating skin:', error);
+//     });
+// }
+selectSkin(skinUrl) {
+    this.userModel.setSelectedSkin(skinUrl);
+
+    userRequestsService.updateUserSkin(skinUrl)
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Skin updated successfully');
+            // Actualizar la vista de la tienda
+            shopRequestsService.getShopItems()
+            .then(response => response.json())
+            .then(data => {
+                this.showShopModal(data.items);
+            })
+            .catch(error => {
+                console.error('Error fetching shop items:', error);
+            });
+        } else {
+            console.error('Error updating skin:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error updating skin:', error);
+    });
+}
+
+buySkin(skinUrl, price) {
+    // Lógica para comprar la skin y actualizar los tickets del usuario
+    // Asume que tienes un método para actualizar los tickets del usuario
+    this.userModel.updateTickets(-price);
+    this.userModel.addSkin(skinUrl);
+
+    // Actualizar la vista de la tienda
+    shopRequestsService.getShopItems()
+    .then(response => response.json())
+    .then(data => {
+        this.showShopModal(data.items);
+    })
+    .catch(error => {
+        console.error('Error fetching shop items:', error);
+    });
+}
 
 
 }//GameView

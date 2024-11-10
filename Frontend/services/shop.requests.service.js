@@ -12,7 +12,9 @@ class ShopRequestsService {
         return response;
     }
 
-    // Agrega más métodos según sea necesario
+
+
+
 }
 
 const shopRequestsService = new ShopRequestsService('http://localhost:3002');

@@ -67,7 +67,7 @@
     100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes fadeIn {
+@keyframes fadeInAuth {
     0% { opacity: 0; transform: translate(-50%, -60%); }
     100% { opacity: 1; transform: translate(-50%, -50%); }
 }
@@ -291,104 +291,127 @@
 }
 
 @keyframes mythic-fire {
-0% {
-text-shadow: 
-0 0 15px #fff,
-0 -10px 25px #fff5bd,
-7px -20px 35px #ffd162,
--7px -30px 45px #ff8c00,
-7px -40px 55px #ff4500,
--7px -50px 65px #ff0000,
-12px -60px 75px #bd0000,
--12px -70px 90px #900000;
-transform: scale(1.05) rotate(-2deg);
-}
-25% {
-text-shadow: 
-0 0 12px #fff,
--10px -10px 22px #fff5bd,
-5px -22px 30px #ffd162,
--12px -32px 50px #ff8c00,
-10px -42px 60px #ff4500,
--5px -52px 70px #ff0000,
-15px -62px 80px #bd0000,
--15px -72px 90px #900000;
-transform: scale(1.1) rotate(1deg);
-}
-50% {
-text-shadow: 
-0 0 18px #fff,
-12px -10px 20px #fff5bd,
--12px -20px 40px #ffd162,
-10px -32px 55px #ff8c00,
--12px -42px 65px #ff4500,
-12px -52px 70px #ff0000,
--10px -62px 85px #bd0000,
-10px -72px 95px #900000;
-transform: scale(1.15) rotate(-3deg);
-}
-75% {
-text-shadow: 
-0 0 10px #fff,
--10px -10px 22px #fff5bd,
-8px -22px 32px #ffd162,
--8px -30px 48px #ff8c00,
-8px -40px 58px #ff4500,
--10px -50px 68px #ff0000,
-10px -60px 78px #bd0000,
--10px -70px 88px #900000;
-transform: scale(1.1) rotate(2deg);
-}
-100% {
-text-shadow: 
-0 0 15px #fff,
-0 -10px 25px #fff5bd,
-7px -20px 35px #ffd162,
--7px -30px 45px #ff8c00,
-7px -40px 55px #ff4500,
--7px -50px 65px #ff0000,
-12px -60px 75px #bd0000,
--12px -70px 90px #900000;
-transform: scale(1.05) rotate(-1deg);
-}
+    0% {
+        text-shadow: 
+            0 0 15px #fff,
+            0 -10px 25px #fff5bd,
+            7px -20px 35px #ffd162,
+            -7px -30px 45px #ff8c00,
+            7px -40px 55px #ff4500,
+            -7px -50px 65px #ff0000,
+            12px -60px 75px #bd0000,
+            -12px -70px 90px #900000;
+        transform: scale(1.05) rotate(-2deg);
+    }
+    25% {
+        text-shadow: 
+            0 0 12px #fff,
+            -10px -10px 22px #fff5bd,
+            5px -22px 30px #ffd162,
+            -12px -32px 50px #ff8c00,
+            10px -42px 60px #ff4500,
+            -5px -52px 70px #ff0000,
+            15px -62px 80px #bd0000,
+            -15px -72px 90px #900000;
+        transform: scale(1.1) rotate(1deg);
+    }
+    50% {
+        text-shadow: 
+            0 0 18px #fff,
+            12px -10px 20px #fff5bd,
+            -12px -20px 40px #ffd162,
+            10px -32px 55px #ff8c00,
+            -12px -42px 65px #ff4500,
+            12px -52px 70px #ff0000,
+            -10px -62px 85px #bd0000,
+            10px -72px 95px #900000;
+        transform: scale(1.15) rotate(-3deg);
+    }
+    75% {
+        text-shadow: 
+            0 0 10px #fff,
+            -10px -10px 22px #fff5bd,
+            8px -22px 32px #ffd162,
+            -8px -30px 48px #ff8c00,
+            8px -40px 58px #ff4500,
+            -10px -50px 68px #ff0000,
+            10px -60px 78px #bd0000,
+            -10px -70px 88px #900000;
+        transform: scale(1.1) rotate(2deg);
+    }
+    100% {
+        text-shadow: 
+            0 0 15px #fff,
+            0 -10px 25px #fff5bd,
+            7px -20px 35px #ffd162,
+            -7px -30px 45px #ff8c00,
+            7px -40px 55px #ff4500,
+            -7px -50px 65px #ff0000,
+            12px -60px 75px #bd0000,
+            -12px -70px 90px #900000;
+        transform: scale(1.05) rotate(-1deg);
+    }
 }
 
 @keyframes mythic-float {
-0% {
-transform: translateY(0px);
-}
-50% {
-transform: translateY(-5px);
-}
-100% {
-transform: translateY(0px);
-}
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 
 @keyframes poop-float {
-0% {
-transform: translateY(0) scale(1);
-}
-50% {
-transform: translateY(-5px) scale(1.1);
-}
-100% {
-transform: translateY(0) scale(1);
-}
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.1);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes poop-spin {
-0% {
-transform: rotate(0deg);
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }
-25% {
-transform: rotate(-10deg);
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
-75% {
-transform: rotate(10deg);
-}
-100% {
-transform: rotate(0deg);
-}
+
+
+@keyframes shineShopSelectedButton {
+    0% {
+        transform: translateX(-100%) rotate(45deg) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg) scale(1.5);
+        opacity: 0;
+    }
 }

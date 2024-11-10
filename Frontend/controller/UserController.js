@@ -87,6 +87,7 @@ class UserController {
                 localStorage.setItem('difficulty', data.user.gameSettings.difficulty);
                 localStorage.setItem('gameSpeed', data.user.gameSettings.gameSpeed);
                 localStorage.setItem('selectedSkin', data.user.selectedSkin);
+                localStorage.setItem('skins', data.user.skins);
                 // console.log(data.user.gameSettings);
                 this.view.hideLoginForm();
                 setTimeout(() => {

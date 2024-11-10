@@ -27,7 +27,7 @@
     max-width: 90vw;
     text-align: center;
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    animation: fadeIn 1s ease-in-out;
+    animation: fadeInAuth 1s ease-in-out;
 }
 
 .character {
