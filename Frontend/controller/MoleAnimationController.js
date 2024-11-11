@@ -1,6 +1,8 @@
 class MoleAnimation {
 
-    constructor(moleImages, splashImages) {
+    constructor(moleImages, splashImages, gameModel) {
+        
+        this.gameModel = gameModel;
         this.moleImages = moleImages;
         this.splashImages = splashImages;
         this.currentIndex = 0;
@@ -13,13 +15,21 @@ class MoleAnimation {
         
         mole.classList.add('mole');
         curtain.classList.add('curtain');
-        
+
+
         const randomMoleImage = this.moleImages[Math.floor(Math.random() * this.moleImages.length)];
         mole.style.backgroundImage = `url(${randomMoleImage})`;
         mole.style.left = '25%';
         
+        if (randomMoleImage === '../Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png') {
+            this.gameModel.addScore(3);
+        }
+        
         hole.appendChild(curtain);
         hole.appendChild(mole);
+
+        
+
         
         setTimeout(() => {
             curtain.classList.add('up');

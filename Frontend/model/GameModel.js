@@ -47,6 +47,11 @@ class GameModel {
     }
 /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
 
+    addScore(points) {
+            this.score += points;
+            return this.score;
+        }
+    
 
     resetGame() {
         this.score = 0;
