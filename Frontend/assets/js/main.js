@@ -35,7 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // '../Frontend/assets/images/Moles/Moles_4.png',//PERFECT
         // '../Frontend/assets/images/Moles/Moles_5.png',//PERFECT
         // '../Frontend/assets/images/Moles/Moles_6.png',//PERFECT
+        // '../Frontend/assets/images/Moles/Moles_8.png',//PERFECT
+        // '../Frontend/assets/images/Moles/Moles_9.png',//PERFECT
+        // '../Frontend/assets/images/Moles/Moles_11.png',//PERFECT
         // '../Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png',//PERFECT
+
+
+
+
+        
     ];
     const splashImages = [
         '../Frontend/assets/images/utils/splash/blood_2.png',

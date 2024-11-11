@@ -207,8 +207,12 @@ class UserController {
                 html: `
                     <div class="avatar-selection">
                         <img src="Frontend/assets/images/Moles/Moles_7.png" class="avatar-option">
-                        <img src="Frontend/assets/images/Moles/Moles_3.png" class="avatar-option">
-                        <img src="Frontend/assets/images/Moles/Moles_6.png" class="avatar-option">
+                        <img src="Frontend/assets/images/Moles/Moles_8.png" class="avatar-option">
+                        <img src="Frontend/assets/images/Moles/Moles_9.png" class="avatar-option">
+
+                        <img src="Frontend/assets/images/Moles/Moles_10.png" class="avatar-option">
+                        <img src="Frontend/assets/images/Moles/Moles_11.png" class="avatar-option">
+
                         <img src="Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png" class="avatar-option">
                     </div>
                 `,
