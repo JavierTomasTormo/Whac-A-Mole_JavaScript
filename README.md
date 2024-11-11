@@ -8,6 +8,12 @@
 - [🛠️ Estructura del Proyecto](#️-estructura-del-proyecto)
 - [📦 Instalación](#-instalación)
 - [🚀 Uso](#-uso)
+- [🎮 Cómo Jugar](#-cómo-jugar)
+- [🎨 Decoración y Estilo](#-decoración-y-estilo)
+- [🎮 Efectos de los Moles sobre el Score](#-efectos-de-los-moles-sobre-el-score)
+  - [🦔 Tipos de Topos y sus Efectos](#-tipos-de-topos-y-sus-efectos)
+  - [🎨 Efectos Visuales](#-efectos-visuales)
+- [🏗️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
 - [🤝 Contribuciones](#-contribuciones)
 - [📄 Licencia](#-licencia)
 
@@ -144,6 +150,45 @@ Todo lo relacionado con la parte del servidor.
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js, Express
 - **Base de Datos**: MongoDB
+
+
+
+## 🎮 Efectos de los Moles sobre el Score
+
+¡Cada topo tiene un efecto único en tu puntuación! Descubre sus poderes especiales:
+
+### 🦔 Tipos de Topos y sus Efectos
+
+#### Topo Dorado (GoldenHelmetMole)
+- 🌟 ¡DUPLICA tu puntuación actual!
+- ✨ Efecto especial: `currentScore * 2`
+
+#### Topo Malvado #4 (Moles_4)
+- 👻 Resta 1 punto de tu score
+- 💀 Efecto: `-1 punto`
+
+#### Topo Malvado #5 (Moles_5)
+- 👾 ¡Cuidado! Resta 5 puntos
+- 💀 Efecto: `-5 puntos`
+
+#### Topo Malvado #6 (Moles_6)
+- 😈 Resta 1 punto de tu score
+- 💀 Efecto: `-1 punto`
+
+#### Topo Bonus #8 (Moles_8)
+- 🎁 ¡Suma 3 puntos extra!
+- ✨ Efecto: `+3 puntos`
+
+#### Topo Ladrón #9 (Moles_9)
+- 🦹 ¡Te roba 2/3 de tu puntuación actual!
+- 💰 Efecto: `currentScore - (currentScore * 2/3)`
+
+### 🎨 Efectos Visuales
+- 💥 Al golpear cualquier topo, aparece un efecto splash aleatorio
+- 🎭 Cada topo tiene su propia imagen única
+- ✨ Animaciones suaves de entrada y salida
+
+
 
 ## 🤝 Contribuciones
 
