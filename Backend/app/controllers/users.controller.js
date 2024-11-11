@@ -255,21 +255,46 @@ const updateGameSettings = asyncHandler(async (req, res) => {
     }
 });
 
-const updateSkin = (req, res) => {
-    const { skin } = req.body;
-    const userId = req.userId;
 
-    User.findByIdAndUpdate(userId, { selectedSkin: skin }, { new: true })
-        .then(user => {
-            if (!user) {
-                return res.status(404).send({ success: false, message: 'User not found' });
-            }
-            res.send({ success: true, message: 'Skin updated successfully' });
-        })
-        .catch(err => {
-            res.status(500).send({ success: false, message: 'Error updating skin' });
+
+
+
+
+const updateSkin = asyncHandler(async (req, res) => {
+    const { skin } = req.body;
+    // console.log(req);
+    const userId = req.userId;
+    try {
+        const user = await User.findByIdAndUpdate(
+            userId, 
+            { selectedSkin: skin }, 
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ 
+                success: false, 
+                message: 'User not found' 
+            });
+        }
+
+        res.json({ 
+            success: true, 
+            message: 'Skin updated successfully',
+            selectedSkin: skin
         });
-};
+    } catch (err) {
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error updating skin'
+        });
+    }
+});
+
+
+
+
+
 
 
 
@@ -296,29 +321,40 @@ const getUserSkins = asyncHandler(async (req, res) => {
 
 
 
-const purchaseShopItem = async (req, res) => {
-    const userId = req.user.id;
+const purchaseShopItem = asyncHandler(async (req, res) => {
+    // console.log(req);
+    const userId = req.userId;
+    // console.log(req.body);
     const { skinUrl, price } = req.body;
     
     const user = await User.findById(userId);
     
+    if (!user) {
+        return res.status(404).json({
+            success: false,
+            message: 'User not found'
+        });
+    }
+    
     if (user.ticketsEarned >= price) {
         user.ticketsEarned -= price;
-        user.ownedSkins.push(skinUrl);
+        user.skins.push(skinUrl);
         await user.save();
         
         res.json({
             success: true,
             message: 'Skin purchased successfully',
-            newTicketBalance: user.ticketsEarned
+            newTicketBalance: user.ticketsEarned,
+            skins: user.skins
         });
     } else {
         res.status(400).json({
             success: false,
             message: 'Insufficient tickets'
         });
-    }
-};
+    } 
+});
+
 
 
 module.exports = {

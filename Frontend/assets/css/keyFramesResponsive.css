@@ -19,9 +19,6 @@
 }
 
 @media (max-width: 600px) {
-    body {
-        background-image: url('../images/Wallpaper_Charge/Wallpaper_Mobile.jpg');
-    }
 
     #game-container {
         width: 95%;
@@ -42,8 +39,8 @@
         font-size: 0.9em;
     }
     .hole {
-        width: 20%;
-        height: 12%;
+        width: 100px;
+        height: 100px;
         position: absolute;
         overflow: hidden;
     }

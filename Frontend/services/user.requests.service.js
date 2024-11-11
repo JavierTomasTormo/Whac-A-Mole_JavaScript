@@ -151,17 +151,19 @@ class UserRequestsService {
 
 
     async purchaseSkin(skinUrl, price) {
-        const token = localStorage.getItem('token');
         const response = await fetch(`${this.baseURL}/user/purchaseSkin`, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({ skinUrl, price })
+            body: JSON.stringify({
+                skinUrl,
+                price
+            })
         });
-        return response.json();
-    }
+        return response;
+    }    
     
 }
 

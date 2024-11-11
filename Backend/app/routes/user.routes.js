@@ -31,7 +31,9 @@ module.exports = (app) => {
 
     app.get('/user/getUserSkins', verifyJWT, userController.getUserSkins);
 
+    // Add this route with the others
     app.post('/user/purchaseSkin', verifyJWT, userController.purchaseShopItem);
+
 
     // Update game settings
     app.post('/user/settings', verifyJWT, userController.updateGameSettings);
