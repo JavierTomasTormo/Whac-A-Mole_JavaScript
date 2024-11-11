@@ -22,7 +22,23 @@ class MoleAnimation {
         mole.style.left = '25%';
         
         if (randomMoleImage === '../Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png') {
+            let currentScore = this.gameModel.getScore();
+            this.gameModel.addScore(currentScore);
+        }
+
+        if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_4.png') {
+            this.gameModel.addScore(-1);
+        } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_5.png') {
+            this.gameModel.addScore(-5);
+        } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_6.png') {
+            this.gameModel.addScore(-1);
+        } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_8.png') {
             this.gameModel.addScore(3);
+        } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_9.png') {
+            let currentScore = this.gameModel.getScore();
+            let halfScore = Math.floor(currentScore / 3);
+            let pointsToSubtract = currentScore - halfScore;
+            this.gameModel.addScore(-pointsToSubtract);
         }
         
         hole.appendChild(curtain);

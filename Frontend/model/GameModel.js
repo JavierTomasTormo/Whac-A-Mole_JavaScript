@@ -50,7 +50,11 @@ class GameModel {
     addScore(points) {
             this.score += points;
             return this.score;
-        }
+    }
+
+    getScore() {
+        return this.score;
+    }
     
 
     resetGame() {
