@@ -5,8 +5,7 @@ class GameController {
             this.body = document.querySelector('body');
             window.addEventListener('resize', () => this.setResponsiveBackgroundGame());
             this.setResponsiveBackgroundGame();
-
-
+            
 
             this.gameModel = gameModel;
             this.gameView = gameView;
@@ -17,6 +16,8 @@ class GameController {
             
             this.gameInterval = null;
             this.isProcessing = false;
+            
+            this.updateHeartsDisplay();
         }
 
         init() {
@@ -60,7 +61,10 @@ class GameController {
                 });
             });
         }
-
+        updateHeartsDisplay() {
+            const hearts = this.gameModel.getHearts();
+            this.gameView.updateHearts(hearts);
+        }
         showRandomMole() {
             if (this.isProcessing || this.gameModel.isGameOver()) return;
             
@@ -73,13 +77,22 @@ class GameController {
                 if (elements) {
                     let moleClicked = false;
                     
+                    // elements.mole.addEventListener('click', () => {
+                    //     if (!moleClicked) {
+                    //         moleClicked = true;
+                    //         this.gameModel.incrementScore();
+                    //         this.gameView.updateScore(this.gameModel.score);
+                    //         this.gameView.updateTickets(this.gameModel.incrementTickets());
+
+                    //         this.moleAnimation.hide(elements);
+                    //     }
+                    // });
                     elements.mole.addEventListener('click', () => {
                         if (!moleClicked) {
                             moleClicked = true;
                             this.gameModel.incrementScore();
                             this.gameView.updateScore(this.gameModel.score);
                             this.gameView.updateTickets(this.gameModel.incrementTickets());
-
                             this.moleAnimation.hide(elements);
                         }
                     });
@@ -87,7 +100,7 @@ class GameController {
                     setTimeout(() => {
                         if (!moleClicked) {
                             this.gameModel.incrementMisses();
-                            this.gameView.updateMisses(this.gameModel.misses);
+                            this.updateHeartsDisplay(); // Update hearts display when missing
                             if (this.gameModel.isGameOver()) {
                                 this.endGame();
                                 return;
@@ -101,6 +114,9 @@ class GameController {
                 }
             }
         }
+
+
+
     //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM HOLE
     setResponsiveBackgroundGame() {
         const selectedSkin = this.userModel.getSelectedSkin(); 
@@ -126,6 +142,7 @@ class GameController {
     startGame() {
         this.gameModel.resetGame();
         this.gameView.createBoard();
+        this.updateHeartsDisplay(); // Reset hearts display at game start
         this.runGame();
     }//startGame
     /*╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚╚*///START GAME BUTTON

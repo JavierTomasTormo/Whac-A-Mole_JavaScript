@@ -3,8 +3,9 @@ class GameModel {
         this.score = 0;
         this.misses = 0;
         this.gameSpeed = 1000;
+        this.hearts = ['❤️', '❤️', '❤️', '❤️', '❤️'];
         this.tickets = 0;
-        this.maxMisses = 50;
+        this.maxMisses = 5;
         
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
 
@@ -47,6 +48,10 @@ class GameModel {
     }
 /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
 
+    getHearts() {
+        return this.hearts.join(' ');
+    }   
+
     addScore(points) {
             this.score += points;
             return this.score;
@@ -55,11 +60,24 @@ class GameModel {
     getScore() {
         return this.score;
     }
-    
 
+    addLife() {
+                this.hearts.push('❤️');
+                this.misses--;
+                console.log("Life added! Hearts:", this.hearts.length);
+                document.getElementById('hearts-container').textContent = this.hearts.join(' ');
+            return this.hearts.length;
+    }
+
+    // resetGame() {
+    //     this.score = 0;
+    //     this.misses = 0;
+    //     this.tickets = 0;
+    // }
     resetGame() {
-        this.score = 0;
         this.misses = 0;
+        this.score = 0;
+        this.hearts = ['❤️', '❤️', '❤️', '❤️', '❤️'];
         this.tickets = 0;
     }
 
@@ -76,17 +94,30 @@ class GameModel {
         return this.tickets;
     }
 
+    // incrementMisses() {
+    //     this.misses++;
+
+    //     console.log("Misses",this.misses);
+
+    //     if (this.isGameOver()) {}
+    //     return this.misses;
+    // }
     incrementMisses() {
         this.misses++;
-
-        console.log("Misses",this.misses);
+        this.hearts.pop(); 
+        console.log("Hearts remaining:", this.hearts.length);
 
         if (this.isGameOver()) {}
+        // return this.hearts.length;
         return this.misses;
     }
 
 
+    // isGameOver() {
+    //     return this.misses >= this.maxMisses;
+    // }
     isGameOver() {
+        // return this.hearts.length === 0;
         return this.misses >= this.maxMisses;
     }
     

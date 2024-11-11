@@ -32,13 +32,15 @@ class MoleAnimation {
             this.gameModel.addScore(-5);
         } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_6.png') {
             this.gameModel.addScore(-1);
-        } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_8.png') {
+        } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_11.png') {
             this.gameModel.addScore(3);
         } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_9.png') {
             let currentScore = this.gameModel.getScore();
             let halfScore = Math.floor(currentScore / 3);
             let pointsToSubtract = currentScore - halfScore;
             this.gameModel.addScore(-pointsToSubtract);
+        } else if (randomMoleImage === '../Frontend/assets/images/Moles/Moles_8.png'){
+            this.gameModel.addLife(1);
         }
         
         hole.appendChild(curtain);

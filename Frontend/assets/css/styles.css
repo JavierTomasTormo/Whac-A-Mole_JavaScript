@@ -38,6 +38,8 @@ body {
 
 
 /*´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´SCOREBOARD*/
+
+
 #scoreboard {
     display: flex;
     justify-content: space-around;
@@ -52,8 +54,7 @@ body {
 }
 #score, #misses, #tickets, #prize-pot {
     font-size: 1em;
-}
-/*´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´SCOREBOARD*/
+}/*´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´SCOREBOARD*/
 
 #game-container {
     text-align: center;

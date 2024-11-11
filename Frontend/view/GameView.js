@@ -133,8 +133,12 @@ class GameView {
         localStorage.setItem('totalMolesWhacked', newTotalMolesWhacked);
     }
 
-    updateMisses(misses) {
-        this.missesElement.textContent = misses;
+    // updateMisses(misses) {
+    //     this.missesElement.textContent = misses;
+    // }
+    updateHearts(hearts) {
+        const heartsContainer = document.getElementById('hearts-container');
+        heartsContainer.textContent = hearts;
     }
 
     updatePrizePot(ticketsEarned) {
