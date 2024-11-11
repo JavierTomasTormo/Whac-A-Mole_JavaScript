@@ -41,25 +41,32 @@ document.addEventListener('DOMContentLoaded', () => {
         'Frontend/assets/images/Wallpaper_Charge/wv16.webp',
     ];
     const moleImages = [
-        '../Frontend/assets/images/Moles/Moles_1.png',//PERFECT
-        '../Frontend/assets/images/Moles/Moles_2.png',//PERFECT
-        '../Frontend/assets/images/Moles/Moles_3.png',//PERFECT
-        '../Frontend/assets/images/Moles/Moles_4.png',//PERFECT
-        '../Frontend/assets/images/Moles/Moles_5.png',//PERFECT
-        '../Frontend/assets/images/Moles/Moles_6.png',//PERFECT
-        '../Frontend/assets/images/Moles/Moles_8.png',//PERFECT
-        '../Frontend/assets/images/Moles/Moles_9.png',//PERFECT
         '../Frontend/assets/images/Moles/Moles_11.png',//PERFECT
+        '../Frontend/assets/images/Moles/Moles_1.png',//PERFECT
+        '../Frontend/assets/images/Moles/Moles_20.png',//REGULAR PROBABLE
+        '../Frontend/assets/images/Moles/Moles_3.png',//PERFECT
+        '../Frontend/assets/images/Moles/Moles_5.png',//PERFECT
         '../Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png',//PERFECT
+        '../Frontend/assets/images/Moles/Moles_15.png',//REGULAR PROBABLEMENTE LAS QUITE
+        '../Frontend/assets/images/Moles/Moles_8.png',//PERFECT
+        '../Frontend/assets/images/Moles/Moles_17.png',//REGULAR PROBABLEMENTE LAS QUITE
+        '../Frontend/assets/images/Moles/Moles_9.png',//PERFECT
+        '../Frontend/assets/images/Moles/Moles_4.png',//PERFECT
+        '../Frontend/assets/images/Moles/Moles_16.png',//REGULAR PROBABLEMENTE LAS QUITE
+        '../Frontend/assets/images/Moles/Moles_6.png',//PERFECT
+        '../Frontend/assets/images/Moles/Moles_19.png',//REGULAR PROBABLEMENTE LAS QUITE
+        '../Frontend/assets/images/Moles/Moles_2.png',//PERFECT
         '../Frontend/assets/images/Moles/Moles_12.png',//PERFECT
-        '../Frontend/assets/images/Moles/Moles_13.png',//REGULAR PROBABLEMENTE LAS QUITE
-        '../Frontend/assets/images/Moles/Moles_14.png',//REGULAR PROBABLEMENTE LAS QUITE
+
+
     ];
     const splashImages = [
         '../Frontend/assets/images/utils/splash/blood_2.png',
         '../Frontend/assets/images/utils/splash/blood_3.png',
         '../Frontend/assets/images/utils/splash/blood_4.png',
-        '../Frontend/assets/images/utils/splash/blood_5.png'
+        '../Frontend/assets/images/utils/splash/blood_5.png',
+        '../Frontend/assets/images/utils/splash/blood_6.png',
+        '../Frontend/assets/images/utils/splash/blood_7.png',
     ];
     const randomImage = images[Math.floor(Math.random() * images.length)];
     document.getElementById('start-screen').style.backgroundImage = `url('${randomImage}')`;
