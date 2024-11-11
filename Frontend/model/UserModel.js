@@ -17,11 +17,9 @@ class UserModel {
         this.tickets = storedTickets;
     }
 
-
     getCurrentTickets() {
         return parseInt(localStorage.getItem('ticketsEarned')) || 0;
     }
-
 
     getSelectedSkin() {
         if (this.skin && this.skin !== 'undefined') {
@@ -30,7 +28,6 @@ class UserModel {
             return this.defaultSkin;
         }
     }
-
 
     setSelectedSkin(newSkin) {
         if (newSkin && newSkin !== 'undefined') {
@@ -49,11 +46,9 @@ class UserModel {
     addSkin(skinUrl) {
         // console.log("Adding skin:", skinUrl);
         // console.log('Current skins:', this.skins);
-
         if (!this.skins.includes(skinUrl)) {
             this.skins.push(skinUrl);
             localStorage.setItem('skins', JSON.stringify(this.skins));
-
             // console.log('Updated skins:', this.skins);
         }
     }
@@ -66,7 +61,6 @@ class UserModel {
         this.tickets += amount;
         localStorage.setItem('ticketsEarned', this.tickets);
     }
-
 
     setLoginStatus(status, username, token) {
         this.isLoggedIn = status;
@@ -85,5 +79,7 @@ class UserModel {
         }
         return false;
     }
+
 }//UserModel
+
 export default UserModel; 

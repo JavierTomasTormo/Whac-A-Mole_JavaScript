@@ -29,28 +29,12 @@
     font-family: 'Comic Sans MS', cursive, sans-serif;
     animation: fadeInAuth 1s ease-in-out;
 }
-
-.character {
-    width: 140px;
-    height: 140px;
-    background-image: url('../images/utils/sprite.png'); 
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: jump 1.5s ease-in-out infinite;
-}
-
 .auth-container h2 {
     color: #333;
     font-size: 24px;
     margin-bottom: 20px;
     text-transform: uppercase;
 }
-
-
-
 .auth-container input {
     width: 90%;
     padding: 12px;
@@ -63,13 +47,11 @@
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     transition: all 0.3s;
 }
-
 .auth-container input:focus {
     border-color: #FF5722;
     outline: none;
     background: #fff3b0;
 }
-
 .auth-container button {
     width: 100%;
     padding: 14px;
@@ -84,32 +66,37 @@
     text-transform: uppercase;
     transition: background 0.3s ease;
 }
-
 .auth-container button:hover {
     background: linear-gradient(45deg, #FF9800, #FF5722);
 }
-
 .auth-container button:active {
     transform: scale(0.98);
     box-shadow: 0 2px #d14000;
 }
-
 .auth-container p {
     margin-top: 20px;
     font-size: 14px;
     color: #333;
 }
-
 .auth-container .link {
     color: #FF5722;
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline;
 }
-
 .auth-container .link:hover {
     color: #FF9800;
 }
 
 
-
+.character {
+    width: 140px;
+    height: 140px;
+    background-image: url('../images/utils/sprite.png'); 
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: jump 1.5s ease-in-out infinite;
+}

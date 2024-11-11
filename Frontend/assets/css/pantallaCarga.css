@@ -1,11 +1,12 @@
 /*::::::::::::::::::::::::::::::::::::::::PANTALLA CARGA*/
-
 .modal-start-screen {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+
 #start-screen {
     display: flex;
     flex-direction: column;
@@ -16,6 +17,7 @@
     background-size: cover;
 }
 
+
 #countdown {
     font-size: 5em;
     text-align: center;
@@ -24,6 +26,7 @@
     border-radius: 15px;
     padding: 15px;
 }
+
 
 #start-button {
     font-size: 1.5em;
@@ -40,13 +43,11 @@
     transition: all 0.2s ease;
     animation: bounce 1s infinite;
 }
-
 #start-button:hover {
     background: linear-gradient(45deg, #f48129, #edb78e);
     transform: translateY(2px);
     box-shadow: 0 4px #ff7c1f;
 }
-
 #start-button:active {
     transform: translateY(6px);
     box-shadow: none;

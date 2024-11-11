@@ -11,7 +11,7 @@ body {
     background-position: center;
 }
 
-/*=======================================================================///COMENTARIOS DEL TOPITO RANDOM */
+/*===================================///COMENTARIOS DEL TOPITO RANDOM */
 #mole-icon {
     position: fixed;
     top: 10px;
@@ -33,13 +33,9 @@ body {
     display: none;
     z-index: 1001;
 }
-/*=======================================================================///COMENTARIOS DEL TOPITO RANDOM */
+/*====================================///COMENTARIOS DEL TOPITO RANDOM */
 
-
-
-/*´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´SCOREBOARD*/
-
-
+/*´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´SCOREBOARD*/
 #scoreboard {
     display: flex;
     justify-content: space-around;
@@ -54,7 +50,8 @@ body {
 }
 #score, #misses, #tickets, #prize-pot {
     font-size: 1em;
-}/*´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´SCOREBOARD*/
+}
+/*´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´SCOREBOARD*/
 
 #game-container {
     text-align: center;
@@ -70,9 +67,6 @@ body {
 }
 
 
-
-
-
 .hole {
     width: 200px;
     height: 200px;
@@ -84,14 +78,6 @@ body {
     height: 100%;
     object-fit: cover;
 }
-
-
-
-
-.mole.up {
-    bottom: 22%;
-}
-
 
 .mole {
     width: 50%;
@@ -106,10 +92,9 @@ body {
     z-index: 3;
     cursor: pointer;
 }
-
-
-
-
+.mole.up {
+    bottom: 22%;
+}
 
 .curtain {
     width: 100%;
@@ -119,29 +104,9 @@ body {
     transition: bottom 0.5s;
     z-index: 2;
 }
-
 .curtain.up {
     bottom: 0;
 }
-
 .curtain.down {
     bottom: -100%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

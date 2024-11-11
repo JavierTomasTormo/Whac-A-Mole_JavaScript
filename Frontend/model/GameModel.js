@@ -8,7 +8,6 @@ class GameModel {
         this.maxMisses = 5;
         
         /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
-
         this.comments = [
             "¡Uy, casi me tienes! 😉",
             "¿Eso es todo? 😏",
@@ -36,9 +35,7 @@ class GameModel {
             "¡Uf, qué lent@! Así no me atrapas 😏",
             "¡Dale con más ganas! 😜",
             "¡Vas a tener que usar las dos manos! 😉"
-        ];
-        
-        /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
+        ]; 
     }//constructor
 
 /*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
@@ -46,7 +43,6 @@ class GameModel {
         const randomIndex = Math.floor(Math.random() * this.comments.length);
         return this.comments[randomIndex];
     }
-/*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
 
     getHearts() {
         return this.hearts.join(' ');
@@ -83,9 +79,7 @@ class GameModel {
 
     incrementScore() {
         this.score++;
-
         console.log( "score", this.score);    
-
         return this.score;
     }
 
@@ -96,9 +90,7 @@ class GameModel {
 
     // incrementMisses() {
     //     this.misses++;
-
     //     console.log("Misses",this.misses);
-
     //     if (this.isGameOver()) {}
     //     return this.misses;
     // }
@@ -106,12 +98,10 @@ class GameModel {
         this.misses++;
         this.hearts.pop(); 
         console.log("Hearts remaining:", this.hearts.length);
-
         if (this.isGameOver()) {}
         // return this.hearts.length;
         return this.misses;
     }
-
 
     // isGameOver() {
     //     return this.misses >= this.maxMisses;
@@ -120,14 +110,11 @@ class GameModel {
         // return this.hearts.length === 0;
         return this.misses >= this.maxMisses;
     }
-    
+
 /*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
     getRandomHoleIndex() {
         return Math.floor(Math.random() * 5);
     }
-/*___________________________________________________________________*///CREA TABLERO RANDOM HOLE
-
-
 
 }//class
 export default GameModel; 

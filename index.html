@@ -1,63 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <!-- METAS DE LA APLICACIÓN -->
-            <meta charset="UTF-8">
-            <meta name="description" content="Juego de Whac-A-Mole">
-            <meta name="author" content="Javier Tomás Tormo">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- METAS DE LA APLICACIÓN -->
-        <!-- TITLE -->
-            <title>Whac-A-Mole</title>
-        <!-- TITLE -->
-        <!-- CSS COMPONENETES DE LA APLICACIÓN  -->
-            <link rel="stylesheet" href="./Frontend/assets/css/pantallaCarga.css">
-            <link rel="stylesheet" href="./Frontend/assets/css/styles.css">
-            <link rel="stylesheet" href="./Frontend/assets/css/profile.css">
-            <link rel="stylesheet" href="./Frontend/assets/css/auth.css">
-            <link rel="stylesheet" href="./Frontend/assets/css/shop.css">
+        <meta charset="UTF-8">
+        <meta name="description" content="Juego de Whac-A-Mole">
+        <meta name="author" content="Javier Tomás Tormo">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <title>Whac-A-Mole</title>
 
-            <link rel="stylesheet" href="./Frontend/assets/css/keyFramesResponsive.css">
-            <link rel="shortcut icon" href="./Frontend/assets/images/favicon/Mole1.ico" type="image/x-icon">
-        <!-- CSS COMPONENETES DE LA APLICACIÓN  -->
+        <link rel="stylesheet" href="./Frontend/assets/css/pantallaCarga.css">
+        <link rel="stylesheet" href="./Frontend/assets/css/styles.css">
+        <link rel="stylesheet" href="./Frontend/assets/css/profile.css">
+        <link rel="stylesheet" href="./Frontend/assets/css/auth.css">
+        <link rel="stylesheet" href="./Frontend/assets/css/shop.css">
 
-
-
+        <link rel="stylesheet" href="./Frontend/assets/css/keyFramesResponsive.css">
+        <link rel="shortcut icon" href="./Frontend/assets/images/favicon/Mole1.ico" type="image/x-icon">
     </head>
     <body class="body">
-        
         <!--COMENTARIOS DEL TOPITO RANDOM  -->
-            <div id="mole-icon"></div>
-            <div id="random-comment"></div>
-        <!--COMENTARIOS DEL TOPITO RANDOM  -->
-        
+        <div id="mole-icon"></div>
+        <div id="random-comment"></div>
+
         <!-- PANTALLA DE CARGA -->
-            <div id="start-screen">
-                <div class="modal-start-screen">
-                    <img src="./Frontend/assets/images/utils/title.png" alt="Title" width="45%">
+        <div id="start-screen">
+            <div class="modal-start-screen">
+                <img src="./Frontend/assets/images/utils/title.png" alt="Title" width="45%">
                     <br>
-                    <button id="start-button">Start Game</button>
-
-                    <div class="button-container">
-                        <button id="logout-button">LogOut</button>
-                        
-                        <button id="profile-button">Profile</button>
-                    </div>
-                    <button id="shop-button" class="game-button">Shop</button>
-                    
+                <button id="start-button">Start Game</button>
+                <div class="button-container">
+                    <button id="logout-button">LogOut</button>
+                    <button id="profile-button">Profile</button>
                 </div>
+                <button id="shop-button" class="game-button">Shop</button>
             </div>
-        <!-- PANTALLA DE CARGA -->
+        </div>
+        <!-- PROFILE -->
+            <div id="profile"></div>    
 
-        <!-- Profile -->
-            <div id="profile"></div>
-        <!-- Profile -->    
-
+        <!-- COUNTDOWN Y GAME -->
         <div id="countdown" style="display: none;">3</div>
         <div id="game-container" style="display: none;">
         <div id="game-board"></div>
-
             <div id="scoreboard">
                 <div id="score">Score: <span id="score-value">0</span></div>
                 <!-- <div id="misses">Misses: <span id="misses-value">0</span></div> -->
@@ -67,12 +51,8 @@
             </div>
         </div>
 
-
-
-
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
         <!-- Main Script -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="module" src="./Frontend/assets/js/main.js"></script>
     </body>
 </html>

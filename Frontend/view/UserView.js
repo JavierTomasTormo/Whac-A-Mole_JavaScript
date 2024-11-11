@@ -1,14 +1,11 @@
-
 class UserView {
     constructor() {
-        // Create profile modal
         this.profileModal = document.createElement('div');
         this.profileModal.id = 'profile-modal';
         this.profileModal.className = 'modal';
         this.profileModal.innerHTML = `
             <div class="modal-content">
                 <span class="close-button">&times;</span>
-                
                 <div class="profile-header">
                     <div class="profile-avatar">
                         <img src="" alt="User Avatar">
@@ -18,7 +15,6 @@ class UserView {
                         <p id="profile-email">user@email.com</p>
                     </div>
                 </div>
-
                 <div class="profile-sections">
                     <div class="settings-section">
                         <h3 class="settings-title">Game Settings</h3>
@@ -36,7 +32,6 @@ class UserView {
                             <input type="range" id="game-speed" min="1" max="10">
                         </div>
                     </div>
-
                     <div class="settings-section">
                         <h3 class="settings-title">Audio Settings</h3>
                         <div class="setting-option">
@@ -48,7 +43,6 @@ class UserView {
                             <input type="checkbox" id="background-music">
                         </div>
                     </div>
-
                     <div class="settings-section">
                         <h3 class="settings-title">Statistics</h3>
                         <div class="setting-option">
@@ -64,7 +58,6 @@ class UserView {
                             <img id="selected-skin-image" src="" alt="Selected Skin" height="130">
                         </div>
                     </div>
-
                     <div class="settings-section">
                         <h3 class="settings-title">Account Settings</h3>
                         <div class="setting-optionbtt">
@@ -76,19 +69,14 @@ class UserView {
                 </div>
             </div>
         `;
-
         document.body.appendChild(this.profileModal);
-
-        // Create background container
+        // BG CONTAINER
         this.backgroundContainer = document.createElement('div');
         this.backgroundContainer.className = 'auth-background';
         
-        // Create auth container
+        // AUTH CONTAINER
         this.loginForm = document.createElement('div');
         this.loginForm.className = 'auth-container';
-
-        
-        // Add auth container inside background container
         this.backgroundContainer.appendChild(this.loginForm);
         
         this.setResponsiveBackground();
@@ -99,7 +87,7 @@ class UserView {
             <!-- Login Section -->
             <div id="loginSection">
                 <h2>Login to Play</h2>
-                <input type="text" id="username" placeholder="Username" aria-label="Username" required>
+                <input type="text" id="username" placeholder="Username" aria-label="Username" autocomplete="off" required>
                 <input type="password" id="password" placeholder="Password" aria-label="Password" required>
                 <button type="submit" id="loginBtn">Login</button>
                 <p>Don't have an account? <span id="showRegister" class="link">Register here</span></p>
@@ -113,10 +101,8 @@ class UserView {
                 <p>Already have an account? <span id="showLogin" class="link">Login here</span></p>
             </div>
         `;
-        
         document.body.insertBefore(this.backgroundContainer, document.getElementById('start-screen'));
     }
-
 
     setResponsiveBackground() {
         if (window.innerWidth <= 768) {

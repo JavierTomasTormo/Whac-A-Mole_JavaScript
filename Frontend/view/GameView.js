@@ -1,7 +1,5 @@
 import shopRequestsService from '../services/shop.requests.service.js';
 import userRequestsService from '../services/user.requests.service.js';
-
-
 class GameView {
     constructor(userModel) {
         this.userModel = userModel;
@@ -41,8 +39,6 @@ class GameView {
             this.randomComment.style.display = 'none';
         }, 3000);
     }//displayComment
-/*=======================================================================*///COMENTARIOS DEL TOPITO RANDOM 
-
 
 /*----------------------------------------------------------------*///START GAME BUTTON
     comenzarJuego(handler) {
@@ -52,7 +48,6 @@ class GameView {
             this.startCountdown(handler);
         });
     }//comenzarJuego
-/*---------------------------------------------------------------------*///START GAME BUTTON
 
 /*♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪*///CREA TABLERO RANDOM HOLE
     createBoard() {
@@ -90,7 +85,6 @@ class GameView {
         }
         return false;
     }//noSuperposicion
-/*♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪♪*///CREA TABLERO RANDOM HOLE
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*///CUENTA ATRAS
     startCountdown(handler) {
@@ -108,7 +102,6 @@ class GameView {
             }
         }, 999);
     }
-/*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*///CUENTA ATRAS
 
 //••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM 
     bindMoleClick(handler) {
@@ -117,7 +110,8 @@ class GameView {
             hole.addEventListener('click', () => handler(index));
         });
     }
-//••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••//RAndom Mole in raNDOM 
+
+
     updateTickets(tickets) {
         this.ticketsElement.textContent = tickets;
         this.updatePrizePot(tickets);
@@ -125,7 +119,6 @@ class GameView {
 
     updateScore(score) {
         this.scoreElement.textContent = score;
-
         const currentMoles = localStorage.getItem('totalMolesWhacked');
         const newTotalMolesWhacked = parseInt(currentMoles) + 1;
         // console.log(newTotalMolesWhacked);
@@ -133,9 +126,6 @@ class GameView {
         localStorage.setItem('totalMolesWhacked', newTotalMolesWhacked);
     }
 
-    // updateMisses(misses) {
-    //     this.missesElement.textContent = misses;
-    // }
     updateHearts(hearts) {
         const heartsContainer = document.getElementById('hearts-container');
         heartsContainer.textContent = hearts;
@@ -150,11 +140,11 @@ class GameView {
         localStorage.setItem('newTotalticketsEarned', newTotal);
     }
 
-
     showGameOver(score, misses) {
         const randomGifIndex = Math.floor(Math.random() * 4) + 1;
         const randomGifPath = `../Frontend/assets/images/gif/${randomGifIndex}.gif`;
         const currentTickets = parseInt(localStorage.getItem('newTotalticketsEarned')) || 0;
+        const totalGamesPlayed = parseInt(localStorage.getItem('totalGames')) + 1;
         
         Swal.fire({
             title: '¡Game Over!',
@@ -174,9 +164,11 @@ class GameView {
                 confirmButton: 'game-over-button'
             }
         }).then(() => {
+            // console.log(totalGamesPlayed);
             userRequestsService.updateUserStats(
                 localStorage.getItem('totalMolesWhacked'),
                 currentTickets,
+                totalGamesPlayed,
                 score
             )
             .then(response => response.json())
@@ -202,7 +194,6 @@ class GameView {
 
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
-
     bindShopButton() {
         this.shopButton = document.getElementById('shop-button');
         if (this.shopButton) {
@@ -253,7 +244,6 @@ class GameView {
                 epic: 'color: #A335EE; text-shadow: 0 0 8px rgba(163, 53, 238, 0.7); animation: glow 1.5s infinite;',
                 legendary: 'color: #FF8000; text-shadow: 0 0 10px rgba(255, 128, 0, 0.8); animation: legendary-shine 2s infinite;',
                 mythic: 'color: #FF0000; font-weight: bold; animation: mythic-fire 2.5s infinite alternate ease-in-out, mythic-float 3s ease-in-out infinite; transform-origin: center bottom;',
-
             };
             Swal.fire({
             title: wallpaper.name,
@@ -298,30 +288,22 @@ class GameView {
             }
             });
         };
-
-
         const response = await userRequestsService.getUserSkins();
         const data = await response.json();
         const userSkins = data.user.skins;
-
         // console.log(userSkins);
         const shopItemsHtml = shopItems.map(wallpaper => {
-            const isSelected = wallpaper.imageUrl === selectedSkin;
-
-
-
-            const isOwned = userSkins.includes(wallpaper.imageUrl);
+        const isSelected = wallpaper.imageUrl === selectedSkin;
+        const isOwned = userSkins.includes(wallpaper.imageUrl);
             // userSkins.forEach(skinUrl => {
             //     console.log(skinUrl, wallpaper.imageUrl);
             //     if (skinUrl === wallpaper.imageUrl) {
             //         isOwned = true;
             //     }
             // });
-    
             // console.log("Checking:", wallpaper.imageUrl);
             // console.log("Against:", userSkins);
             // console.log("Result:", isOwned);
-            
             return `
                 <div class="shop-item">
                     <div class="item-frame">
@@ -344,8 +326,6 @@ class GameView {
                 </div>
             `;
         }).join('');
-
-
         const modalContent = `
             <div class="modal-content-shop">
                 <div class="shop-header">
@@ -361,102 +341,94 @@ class GameView {
                 </div>
             </div>
         `;
-
-        window.selectSkin = (skinUrl) => {
-            this.selectSkin(skinUrl);
-        };
-    
-        window.buySkin = (skinUrl, price) => {
-            this.buySkin(skinUrl, price);
-        };
-
-    Swal.fire({
-        html: modalContent,
-        width: window.innerWidth <= 768 ? '80%' : '60%',
-        backdrop: 'rgba(0, 0, 0, 0.99)',
-        showCloseButton: true,
-        closeButtonHtml: '❌',
-        showConfirmButton: false,
-        customClass: {
-            container: 'shop-modal-container',
-            popup: 'shop-modal-popup',
-            closeButton: 'custom-close-button'
-        },
-    });
+            window.selectSkin = (skinUrl) => {
+                this.selectSkin(skinUrl);
+            };
+            window.buySkin = (skinUrl, price) => {
+                this.buySkin(skinUrl, price);
+            };
+        Swal.fire({
+            html: modalContent,
+            width: window.innerWidth <= 768 ? '80%' : '60%',
+            backdrop: 'rgba(0, 0, 0, 0.99)',
+            showCloseButton: true,
+            closeButtonHtml: '❌',
+            showConfirmButton: false,
+            customClass: {
+                container: 'shop-modal-container',
+                popup: 'shop-modal-popup',
+                closeButton: 'custom-close-button'
+            },
+        });
     }
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
-async buySkin(skinUrl, price) {
-    try {
-        // console.log('Attempting to purchase skin:', skinUrl, 'for price:', price);
-        const response = await userRequestsService.purchaseSkin(skinUrl, price);
-        // console.log('Response received:', response);
-        
-        const data = await response.json();
-        // console.log('Data parsed:', data);
-
-        if (data.success === true) {
-            // console.log('Purchase successful, updating user model');
-            this.userModel.updateTickets(-price);
-            this.userModel.addSkin(skinUrl);
-            
-            Swal.fire({
-                title: 'Purchase Successful!',
-                text: 'The skin has been added to your collection',
-                icon: 'success',
-                backdrop: 'rgba(0, 0, 0, 0.99)',
-                confirmButtonText: 'Cool!'
-            }).then(() => {
-                shopRequestsService.getShopItems()
-                .then(response => response.json())
-                .then(data => {
-                    // console.log('Shop items:', data);
-                    this.showShopModal(data.items);
-                })
-                .catch(error => {
-                    console.error('Error fetching shop items:', error);
-                    this.showShopModal();
+    async buySkin(skinUrl, price) {
+        try {
+            // console.log('Attempting to purchase skin:', skinUrl, 'for price:', price);
+            const response = await userRequestsService.purchaseSkin(skinUrl, price);
+            // console.log('Response received:', response);
+            const data = await response.json();
+            // console.log('Data parsed:', data);
+            if (data.success === true) {
+                // console.log('Purchase successful, updating user model');
+                this.userModel.updateTickets(-price);
+                this.userModel.addSkin(skinUrl);
+                Swal.fire({
+                    title: 'Purchase Successful!',
+                    text: 'The skin has been added to your collection',
+                    icon: 'success',
+                    backdrop: 'rgba(0, 0, 0, 0.99)',
+                    confirmButtonText: 'Cool!'
+                }).then(() => {
+                    shopRequestsService.getShopItems()
+                    .then(response => response.json())
+                    .then(data => {
+                        // console.log('Shop items:', data);
+                        this.showShopModal(data.items);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching shop items:', error);
+                        this.showShopModal();
+                    });
                 });
-            });
-            
-        } else {
-            console.log('Purchase failed:', data.message);
+                
+            } else {
+                console.log('Purchase failed:', data.message);
+                Swal.fire({
+                    title: 'Purchase Failed',
+                    text: data.message || 'Insufficient tickets',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        } catch (error) {
+            console.error('Error during purchase:', error);
             Swal.fire({
-                title: 'Purchase Failed',
-                text: data.message || 'Insufficient tickets',
+                title: 'Error',
+                text: 'Failed to purchase skin',
                 icon: 'error',
                 confirmButtonText: 'Ok'
             });
         }
-    } catch (error) {
-        console.error('Error during purchase:', error);
-        Swal.fire({
-            title: 'Error',
-            text: 'Failed to purchase skin',
-            icon: 'error',
-            confirmButtonText: 'Ok'
-        });
     }
-}
 
-
-async selectSkin(skinUrl) {
-    try {
-        const response = await userRequestsService.updateUserSkin(skinUrl);
-        if (response.ok) {
-            const data = await response.json();
-            this.userModel.setSelectedSkin(skinUrl);
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
-            // const shopItems = await shopRequestsService.getShopItems();
-            // this.showShopModal(shopItems.items);
+    async selectSkin(skinUrl) {
+        try {
+            const response = await userRequestsService.updateUserSkin(skinUrl);
+            if (response.ok) {
+                const data = await response.json();
+                this.userModel.setSelectedSkin(skinUrl);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+                // const shopItems = await shopRequestsService.getShopItems();
+                // this.showShopModal(shopItems.items);
+            }
+        } catch (error) {
+            console.error('Error selecting skin:', error);
         }
-    } catch (error) {
-        console.error('Error selecting skin:', error);
     }
-}
-
 
 }//GameView
 export default GameView;

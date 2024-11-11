@@ -21,11 +21,9 @@ class UserController {
     setupLogoutAndProfile() {
         const logoutBtn = document.getElementById('logout-button');
         const profileBtn = document.getElementById('profile-button');
-
         if (logoutBtn) {
             logoutBtn.addEventListener('click', () => this.handleLogout());
         }
-        
         if (profileBtn) {
             profileBtn.addEventListener('click', () => this.handleProfile());
         }
@@ -36,8 +34,7 @@ class UserController {
         const registerBtn = document.getElementById('registerBtn');
         const showRegister = document.getElementById('showRegister');
         const showLogin = document.getElementById('showLogin');
-    
-        // Asocia los clics a las funciones
+
         loginBtn.addEventListener('click', (e) => {
             e.preventDefault();
             this.handleLogin();
@@ -62,20 +59,14 @@ class UserController {
     async handleLogin() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-    
         try {
             const response = await userRequestsService.loginUser(username, password);
-
             // console.log(response);
-
             if (response.ok) {
                 const data = await response.json();
                 // console.log(data);
-                
                 this.model.setLoginStatus(true, username, data.user.token);
-
                 console.log(data.user);
-
                 localStorage.setItem('highScore', data.user.highScore || '0');
                 localStorage.setItem('totalGames', data.user.totalGamesPlayed || '0');
                 localStorage.setItem('totalMolesWhacked', data.user.totalMolesWhacked || '0'); 
@@ -111,12 +102,9 @@ class UserController {
     async handleRegister() {
         const username = document.getElementById('regUsername').value;
         const password = document.getElementById('regPassword').value;
-
         const email = username + "@whacamole.com";
-
         try {
             const response = await userRequestsService.registerUser(username, password, email);
-
             if (response.ok) {
                 Swal.fire({
                     icon: "success",
@@ -160,30 +148,24 @@ class UserController {
         window.location.reload();
     }
 
-
-
     handleProfile() {
         const modal = document.getElementById('profile-modal');
         const closeButton = document.querySelector('.close-button');
         const currentUser = localStorage.getItem('username');
         const userEmail = localStorage.getItem('userEmail');
-
         // Basic Profile Info
         document.getElementById('profile-username').textContent = currentUser;
         document.getElementById('profile-email').textContent = userEmail || `${currentUser}@whacamole.com`;
-
         // Statistics
         document.getElementById('high-score').textContent = localStorage.getItem('highScore') + "   📊" || '0   📊';
         document.getElementById('total-games').textContent = localStorage.getItem('totalGames') + " 👾" || '0   👾';
         document.getElementById('mole-whack').textContent = localStorage.getItem('totalMolesWhacked') + "   🎯" || '0   🎯';
         document.getElementById('tickets-earned').textContent = localStorage.getItem('ticketsEarned') + "   💰" || '0   💰';
-
         // Load saved settings if they exist
         document.getElementById('difficulty').value = localStorage.getItem('difficulty') || 'medium';
         document.getElementById('game-speed').value = localStorage.getItem('gameSpeed') || '5';
         document.getElementById('sound-effects').checked = localStorage.getItem('soundEffects') === 'true';
         document.getElementById('background-music').checked = localStorage.getItem('musicEnabled') === 'true';
-        
         // console.log(this.model.getSelectedSkin());
         // document.getElementById('selected-skin-imagen').value = this.model.getSelectedSkin();
         // console.log(this.model.getSelectedSkin());
@@ -194,14 +176,11 @@ class UserController {
         } else {
             console.error('Element with ID "selected-skin" not found.');
         }
-
-
-
         // Avatar handling
         const avatarImg = document.querySelector('.profile-avatar img');
         const storedAvatar = localStorage.getItem('userAvatar') || 'Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png';
+    
         avatarImg.src = storedAvatar;
-
         avatarImg.style.cursor = 'pointer';
         avatarImg.addEventListener('click', () => {
             Swal.fire({
@@ -215,7 +194,7 @@ class UserController {
                         <img src="Frontend/assets/images/Moles/Moles_11.png" class="avatar-option">
                         <img src="Frontend/assets/images/Moles/Moles_13.png" class="avatar-option">
                         <img src="Frontend/assets/images/Moles/Moles_14.png" class="avatar-option">
-
+                        <img src="Frontend/assets/images/Moles/Moles_20.png" class="avatar-option">
                         <img src="Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png" class="avatar-option">
                     </div>
                 `,
@@ -230,7 +209,6 @@ class UserController {
                         avatar.addEventListener('click', async () => {
                             try {
                                 const response = await userRequestsService.updateUserAvatar(avatar.src);
-
                                 if (response.ok) {
                                     localStorage.setItem('userAvatar', avatar.src);
                                     avatarImg.src = avatar.src;
@@ -245,7 +223,6 @@ class UserController {
                 }
             });
         });
-
         document.querySelector('.save-settings').addEventListener('click', async () => {
             const settings = {
                 difficulty: document.getElementById('difficulty').value,
@@ -253,18 +230,15 @@ class UserController {
                 soundEnabled: document.getElementById('sound-effects').checked,
                 musicEnabled: document.getElementById('background-music').checked
             };
-
             try {
                 const token = localStorage.getItem('token');
                 const response = await userRequestsService.updateUserSettings(token, settings);
-
                 if (response.ok) {
                     localStorage.setItem('difficulty', settings.difficulty);
                     localStorage.setItem('gameSpeed', settings.gameSpeed);
                     localStorage.setItem('soundEffects', settings.soundEnabled);
                     localStorage.setItem('musicEnabled', settings.musicEnabled);
                     await this.updateUserStats();
-
                     Swal.fire({
                         icon: "success",
                         title: "¡Guardado!",
@@ -274,7 +248,6 @@ class UserController {
                             sweetAlertContainer.style.zIndex = '100000';
                         }
                     });
-
                     setTimeout(() => {
                         // this.handleLogout();
                         window.location.reload();
@@ -295,8 +268,6 @@ class UserController {
                 });
             }
         });
-        
-    
         document.getElementById('change-password').addEventListener('click', () => {
             Swal.fire({
                 title: 'Cambiar Contraseña',
@@ -312,19 +283,15 @@ class UserController {
                     const currentPassword = document.getElementById('current-password').value;
                     const newPassword = document.getElementById('new-password').value;
                     const confirmPassword = document.getElementById('confirm-password').value;
-        
                     if (newPassword !== confirmPassword) {
                         Swal.showValidationMessage('Las contraseñas no coinciden');
                         return false;
                     }
-        
                     try {
                         const response = await userRequestsService.updateUserPassword(currentPassword, newPassword);
-        
                         if (!response.ok) {
                             throw new Error('Contraseña actual incorrecta');
                         }
-        
                         return true;
                     } catch (error) {
                         Swal.showValidationMessage(error.message);
@@ -346,8 +313,6 @@ class UserController {
                 }
             });
         });
-        
-    
         document.getElementById('edit-profile').addEventListener('click', () => {
             Swal.fire({
                 title: 'Editar Perfil',
@@ -361,10 +326,8 @@ class UserController {
                 preConfirm: async () => {
                     const newUsername = document.getElementById('edit-username').value;
                     const newEmail = document.getElementById('edit-email').value;
-        
                     try {
                         const response = await userRequestsService.updateUserDetails(newUsername, newEmail);
-
                         if (!response.ok) {
                             throw new Error('Error al actualizar el perfil');
                         }
@@ -397,13 +360,10 @@ class UserController {
                 }
             });
         });
-    
         modal.style.display = 'block';
-        
         closeButton.onclick = () => {
             modal.style.display = 'none';
         }
-        
         window.onclick = (event) => {
             if (event.target === modal) {
                 modal.style.display = 'none';
@@ -414,7 +374,6 @@ class UserController {
     async updateUserStats() {
         try {
             const response = await userRequestsService.getUserProfile();
-
             if (response.ok) {
                 const data = await response.json();
                 
@@ -422,7 +381,6 @@ class UserController {
                 localStorage.setItem('highScore', data.user.highScore || '0');
                 localStorage.setItem('totalGames', data.user.totalGamesPlayed || '0');
                 localStorage.setItem('totalMolesWhacked', data.user.totalMolesWhacked || '0');
-                
                 // Update displayed statistics if profile modal is open
                 const profileModal = document.getElementById('profile-modal');
                 if (profileModal && profileModal.style.display === 'block') {
@@ -436,11 +394,9 @@ class UserController {
         }
     }
 
-
                                                                                                                                 //
                                                                                                                                 //
 }// End of UserController class
-
 
 window.handleLogout = () => {
     const userModel = new UserModel();
@@ -448,6 +404,7 @@ window.handleLogout = () => {
     const userController = new UserController(userModel, userView);
     userController.handleLogout();
 };
+
 export default UserController;
 
 

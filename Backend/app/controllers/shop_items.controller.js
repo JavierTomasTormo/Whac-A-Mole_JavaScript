@@ -3,11 +3,9 @@ const asyncHandler = require('express-async-handler');
 
 const createShopItem = asyncHandler(async (req, res) => {
     const { item } = req.body;
-
     if (!item || !item.name || !item.price || !item.type) {
         return res.status(400).json({ message: "All fields are required" });
     }
-
     const itemObject = {
         name: item.name,
         description: item.description,
@@ -18,12 +16,12 @@ const createShopItem = asyncHandler(async (req, res) => {
         discount: item.discount || 0,
         rarity: item.rarity || 'common'
     };
-
     const createdItem = await ShopItem.create(itemObject);
     return res.status(201).json({
         item: createdItem.toItemResponse()
     });
 });
+
 
 const getAllShopItems = asyncHandler(async (req, res) => {
     const items = await ShopItem.find().sort({ price: 1 }).exec();
@@ -33,6 +31,7 @@ const getAllShopItems = asyncHandler(async (req, res) => {
     res.status(200).json({ items: itemsResponse });
 });
 
+
 const getShopItemById = asyncHandler(async (req, res) => {
     const item = await ShopItem.findById(req.params.id);
     if (!item) {
@@ -41,14 +40,13 @@ const getShopItemById = asyncHandler(async (req, res) => {
     res.status(200).json({ item: item.toItemResponse() });
 });
 
+
 const updateShopItem = asyncHandler(async (req, res) => {
     const { item } = req.body;
     const existingItem = await ShopItem.findById(req.params.id);
-
     if (!existingItem) {
         return res.status(404).json({ message: "Item not found" });
     }
-
     if (item.name) existingItem.name = item.name;
     if (item.description) existingItem.description = item.description;
     if (item.price) existingItem.price = item.price;
@@ -57,12 +55,12 @@ const updateShopItem = asyncHandler(async (req, res) => {
     if (item.isAvailable !== undefined) existingItem.isAvailable = item.isAvailable;
     if (item.discount) existingItem.discount = item.discount;
     if (item.rarity) existingItem.rarity = item.rarity;
-
     const updatedItem = await existingItem.save();
     res.status(200).json({
         item: updatedItem.toItemResponse()
     });
 });
+
 
 const deleteShopItem = asyncHandler(async (req, res) => {
     const item = await ShopItem.findByIdAndDelete(req.params.id);
@@ -72,13 +70,11 @@ const deleteShopItem = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Item deleted successfully" });
 });
 
+
 const deleteAllShopItems = asyncHandler(async (req, res) => {
     await ShopItem.deleteMany({});
     res.status(200).json({ message: "All items deleted successfully" });
 });
-
-
-
 
 
 module.exports = {

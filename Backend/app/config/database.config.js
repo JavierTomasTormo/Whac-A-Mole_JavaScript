@@ -6,7 +6,6 @@ require('dotenv').config({ path: '../../.env'});
     //     console.log('CORSURL:', process.env.CORSURL);
     //     console.log('DUMMY_PRODUCTS:', process.env.DUMMY_PRODUCTS);
     //     console.log('SECRET:', process.env.ACCESS_TOKEN_SECRET);
-    // //
 module.exports = {
     url: process.env.MONGO_URI  
 };

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const shopItemSchema = new mongoose.Schema({
     name: {
         type: String,

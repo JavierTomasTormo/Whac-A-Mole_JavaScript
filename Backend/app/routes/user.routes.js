@@ -2,39 +2,20 @@ const userController = require('../controllers/users.controller.js');
 const verifyJWT = require('../middleware/verifyJWT.js');
 
 module.exports = (app) => {
-
-    // Get all users
     app.get('/users', userController.getAllUsers);
-
-    // Update user details
-    app.put('/users/update', verifyJWT ,userController.updateUser);
-
-    app.put('/users/update-password', verifyJWT, userController.updatePassword);
-
-
-    // User registration
-    app.post('/users/register', userController.registerUser);
-
-    // User login
-    app.post('/users/login', userController.userLogin);
-
-    // Get user profile
     app.get('/users/profile', verifyJWT, userController.getCurrentUser);
-
-    // Get current user details
-    // app.get('/user', verifyJWT, userController.getCurrentUser);
-    app.post('/user/updateSkin', verifyJWT, userController.updateSkin);
-
-
-    // Update game stats
-    app.post('/user/stats', verifyJWT, userController.updateGameStats);
-
     app.get('/user/getUserSkins', verifyJWT, userController.getUserSkins);
 
-    // Add this route with the others
+
+    app.post('/user/stats', verifyJWT, userController.updateGameStats);
+    app.post('/user/updateSkin', verifyJWT, userController.updateSkin);
+    app.post('/users/register', userController.registerUser);
+    app.post('/users/login', userController.userLogin);
     app.post('/user/purchaseSkin', verifyJWT, userController.purchaseShopItem);
-
-
-    // Update game settings
     app.post('/user/settings', verifyJWT, userController.updateGameSettings);
+
+
+    app.put('/users/update', verifyJWT ,userController.updateUser);
+    app.put('/users/update-password', verifyJWT, userController.updatePassword);
+
 };

@@ -10,11 +10,13 @@
     box-shadow: 0 0 25px rgba(0,0,0,0.5);
 }
 
+
 .shop-title {
     font-size: 26px;
     color: #ff4500;
     margin-bottom: 20px;
 }
+
 
 .user-tickets {
     font-size: 18px;
@@ -26,7 +28,6 @@
 }
 
 
-
 .ticket-icon {
     width: 50px;
     height: 50px;
@@ -34,14 +35,10 @@
     animation: bounce-and-sparkle 1s infinite ease-in-out;
     position: relative;
 }
-
-
-
 .tickets-label {
     font-weight: bold;
     color: #ffdd57;
 }
-
 .tickets-value {
     font-size: 20px;
     font-weight: bold;
@@ -49,13 +46,13 @@
     margin-left: 5px;
 }
 
+
 .wallpaper-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
 }
-
 
 
 .shop-item {
@@ -70,25 +67,23 @@
     transition: transform 0.2s ease;
     position: relative;
 }
-
 .shop-item:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 20px rgba(255, 127, 80, 0.7);
 }
+
 
 .item-frame {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
 }
-
 .item-frame img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
-
 .item-overlay {
     position: absolute;
     top: 0;
@@ -105,16 +100,15 @@
     font-size: 18px;
     font-weight: bold;
 }
-
 .item-frame:hover .item-overlay {
     opacity: 1;
 }
-
 .item-title {
     font-size: 18px;
     color: #ffdd57;
     margin: 10px 0 5px;
 }
+
 
 .price-tag {
     display: flex;
@@ -124,12 +118,12 @@
     color: #ffdd57;
     margin-bottom: 10px;
 }
-
 .price-icon {
     width: 18px;
     height: 18px;
     margin-right: 5px;
 }
+
 
 .buy-button {
     font-weight: bold;
@@ -142,21 +136,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: background 0.3s ease, transform 0.2s ease;
 }
-
 .buy-button.available {
     background: linear-gradient(135deg, #ff4500, #ff7f50);
 }
-
 .buy-button.locked {
     background: #ccc;
     color: #666;
     cursor: not-allowed;
 }
-
 .buy-button.available:hover {
     background: linear-gradient(135deg, #ff7f50, #ff4500);
     transform: scale(1.05);
 }
+
 
 .custom-close-button {
     position: absolute;
@@ -167,15 +159,11 @@
     cursor: pointer;
     transition: transform 0.2s ease;
 }
-
 .custom-close-button:hover {
     transform: rotate(90deg);
     filter: drop-shadow(0 0 10px #ff0000);
     
 }
-
-
-
 
 
 .selected-button {
@@ -196,19 +184,16 @@
     backdrop-filter: blur(5px);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
-
 .selected-button:hover {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 8px 16px rgba(251, 0, 255, 0.6), 0 0 30px rgba(83, 255, 80, 0.4);
     background: linear-gradient(135deg, #53ff50, #0864a1);
     letter-spacing: 2px;
 }
-
 .selected-button:active {
     transform: translateY(2px);
     box-shadow: 0 4px 8px rgba(251, 0, 255, 0.4);
 }
-
 .selected-button:before {
     content: '';
     position: absolute;
@@ -226,61 +211,53 @@
 }
 
 
-
-
-
-    .owned-button {
-        background: linear-gradient(135deg, #ffd700, #ff8c00);
-        color: #2c1810;
-        font-weight: bold;
-        padding: 10px 20px;
-        border: 3px solid #ffd700;
-        border-radius: 15px;
-        cursor: default;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        position: relative;
-        overflow: hidden;
-        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-        animation: glowPulseOwnedButton 2s infinite;
-        transform: translateY(2px);
-    }   
-    .owned-button::after {
-        content: "★";
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        color: #2c1810;
-        font-size: 14px;
-        animation: sparkleOwnedBTT 1.5s infinite;
-    }   
-    .owned-button::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg,
-            rgba(255, 215, 0, 0) 0%,
-            rgba(255, 215, 0, 0.5) 50%,
-            rgba(255, 215, 0, 0) 100%
-        );
-        transform: rotate(45deg);
-        animation: shineOwnedBTT 3s infinite;
-    }   
-    .owned-button:hover {
-        filter: brightness(1.1);
-        transform: scale(1.02) translateY(2px);
-        transition: all 0.3s ease;
-    }   
-
-
-
-
-
+.owned-button {
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    color: #2c1810;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 3px solid #ffd700;
+    border-radius: 15px;
+    cursor: default;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    animation: glowPulseOwnedButton 2s infinite;
+    transform: translateY(2px);
+}   
+.owned-button::after {
+    content: "★";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #2c1810;
+    font-size: 14px;
+    animation: sparkleOwnedBTT 1.5s infinite;
+}   
+.owned-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+        rgba(255, 215, 0, 0) 0%,
+        rgba(255, 215, 0, 0.5) 50%,
+        rgba(255, 215, 0, 0) 100%
+    );
+    transform: rotate(45deg);
+    animation: shineOwnedBTT 3s infinite;
+}   
+.owned-button:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02) translateY(2px);
+    transition: all 0.3s ease;
+}   
 
 
 #shop-button {
@@ -297,40 +274,30 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: background 0.3s;
 }
-
 #shop-button:hover {
     background: linear-gradient(135deg, #76361f, #a7a83d);
     animation: bounce 0.3s ease infinite;
 }
-
 #logout-button:active, #profile-button:active {
     transform: translateY(1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 
-
-
-
-
-
 .no-items-message {
     font-size: 1.5em;
-    color: #ff0000; /* Color rojo para resaltar */
-    background-color: #fff0f0; /* Fondo ligeramente rosado */
-    border: 2px dashed #ff0000; /* Borde rojo punteado */
+    color: #ff0000; 
+    background-color: #fff0f0; 
+    border: 2px dashed #ff0000; 
     padding: 20px;
     text-align: center;
     margin: 20px auto;
     width: 80%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    font-family: 'Comic Sans MS', cursive, sans-serif; /* Fuente apenada */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
     animation: fadeIn_shopitem 2s, pulse_shopitem 1s infinite alternate, infinite;
 }
-
-
-
 
 
 .preview-modal {
@@ -340,6 +307,7 @@
     color: white;
     box-shadow: 0 0 25px rgba(0,0,0,0.5);
 }
+
 
 .preview-image {
     width: 100%;
@@ -351,6 +319,7 @@
     margin-bottom: 20px;
 }
 
+
 .preview-info {
     text-align: left;
     padding: 20px;
@@ -359,12 +328,14 @@
     border: 2px solid #ff4500;
 }
 
+
 .preview-description {
     font-size: 18px;
     color: #ffffff;
     margin-bottom: 15px;
     line-height: 1.5;
 }
+
 
 .preview-details {
     display: flex;
@@ -373,6 +344,7 @@
     padding-top: 15px;
     border-top: 2px solid #ffdd57;
 }
+
 
 .preview-price, .preview-rarity {
     font-size: 20px;
@@ -383,16 +355,19 @@
     gap: 8px;
 }
 
+
 .preview-modal-container .swal2-close {
     color: #ff4500;
     font-size: 28px;
     transition: transform 0.3s ease;
 }
 
+
 .preview-modal-container .swal2-close:hover {
     transform: rotate(90deg);
     color: #ffdd57;
 }
+
 
 .preview-modal-popup {
     background: linear-gradient(145deg, #2c2c2c, #4a4a4a);

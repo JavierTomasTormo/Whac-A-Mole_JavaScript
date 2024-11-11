@@ -6,21 +6,16 @@ const jwt = require('jsonwebtoken');
 
 const registerUser = asyncHandler(async (req, res) => {
     const { user } = req.body;
-
     // console.log("users.controller.js, 9:", user);
-
     if (!user || !user.email || !user.username || !user.password) {
         return res.status(400).json({ message: "All fields are required" });
     }
-
     const existingUser = await User.findOne({ 
         $or: [{ email: user.email }, { username: user.username }] 
     });
-
     if (existingUser) {
         return res.status(422).json({ message: "Email or username already taken" });
     }
-
     const hashedPwd = await argon2.hash(user.password);
     const token = jwt.sign(
         // { user: { email: user.email } },
@@ -28,7 +23,6 @@ const registerUser = asyncHandler(async (req, res) => {
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '1h' }
     );
-
     const userObject = {
         username: user.username,
         password: hashedPwd,
@@ -54,7 +48,6 @@ const registerUser = asyncHandler(async (req, res) => {
         selectedSkin: null,
         token: token
     };
-
     try {
         const createdUser = await User.create(userObject);
         return res.status(201).json({
@@ -71,34 +64,26 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const getAllUsers = asyncHandler(async (req, res) => {
     const users = await User.find().exec();
-    
     const usersResponse = users.map(user => ({
         ...user.toObject()
     }));
-    
     res.status(200).json({ users: usersResponse });
 });
 
 
 const updateUser = asyncHandler(async (req, res) => {
     const { user } = req.body;
-    
     const authHeader = req.headers.authorization;
     const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const currentEmail = decoded.user.email;
-
     if (!user) {
         return res.status(400).json({ message: "User data is required" });
     }
-
     const existingUser = await User.findOne({ email: currentEmail }).exec();
-    
-
     if (!existingUser) {
         return res.status(404).json({ message: "User not found" });
     }
-
     if (user.username) existingUser.username = user.username;
     if (user.email) existingUser.email = user.email;
     if (user.avatar) existingUser.avatar = user.avatar;
@@ -108,11 +93,9 @@ const updateUser = asyncHandler(async (req, res) => {
     if (user.averageReactionTime !== undefined) existingUser.averageReactionTime = user.averageReactionTime;
     if (user.achievements) existingUser.achievements = [...existingUser.achievements, ...user.achievements];
     if (user.selectedSkin) existingUser.selectedSkin = user.selectedSkin;
-
     if (user.password) {
         existingUser.password = await argon2.hash(user.password);
     }
-
     if (user.username || user.email) {
         const newToken = jwt.sign(
             { user: { username: existingUser.username, email: existingUser.email } },
@@ -121,9 +104,7 @@ const updateUser = asyncHandler(async (req, res) => {
         );
         existingUser.token = newToken;
     }
-
     const updatedUser = await existingUser.save();
-
     res.status(200).json({
         user: {
             ...updatedUser.toUserResponse(),
@@ -133,20 +114,15 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 
-
 const getCurrentUser = asyncHandler(async (req, res) => {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(' ')[1];
-    
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const email = decoded.user.email;
-    
     const user = await User.findOne({ email }).select('+token').exec();
-    
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
-
     res.status(200).json({
         user: {
             ...user.toObject(),
@@ -161,33 +137,28 @@ const updateGameStats = asyncHandler(async (req, res) => {
     const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const email = decoded.user.email;
-
-    const { totalMolesWhacked, ticketsEarned, highScore } = req.body;
-    
+    // console.log(req.body);
+    const { totalMolesWhacked, ticketsEarned, totalGamesPlayed, highScore } = req.body;
     const validMoles = totalMolesWhacked;
     const validTickets = ticketsEarned;
-
     const user = await User.findOne({ email }).select('+token').exec();
+    // console.log(user);
     if (!user) {return res.status(404).json({ message: "User not found" });}
-
     if (validMoles > user.totalMolesWhacked) {
         user.totalMolesWhacked = validMoles;
     }
-    
     if (highScore > user.highScore) {
         user.highScore = highScore;
     }
-
+    if (totalGamesPlayed > user.totalGamesPlayed) {
+        user.totalGamesPlayed = totalGamesPlayed;
+    }
     user.ticketsEarned = validTickets;
-
     await user.save();
     res.status(200).json({
         user: user.toUserResponse()
     });
 });
-
-
-
 
 
 const userLogin = asyncHandler(async (req, res) => {
@@ -256,10 +227,6 @@ const updateGameSettings = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
-
 const updateSkin = asyncHandler(async (req, res) => {
     const { skin } = req.body;
     // console.log(req);
@@ -270,14 +237,12 @@ const updateSkin = asyncHandler(async (req, res) => {
             { selectedSkin: skin }, 
             { new: true }
         );
-
         if (!user) {
             return res.status(404).json({ 
                 success: false, 
                 message: 'User not found' 
             });
         }
-
         res.json({ 
             success: true, 
             message: 'Skin updated successfully',
@@ -292,25 +257,15 @@ const updateSkin = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
-
-
-
 const getUserSkins = asyncHandler(async (req, res) => {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(' ')[1];
-    
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     const email = decoded.user.email;
-    
     const user = await User.findOne({ email }).select('+token').exec();
-    
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
-    
     res.status(200).json({
         user: {
             ...user.toObject(),
@@ -320,22 +275,18 @@ const getUserSkins = asyncHandler(async (req, res) => {
 });
 
 
-
 const purchaseShopItem = asyncHandler(async (req, res) => {
     // console.log(req);
     const userId = req.userId;
     // console.log(req.body);
     const { skinUrl, price } = req.body;
-    
     const user = await User.findById(userId);
-    
     if (!user) {
         return res.status(404).json({
             success: false,
             message: 'User not found'
         });
     }
-    
     if (user.ticketsEarned >= price) {
         user.ticketsEarned -= price;
         user.skins.push(skinUrl);
@@ -354,7 +305,6 @@ const purchaseShopItem = asyncHandler(async (req, res) => {
         });
     } 
 });
-
 
 
 module.exports = {

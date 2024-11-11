@@ -8,7 +8,6 @@ import MoleAnimation from '../../controller/MoleAnimationController.js';
 import shopRequestsService from '../../services/shop.requests.service.js';
 import userRequestsService from '../../services/user.requests.service.js';
 
-
 (function() {
     const originalFetch = fetch;
     window.fetch = async (...args) => {
@@ -19,7 +18,6 @@ import userRequestsService from '../../services/user.requests.service.js';
         return response;
     };
 })();
-
 
 document.addEventListener('DOMContentLoaded', () => {
 /*■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■IMG Charger■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
@@ -74,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button');
     const profileButton = document.getElementById('profile-button');
 
-
     logoutButton.addEventListener('click', () => {
         userController.handleLogout();
     });
@@ -84,12 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 /*■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 
-// ············································································USER
+// ············································································
     const userModel = new UserModel();
     const userView = new UserView();
     const userController = new UserController(userModel, userView);
-
-// ·············································································GAME
     if (userModel.checkLoginStatus()) {
         const gameModel = new GameModel();
         const gameView = new GameView(userModel);

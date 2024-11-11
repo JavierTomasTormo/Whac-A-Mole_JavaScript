@@ -11,9 +11,6 @@ class ShopRequestsService {
         });
         return response;
     }
-
-
-
 }
 
 const shopRequestsService = new ShopRequestsService('http://localhost:3002');

@@ -2,13 +2,11 @@
     0% { transform: translateY(100%); }
     100% { transform: translateY(0); }
 }
-
 @keyframes hitEffect {
     0% { transform: scale(1); }
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
-
 @keyframes bounce {
     0%, 100% {
         transform: translateY(0);
@@ -18,54 +16,6 @@
     }
 }
 
-@media (max-width: 600px) {
-
-    #game-container {
-        width: 95%;
-    }
-
-    #game-board {
-        grid-gap: 5px;
-    }
-
-
-    #mole-icon {
-        width: 60px;
-        height: 60px;
-    }
-
-    #random-comment {
-        top: 80px;
-        font-size: 0.9em;
-    }
-    .hole {
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        overflow: hidden;
-    }
-    .hole img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    #start-button {
-        font-size: 1em;
-        padding: 8px 16px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    #scoreboard {
-        flex-direction: column;
-        align-items: center;
-        padding: 5px;
-    }
-    #score, #misses, #tickets, #prize-pot {
-        font-size: 0.8em;
-        margin: 2px 0;
-    }
-}
 
 /*AUTH*/
 @keyframes bounceIn {
@@ -73,101 +23,13 @@
     50% { transform: scale(1.1); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
 }
-
 @keyframes fadeInAuth {
     0% { opacity: 0; transform: translate(-50%, -60%); }
     100% { opacity: 1; transform: translate(-50%, -50%); }
 }
-
 @keyframes jump {
     0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
     50% { transform: translate(-50%, -70%) rotate(-10deg); }
-}
-
-
-
-@media (max-width: 1024px) {
-    .auth-container {
-        width: 70%;
-    }
-
-    .character {
-        width: 100px;
-        height: 100px;
-    }
-}
-
-@media (max-width: 768px) {
-    .auth-container {
-        width: 80%;
-        padding: 2rem;
-    }
-
-    .character {
-        width: 80px;
-        height: 80px;
-    }
-
-    .auth-container h2 {
-        font-size: 20px;
-    }
-
-    .auth-container button {
-        font-size: 14px;
-    }
-
-    .auth-container input {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 600px) {
-    .auth-container {
-        width: 90%;
-        padding: 1.5rem;
-    }
-
-    .character {
-        width: 80px;
-        height: 80px;
-    }
-
-    .auth-container h2 {
-        font-size: 18px;
-    }
-
-    .auth-container button {
-        font-size: 12px;
-        padding: 12px;
-    }
-
-    .auth-container input {
-        padding: 10px;
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 400px) {
-    .auth-container {
-        width: 95%;
-        padding: 1rem;
-    }
-
-    .character {
-        display: none; 
-    }
-
-    .auth-container h2 {
-        font-size: 16px;
-    }
-
-    .auth-container button {
-        font-size: 12px;
-    }
-
-    .auth-container input {
-        font-size: 12px;
-    }
 }
 
 
@@ -180,50 +42,7 @@
     }
 }
 
-
-
-
-
-@media (max-width: 768px) {
-    .modal-content {
-        height: 100vh; 
-        overflow-y: auto; 
-        margin: 0; 
-        border-radius: 0; 
-    }
-
-    .setting-optionbtt {
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 15px; 
-    }
-
-    .buttons-group {
-        flex-direction: column; 
-        width: 100%;
-    }
-}
-
-
-
-
-@media (max-width: 768px) {
-    #shop-button {
-        width: 40%; 
-        font-size: 16px;
-        padding: 10px 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    #shop-button {
-        width: 60%; 
-        font-size: 14px;
-        padding: 8px 16px;
-    }
-}
-
-
+/*SHOP*/
 @keyframes bounce-and-sparkle {
     0%, 100% {
         transform: translateY(0);
@@ -232,7 +51,6 @@
         transform: translateY(-10px);
     }
 }
-
 @keyframes floating-emotes {
     0% {
         opacity: 1;
@@ -243,24 +61,18 @@
         transform: translate(var(--x), -30px);
     }
 }
-
-
 @keyframes fadeIn_shopitem {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
-
 @keyframes pulse_shopitem {
     0% { transform: scale(1); }
     100% { transform: scale(1.1); }
 }
-
-
 @keyframes slideIn_shopitem {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(0); }
 }
-
 @keyframes glow_shopitem {
     0% { box-shadow: 0 0 5px #ff0000; }
     50% { box-shadow: 0 0 20px #ff0000; }
@@ -268,17 +80,7 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+/*SHOP !ESPEcIAL0!*/
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -296,7 +98,6 @@
     75% { text-shadow: 2px -2px 20px #FF8C00; }
     100% { text-shadow: 0 0 10px #FF8000; }
 }
-
 @keyframes mythic-fire {
     0% {
         text-shadow: 
@@ -359,7 +160,6 @@
         transform: scale(1.05) rotate(-1deg);
     }
 }
-
 @keyframes mythic-float {
     0% {
         transform: translateY(0px);
@@ -371,8 +171,6 @@
         transform: translateY(0px);
     }
 }
-
-
 @keyframes poop-float {
     0% {
         transform: translateY(0) scale(1);
@@ -384,7 +182,6 @@
         transform: translateY(0) scale(1);
     }
 }
-
 @keyframes poop-spin {
     0% {
         transform: rotate(0deg);
@@ -399,13 +196,10 @@
         transform: rotate(0deg);
     }
 }
-
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
-
-
 @keyframes shineShopSelectedButton {
     0% {
         transform: translateX(-100%) rotate(45deg) scale(1);
@@ -422,25 +216,179 @@
         opacity: 0;
     }
 }
-
-
-
-
-
 @keyframes shineOwnedBTT {
     0% { transform: translateX(-100%) rotate(45deg); }
     100% { transform: translateX(100%) rotate(45deg); }
 }
-
-
-
 @keyframes glowPulseOwnedButton {
     0% { box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 15px #ff8c00; }
     50% { box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ff8c00; }
     100% { box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 15px #ff8c00; }
 }
-
 @keyframes sparkleOwnedBTT {
     0%, 100% { opacity: 0; }
     50% { opacity: 1; }
+}
+
+
+
+/*MEDIA*/
+@media (max-width: 400px) {
+    .auth-container {
+        width: 95%;
+        padding: 1rem;
+    }
+    .auth-container h2 {
+        font-size: 16px;
+    }
+    .auth-container button {
+        font-size: 12px;
+    }
+    .auth-container input {
+        font-size: 12px;
+    }
+
+    .character {
+        display: none; 
+    }
+}
+
+
+@media (max-width: 480px) {
+    #shop-button {
+        width: 60%; 
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    #game-container {
+        width: 95%;
+    }
+    #game-board {
+        grid-gap: 5px;
+    }
+
+
+    #mole-icon {
+        width: 60px;
+        height: 60px;
+    }
+    #random-comment {
+        top: 80px;
+        font-size: 0.9em;
+    }
+
+
+    .hole {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        overflow: hidden;
+    }
+    .hole img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+
+    #start-button {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+
+
+    .auth-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+    .auth-container h2 {
+        font-size: 18px;
+    }
+    .auth-container button {
+        font-size: 12px;
+        padding: 12px;
+    }
+    .auth-container input {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .character {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    #shop-button {
+        width: 40%; 
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+
+    .auth-container {
+        width: 80%;
+        padding: 2rem;
+    }
+    .auth-container h2 {
+        font-size: 20px;
+    }
+    .auth-container button {
+        font-size: 14px;
+    }
+    .auth-container input {
+        font-size: 14px;
+    }
+
+    .character {
+        width: 80px;
+        height: 80px;
+    }
+
+
+    .modal-content {
+        height: 100vh; 
+        overflow-y: auto; 
+        margin: 0; 
+        border-radius: 0; 
+    }
+    .setting-optionbtt {
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 15px; 
+    }
+    .buttons-group {
+        flex-direction: column; 
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    #scoreboard {
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+    }
+    #score, #misses, #tickets, #prize-pot {
+        font-size: 0.8em;
+        margin: 2px 0;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .auth-container {
+        width: 70%;
+    }
+    .character {
+        width: 100px;
+        height: 100px;
+    }
 }

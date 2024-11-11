@@ -111,7 +111,7 @@ class UserRequestsService {
         return response;
     }
 
-    async updateUserStats(totalMolesWhacked, currentTickets, score) {
+    async updateUserStats(totalMolesWhacked, currentTickets, totalGames, score) {
         const response = await fetch(`${this.baseURL}/user/stats`, {
             method: 'POST',
             headers: {
@@ -121,6 +121,7 @@ class UserRequestsService {
             body: JSON.stringify({
                 totalMolesWhacked: totalMolesWhacked,
                 ticketsEarned: currentTickets,
+                totalGamesPlayed: totalGames,
                 highScore: score
             })
         });
@@ -139,7 +140,6 @@ class UserRequestsService {
         return response;
     }
 
-
     async getUserSkins() {
         const response = await fetch(`${this.baseURL}/users/profile`, {
             headers: {
@@ -148,7 +148,6 @@ class UserRequestsService {
         });
         return response;
     }
-
 
     async purchaseSkin(skinUrl, price) {
         const response = await fetch(`${this.baseURL}/user/purchaseSkin`, {
@@ -164,7 +163,6 @@ class UserRequestsService {
         });
         return response;
     }    
-    
 }
 
 const userRequestsService = new UserRequestsService('http://localhost:3002');
