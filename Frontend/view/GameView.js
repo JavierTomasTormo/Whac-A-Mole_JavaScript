@@ -379,7 +379,7 @@ class GameView {
             closeButton: 'custom-close-button'
         },
     });
-}
+    }
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP
 async buySkin(skinUrl, price) {
