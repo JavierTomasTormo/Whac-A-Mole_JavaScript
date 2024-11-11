@@ -160,6 +160,8 @@ class UserController {
         window.location.reload();
     }
 
+
+
     handleProfile() {
         const modal = document.getElementById('profile-modal');
         const closeButton = document.querySelector('.close-button');
@@ -209,7 +211,7 @@ class UserController {
                         <img src="Frontend/assets/images/Moles/Moles_7.png" class="avatar-option">
                         <img src="Frontend/assets/images/Moles/Moles_8.png" class="avatar-option">
                         <img src="Frontend/assets/images/Moles/Moles_9.png" class="avatar-option">
-
+                        <img src="Frontend/assets/images/Moles/Moles_12.png" class="avatar-option">
                         <img src="Frontend/assets/images/Moles/Moles_10.png" class="avatar-option">
                         <img src="Frontend/assets/images/Moles/Moles_11.png" class="avatar-option">
 
@@ -437,6 +439,14 @@ class UserController {
                                                                                                                                 //
                                                                                                                                 //
 }// End of UserController class
+
+
+window.handleLogout = () => {
+    const userModel = new UserModel();
+    const userView = new UserView();
+    const userController = new UserController(userModel, userView);
+    userController.handleLogout();
+};
 export default UserController;
 
 

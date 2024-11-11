@@ -9,6 +9,18 @@ import shopRequestsService from '../../services/shop.requests.service.js';
 import userRequestsService from '../../services/user.requests.service.js';
 
 
+(function() {
+    const originalFetch = fetch;
+    window.fetch = async (...args) => {
+        const response = await originalFetch(...args);
+        if (response.status === 403) {
+            window.handleLogout();
+        }
+        return response;
+    };
+})();
+
+
 document.addEventListener('DOMContentLoaded', () => {
 /*■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■IMG Charger■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
     const images = [
@@ -39,11 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // '../Frontend/assets/images/Moles/Moles_9.png',//PERFECT
         // '../Frontend/assets/images/Moles/Moles_11.png',//PERFECT
         // '../Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png',//PERFECT
+        // '../Frontend/assets/images/Moles/Moles_12.png',//PERFECT
 
 
 
 
-        
     ];
     const splashImages = [
         '../Frontend/assets/images/utils/splash/blood_2.png',
