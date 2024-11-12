@@ -77,7 +77,7 @@ class LeaderboardView {
         const achievements = user.achievements || [];
         const achievementsHtml = achievements.map(achievement => `
             <div class="achievement">
-                <img src="${achievement.icon}" alt="${achievement.name}" class="achievement-icon">
+                <img src="${achievement.icon || 'http://127.0.0.1:5500/Frontend/assets/images/archivements/beginer.png'}" alt="${achievement.name}" class="achievement-icon">
                 <div class="achievement-info">
                     <h4>${achievement.name}</h4>
                     <p>${achievement.description}</p>

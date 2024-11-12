@@ -140,7 +140,7 @@ class GameView {
         localStorage.setItem('newTotalticketsEarned', newTotal);
     }
 
-    showGameOver(score, misses) {a
+    showGameOver(score, misses) {
         const randomGifIndex = Math.floor(Math.random() * 4) + 1;
         const randomGifPath = `../Frontend/assets/images/gif/${randomGifIndex}.gif`;
         const currentTickets = parseInt(localStorage.getItem('newTotalticketsEarned')) || 0;
@@ -191,6 +191,47 @@ class GameView {
             .catch(error => console.error('Error:', error));
         });
     }
+    // showGameOver(score, misses) {
+    //     const randomGifIndex = Math.floor(Math.random() * 4) + 1;
+    //     const randomGifPath = `../Frontend/assets/images/gif/${randomGifIndex}.gif`;
+    //     const currentTickets = parseInt(localStorage.getItem('newTotalticketsEarned')) || 0;
+    //     const totalGamesPlayed = parseInt(localStorage.getItem('totalGames')) + 1;
+        
+    //     Swal.fire({
+    //         title: '¡Game Over!',
+    //         html: `
+    //             <div class="game-over-stats">
+    //                 <h3>Final Score: <span class="score-value">${score}</span></h3>
+    //                 <h3>Misses: <span class="misses-value">${misses}</span></h3>
+    //                 <img src="${randomGifPath}" alt="Game Over GIF" style="margin-top: 20px; max-width: 200px;">
+    //             </div>
+    //         `,
+    //         icon: 'info',
+    //         confirmButtonText: 'Play Again',
+    //         background: '#f8f9fa',
+    //         backdrop: 'rgba(0,0,123,0.4)',
+    //         customClass: {
+    //         }
+    //     }).then(() => {
+    //         userRequestsService.updateUserStats(
+    //             localStorage.getItem('totalMolesWhacked'),
+    //             currentTickets,
+    //             totalGamesPlayed,
+    //             score
+    //         )
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             localStorage.setItem('highScore', data.user.highScore || '0');
+    //             localStorage.setItem('totalGames', data.user.totalGamesPlayed || '0');
+    //             localStorage.setItem('totalMolesWhacked', data.user.totalMolesWhacked || '0'); 
+    //             localStorage.setItem('ticketsEarned', data.user.ticketsEarned || '0');
+    //             localStorage.setItem('userAvatar', data.user.avatar || 'Frontend/assets/images/Moles/GoldenHelmetMole_RMBG.png');
+    //             localStorage.setItem('userEmail', data.user.email); 
+    //             localStorage.setItem('soundEffects', data.user.gameSettings.soundEnabled);
+    //             localStorage.setItem('musicEnabled', data.user.gameSettings.musicEnabled);
+    //         });
+    //     });
+    // }
 
 
 /**☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺☻☺ *///SHOP

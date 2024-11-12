@@ -35,7 +35,8 @@ const registerUser = asyncHandler(async (req, res) => {
             {
                 name: "Beginner",
                 dateUnlocked: new Date(),
-                description: "Welcome to Whac-A-Mole!"
+                description: "Welcome to Whac-A-Mole!",
+                icon: "http://127.0.0.1:5500/Frontend/assets/images/archivements/beginer.png"
             }
         ],
         gameSettings: {
