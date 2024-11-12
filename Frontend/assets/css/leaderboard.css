@@ -1,56 +1,100 @@
-.profile-modal_leaderboard {
-    font-family: Arial, sans-serif;
-    color: #eaeaea;
+.profile-modal {
     text-align: center;
-    padding: 20px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
 }
 
-.user-avatar-large_leaderboard {
+.user-avatar-large {
+    display: block;
+    margin: 0 auto 15px;
+    object-fit: contain;
     width: 100px;
     height: 100px;
-    object-fit: contain;
     border-radius: 50%;
-    border: 3px solid #f39c12;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    margin-bottom: 15px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 215, 0, 0.7);
+}
+
+.profile-modal p {
+    font-size: 18px;
+    margin: 10px 0;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 165, 0, 0.4);
+}
+
+.profile-modal h3 {
+    font-size: 22px;
+    margin-top: 20px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+.achievements-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 15px rgba(255, 215, 0, 0.3);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.achievement:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.achievement-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 215, 0, 0.7);
+}
+
+.achievement-info h4 {
+    font-size: 18px;
+    margin: 0;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 165, 0, 0.4);
+}
+
+.achievement-info p {
+    font-size: 14px;
+    margin: 5px 0 0;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3), 0 0 6px rgba(255, 165, 0, 0.3);
+}
+
+/* Estilos personalizados para SweetAlert */
+.profile-modal-popup {
+    background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
+    border: 3px solid #ff4500;
+    animation: fadeInArchivements 0.3s ease-in-out;
+}
+
+.custom-close-button {
+    color: #ff4500;
+    font-size: 28px;
     transition: transform 0.3s ease;
 }
 
-.user-avatar-large_leaderboard:hover {
-    transform: scale(1.1);
+.custom-close-button:hover {
+    transform: rotate(90deg);
+    color: #ffdd57;
 }
 
-.profile-modal_leaderboard p {
-    font-size: 1.1em;
-    margin: 8px 0;
-    color: #f0f0f0;
-}
-
-.profile-modal_leaderboard p strong {
-    color: #f39c12;
-    font-weight: 600;
-}
-
-.profile-modal-popup_leaderboard {
-    background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
-    padding: 15px;
-}
-
-.custom-close-button_leaderboard {
-    font-size: 1.5em;
-    color: #e74c3c;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.custom-close-button_leaderboard:hover {
-    color: #ff6f61;
+@keyframes fadeInArchivements {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 

@@ -140,7 +140,7 @@ class GameView {
         localStorage.setItem('newTotalticketsEarned', newTotal);
     }
 
-    showGameOver(score, misses) {
+    showGameOver(score, misses) {a
         const randomGifIndex = Math.floor(Math.random() * 4) + 1;
         const randomGifPath = `../Frontend/assets/images/gif/${randomGifIndex}.gif`;
         const currentTickets = parseInt(localStorage.getItem('newTotalticketsEarned')) || 0;

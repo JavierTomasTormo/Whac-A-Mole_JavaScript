@@ -72,28 +72,66 @@ class LeaderboardView {
         });
     }
 
+
     showUserProfile(user) {
+        const achievements = user.achievements || [];
+        const achievementsHtml = achievements.map(achievement => `
+            <div class="achievement">
+                <img src="${achievement.icon}" alt="${achievement.name}" class="achievement-icon">
+                <div class="achievement-info">
+                    <h4>${achievement.name}</h4>
+                    <p>${achievement.description}</p>
+                </div>
+            </div>
+        `).join('');
+
         Swal.fire({
             title: `${user.username}'s Profile`,
             html: `
-                <div class="profile-modal_leaderboard">
-                    <img src="${user.avatar || 'default-avatar.png'}" class="user-avatar-large_leaderboard" alt="${user.username}'s avatar">
+                <div class="profile-modal">
+                    <img src="${user.avatar || 'default-avatar.png'}" class="user-avatar-large" alt="${user.username}'s avatar">
                     <p><strong>High Score:</strong> ${user.highScore}</p>
                     <p><strong>Total Games Played:</strong> ${user.totalGamesPlayed}</p>
                     <p><strong>Total Moles Whacked:</strong> ${user.totalMolesWhacked}</p>
+                    <h3>Achievements</h3>
+                    <div class="achievements-container">
+                        ${achievementsHtml}
+                    </div>
                 </div>
             `,
-            width: '400px',
+            width: '600px',
             background: 'linear-gradient(145deg, #2c2c2c, #4a4a4a)',
             backdrop: 'rgba(0,0,0,0.99)',
             showCloseButton: true,
             closeButtonHtml: '✖',
             customClass: {
-                popup: 'profile-modal-popup_leaderboard',
-                closeButton: 'custom-close-button_leaderboard'
+                popup: 'profile-modal-popup',
+                closeButton: 'custom-close-button'
             }
         });
     }
+    // showUserProfile(user) {
+    //     Swal.fire({
+    //         title: `${user.username}'s Profile`,
+    //         html: `
+    //             <div class="profile-modal_leaderboard">
+    //                 <img src="${user.avatar || 'default-avatar.png'}" class="user-avatar-large_leaderboard" alt="${user.username}'s avatar">
+    //                 <p><strong>High Score:</strong> ${user.highScore}</p>
+    //                 <p><strong>Total Games Played:</strong> ${user.totalGamesPlayed}</p>
+    //                 <p><strong>Total Moles Whacked:</strong> ${user.totalMolesWhacked}</p>
+    //             </div>
+    //         `,
+    //         width: '400px',
+    //         background: 'linear-gradient(145deg, #2c2c2c, #4a4a4a)',
+    //         backdrop: 'rgba(0,0,0,0.99)',
+    //         showCloseButton: true,
+    //         closeButtonHtml: '✖',
+    //         customClass: {
+    //             popup: 'profile-modal-popup_leaderboard',
+    //             closeButton: 'custom-close-button_leaderboard'
+    //         }
+    //     });
+    // }
     
 }
 
