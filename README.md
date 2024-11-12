@@ -183,9 +183,9 @@ Todo lo relacionado con la parte del servidor.
 - 🦹 ¡Te roba 2/3 de tu puntuación actual!
 - 💰 Efecto: `currentScore - (currentScore * 2/3)`
 
-#### Topo MAgo #9 (Moles_8)
-- 🦹 ¡Te suma una vida!
-- 💰 Efecto: `misses -1`
+#### Topo Mago #10 (Moles_10)
+- 🧙 ¡Te suma una vida!
+- 💖 Efecto: `misses -1`
 
 ### 🎨 Efectos Visuales
 - 💥 Al golpear cualquier topo, aparece un efecto splash aleatorio

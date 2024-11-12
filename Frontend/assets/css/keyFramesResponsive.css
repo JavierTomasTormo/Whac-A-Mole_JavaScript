@@ -232,6 +232,39 @@
 
 
 
+
+@keyframes slideInLeaderBoard {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes slideUpLeaderBoard {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes fadeInArchivements {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
 /*MEDIA*/
 @media (max-width: 400px) {
     .auth-container {
@@ -366,6 +399,29 @@
     .buttons-group {
         flex-direction: column; 
         width: 100%;
+    }
+
+
+    #leaderboard {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 90%;
+        margin: 0;
+        border-radius: 15px 15px 0 0;
+        animation: slideUpLeaderBoard 1s ease-out;
+    }
+
+    #leaderboard h2 {
+        font-size: 24px;
+    }
+
+    #leaderboard h3 {
+        font-size: 18px;
+    }
+
+    #leaderboard li {
+        font-size: 16px;
     }
 }
 

@@ -3,36 +3,31 @@
     color: white;
     font-family: 'Orbitron', sans-serif;
 }
-
 .user-avatar-large {
     display: block;
     margin: 0 auto 15px;
     object-fit: contain;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 215, 0, 0.7);
 }
-
 .profile-modal p {
     font-size: 18px;
     margin: 10px 0;
     text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 165, 0, 0.4);
 }
-
 .profile-modal h3 {
     font-size: 22px;
     margin-top: 20px;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 5px rgba(255, 255, 255, 0.6);
 }
-
 .achievements-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
 }
-
 .achievement {
     display: flex;
     align-items: center;
@@ -40,62 +35,48 @@
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
-    width: 250px;
+    /* width: 250px; */
+    width: 70%;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 15px rgba(255, 215, 0, 0.3);
     transition: transform 0.3s ease, background 0.3s ease;
 }
-
 .achievement:hover {
     transform: scale(1.05);
     background: rgba(255, 255, 255, 0.2);
 }
-
 .achievement-icon {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     margin-right: 10px;
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 215, 0, 0.7);
 }
-
 .achievement-info h4 {
     font-size: 18px;
     margin: 0;
     text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 165, 0, 0.4);
 }
-
 .achievement-info p {
     font-size: 14px;
     margin: 5px 0 0;
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.3), 0 0 6px rgba(255, 165, 0, 0.3);
 }
-
-/* Estilos personalizados para SweetAlert */
 .profile-modal-popup {
     background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
     border: 3px solid #ff4500;
     animation: fadeInArchivements 0.3s ease-in-out;
 }
-
 .custom-close-button {
     color: #ff4500;
     font-size: 28px;
     transition: transform 0.3s ease;
 }
-
 .custom-close-button:hover {
     transform: rotate(90deg);
     color: #ffdd57;
 }
 
-@keyframes fadeInArchivements {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+
 
 
 
@@ -200,49 +181,3 @@
     background: rgba(255, 255, 255, 0.3);
 }
 
-@keyframes slideInLeaderBoard {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-
-@media (max-width: 768px) {
-    #leaderboard {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 90%;
-        margin: 0;
-        border-radius: 15px 15px 0 0;
-        animation: slideUpLeaderBoard 1s ease-out;
-    }
-
-    #leaderboard h2 {
-        font-size: 24px;
-    }
-
-    #leaderboard h3 {
-        font-size: 18px;
-    }
-
-    #leaderboard li {
-        font-size: 16px;
-    }
-}
-
-@keyframes slideUpLeaderBoard {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
