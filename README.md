@@ -192,7 +192,19 @@ Todo lo relacionado con la parte del servidor.
 - 🎭 Cada topo tiene su propia imagen única
 - ✨ Animaciones suaves de entrada y salida
 
+## 🎮 Leaderboard
 
+El juego incluye un leaderboard que muestra a los usuarios ordenados en tres categorías:
+
+- **High Scores**: Los usuarios con las puntuaciones más altas.
+- **Total Games Played**: Los usuarios que han jugado más partidas.
+- **Total Moles Whacked**: Los usuarios que han golpeado más topos.
+
+El leaderboard se muestra en el lado izquierdo de la pantalla y se actualiza automáticamente con los datos más recientes de los usuarios. Solo se muestran los 3 mejores usuarios en cada categoría.
+
+### 🎨 Estilos y Animaciones
+
+El leaderboard tiene un diseño atractivo con un fondo degradado, sombras y animaciones suaves. Los elementos del leaderboard se agrandan ligeramente al pasar el cursor sobre ellos, proporcionando una experiencia visual agradable.
 
 ## 🤝 Contribuciones
 

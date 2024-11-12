@@ -21,6 +21,17 @@ class UserRequestsService {
         return response;
     }
 
+    async getAllUsers() {
+        const response = await fetch(`${this.baseURL}/users`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        return response.json();
+    }
+
     async loginUser(username, password) {
         const response = await fetch(`${this.baseURL}/users/login`, {
             method: 'POST',

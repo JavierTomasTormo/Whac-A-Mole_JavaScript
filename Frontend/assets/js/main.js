@@ -5,6 +5,8 @@ import GameModel from '../../model/GameModel.js';
 import GameView from '../../view/GameView.js';
 import GameController from '../../controller/GameController.js';
 import MoleAnimation from '../../controller/MoleAnimationController.js';
+import LeaderboardController from '../../controller/LeaderBoardController.js';
+
 import shopRequestsService from '../../services/shop.requests.service.js';
 import userRequestsService from '../../services/user.requests.service.js';
 
@@ -71,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const logoutButton = document.getElementById('logout-button');
     const profileButton = document.getElementById('profile-button');
+    const startGameButton = document.getElementById('start-button');
 
     logoutButton.addEventListener('click', () => {
         userController.handleLogout();
@@ -79,12 +82,23 @@ document.addEventListener('DOMContentLoaded', () => {
     profileButton.addEventListener('click', () => {
         userController.handleProfile();
     });
+
+    startGameButton.addEventListener('click', () => {
+        const leaderboardElement = document.getElementById('leaderboard');
+        if (leaderboardElement) {
+            leaderboardElement.remove();
+        }
+    });
 /*■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 
 // ············································································
     const userModel = new UserModel();
     const userView = new UserView();
     const userController = new UserController(userModel, userView);
+
+    const leaderboardController = new LeaderboardController();
+    leaderboardController.loadLeaderboard();
+
     if (userModel.checkLoginStatus()) {
         const gameModel = new GameModel();
         const gameView = new GameView(userModel);

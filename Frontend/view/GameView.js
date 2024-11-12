@@ -429,6 +429,6 @@ class GameView {
             console.error('Error selecting skin:', error);
         }
     }
-
+                                                                                                                                                            
 }//GameView
 export default GameView;

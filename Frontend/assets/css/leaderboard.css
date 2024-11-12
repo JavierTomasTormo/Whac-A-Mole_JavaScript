@@ -1,0 +1,204 @@
+.profile-modal_leaderboard {
+    font-family: Arial, sans-serif;
+    color: #eaeaea;
+    text-align: center;
+    padding: 20px;
+}
+
+.user-avatar-large_leaderboard {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 3px solid #f39c12;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.user-avatar-large_leaderboard:hover {
+    transform: scale(1.1);
+}
+
+.profile-modal_leaderboard p {
+    font-size: 1.1em;
+    margin: 8px 0;
+    color: #f0f0f0;
+}
+
+.profile-modal_leaderboard p strong {
+    color: #f39c12;
+    font-weight: 600;
+}
+
+.profile-modal-popup_leaderboard {
+    background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    padding: 15px;
+}
+
+.custom-close-button_leaderboard {
+    font-size: 1.5em;
+    color: #e74c3c;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.custom-close-button_leaderboard:hover {
+    color: #ff6f61;
+}
+
+
+
+
+.user-avatar {
+    width: 20px;
+    /* height: 30px; */
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.user-profile-link {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.user-profile-link:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+.profile-link {
+    cursor: pointer;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.profile-link:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+
+
+
+#leaderboard {
+    position: fixed;
+    top: 3%;
+    left: 3%;
+    width: 300px;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 215, 0, 0.7);
+    border-radius: 15px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    z-index: 1000;
+    animation: slideInLeaderBoard 1s ease-out;
+    overflow: hidden;
+}
+
+#leaderboard .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#leaderboard .close-button:hover {
+    transform: scale(1.2);
+}
+
+#leaderboard h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+#leaderboard h3 {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 165, 0, 0.4);
+}
+
+#leaderboard ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#leaderboard li {
+    font-size: 18px;
+    margin: 8px 0;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+#leaderboard li:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes slideInLeaderBoard {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+@media (max-width: 768px) {
+    #leaderboard {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 90%;
+        margin: 0;
+        border-radius: 15px 15px 0 0;
+        animation: slideUpLeaderBoard 1s ease-out;
+    }
+
+    #leaderboard h2 {
+        font-size: 24px;
+    }
+
+    #leaderboard h3 {
+        font-size: 18px;
+    }
+
+    #leaderboard li {
+        font-size: 16px;
+    }
+}
+
+@keyframes slideUpLeaderBoard {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
